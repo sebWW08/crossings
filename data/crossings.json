@@ -1,0 +1,51 @@
+[
+  {
+    "id": "liss",
+    "name": "Liss",
+    "road": "Station Road (B3006)",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.0450,
+    "lon": -0.8922,
+    "barrierType": "full",
+    "station": {
+      "crs": "LIS",
+      "name": "Liss",
+      "platformsSide": "south",
+      "holdDuringDwell": false,
+      "dwellSec": 40
+    },
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": { "crs": "HSL", "name": "Haslemere" },
+        "via": ["LIS", "PTR", "RWM", "HAV", "BDH", "CSA", "HLS", "FTN", "PMS", "PMH", "FRM", "SOU"],
+        "references": [
+          { "crs": "PTR", "name": "Petersfield", "minutesToCrossing": 4 },
+          { "crs": "RWM", "name": "Rowlands Castle", "minutesToCrossing": 10 },
+          { "crs": "HAV", "name": "Havant", "minutesToCrossing": 14 },
+          { "crs": "HSL", "name": "Haslemere", "minutesToCrossing": -9 }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": { "crs": "PTR", "name": "Petersfield" },
+        "via": ["LIS", "LIP", "HSL", "WTY", "MLF", "GOD", "FNC", "GLD", "WPL", "WOK", "CLJ", "WAT"],
+        "references": [
+          { "crs": "LIP", "name": "Liphook", "minutesToCrossing": 5 },
+          { "crs": "HSL", "name": "Haslemere", "minutesToCrossing": 10 },
+          { "crs": "GLD", "name": "Guildford", "minutesToCrossing": 28 },
+          { "crs": "PTR", "name": "Petersfield", "minutesToCrossing": -4 }
+        ]
+      }
+    ],
+    "notes": "platformsSide (which side of the barriers the platforms sit) and holdDuringDwell (whether the signaller keeps the barriers down while a train sits in the platform) need confirming on site."
+  }
+]

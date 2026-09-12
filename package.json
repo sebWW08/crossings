@@ -1,0 +1,13 @@
+{
+  "name": "crossings",
+  "version": "0.1.0",
+  "description": "How long until the level crossing reopens — live, for any UK crossing in the registry",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
+  }
+}
