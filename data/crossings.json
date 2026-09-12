@@ -1,19 +1,366 @@
 [
   {
-    "id": "liss",
-    "name": "Liss",
-    "road": "Station Road (B3006)",
-    "line": "Portsmouth Direct Line",
-    "lat": 51.0450,
-    "lon": -0.8922,
+    "id": "bedhampton",
+    "name": "Bedhampton",
+    "road": "Bedhampton Road / West Street",
+    "line": "Portsmouth Direct Line (Portsmouth–Havant section)",
+    "lat": 50.85412,
+    "lon": -0.99582,
     "barrierType": "full",
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
     "station": {
-      "crs": "LIS",
-      "name": "Liss",
+      "crs": "BDH",
+      "name": "Bedhampton",
+      "platformsSide": "west",
+      "holdDuringDwell": false,
+      "dwellSec": 40
+    },
+    "directions": [
+      {
+        "key": "east",
+        "label": "Eastbound",
+        "towards": "Havant & London",
+        "enters": "west",
+        "board": {
+          "crs": "HAV",
+          "name": "Havant"
+        },
+        "via": [
+          "BDH",
+          "HLS",
+          "FTN",
+          "PMS",
+          "PMH",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU",
+          "SOA"
+        ],
+        "references": [
+          {
+            "crs": "HLS",
+            "name": "Hilsea",
+            "minutesToCrossing": 3.5
+          },
+          {
+            "crs": "CSA",
+            "name": "Cosham",
+            "minutesToCrossing": 3
+          },
+          {
+            "crs": "FTN",
+            "name": "Fratton",
+            "minutesToCrossing": 5.5
+          },
+          {
+            "crs": "FRM",
+            "name": "Fareham",
+            "minutesToCrossing": 11
+          },
+          {
+            "crs": "HAV",
+            "name": "Havant",
+            "minutesToCrossing": -1.5
+          }
+        ]
+      },
+      {
+        "key": "west",
+        "label": "Westbound",
+        "towards": "Portsmouth",
+        "enters": "east",
+        "board": {
+          "crs": "FTN",
+          "name": "Fratton"
+        },
+        "via": [
+          "BDH",
+          "HAV",
+          "EMS",
+          "WRB",
+          "CCH",
+          "BOG",
+          "BTN",
+          "RLN",
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "GLD",
+          "WOK",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "HAV",
+            "name": "Havant",
+            "minutesToCrossing": 1.5
+          },
+          {
+            "crs": "FTN",
+            "name": "Fratton",
+            "minutesToCrossing": -5.5
+          }
+        ]
+      },
+      {
+        "key": "west",
+        "label": "Westbound",
+        "towards": "Fareham",
+        "enters": "east",
+        "board": {
+          "crs": "CSA",
+          "name": "Cosham"
+        },
+        "via": [
+          "BDH",
+          "HAV",
+          "EMS",
+          "WRB",
+          "CCH",
+          "BOG",
+          "BTN",
+          "RLN",
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "GLD",
+          "WOK",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "HAV",
+            "name": "Havant",
+            "minutesToCrossing": 1.5
+          },
+          {
+            "crs": "CSA",
+            "name": "Cosham",
+            "minutesToCrossing": -3
+          }
+        ]
+      }
+    ],
+    "notes": "Full-barrier crossing immediately east (Havant side) of the platforms. Also used by Fareham–Havant trains that never call at Portsmouth. platformsSide/holdDuringDwell need confirming on site."
+  },
+  {
+    "id": "petersfield",
+    "name": "Petersfield",
+    "road": "Station Road",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.00701,
+    "lon": -0.94084,
+    "barrierType": "full",
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
+    "station": {
+      "crs": "PTR",
+      "name": "Petersfield",
       "platformsSide": "south",
       "holdDuringDwell": false,
       "dwellSec": 40
     },
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "RLN",
+            "name": "Rowlands Castle",
+            "minutesToCrossing": 7.5
+          },
+          {
+            "crs": "HAV",
+            "name": "Havant",
+            "minutesToCrossing": 10
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -11
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "HAV",
+          "name": "Havant"
+        },
+        "via": [
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "LIS",
+            "name": "Liss",
+            "minutesToCrossing": 3.5
+          },
+          {
+            "crs": "LIP",
+            "name": "Liphook",
+            "minutesToCrossing": 7.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": 11
+          },
+          {
+            "crs": "HAV",
+            "name": "Havant",
+            "minutesToCrossing": -10
+          }
+        ]
+      }
+    ],
+    "notes": "Full-barrier crossing at the London end of the platforms. Rebuilt with new barriers in autumn 2025."
+  },
+  {
+    "id": "kingsfernsden-lane",
+    "name": "Kingsfernsden Lane",
+    "road": "Kingsfernsden Lane, Sheet",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.01382,
+    "lon": -0.92926,
+    "barrierType": "half",
+    "closeBeforeSec": 40,
+    "openAfterSec": 15,
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": 1
+          },
+          {
+            "crs": "RLN",
+            "name": "Rowlands Castle",
+            "minutesToCrossing": 8.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -10
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "PTR",
+          "name": "Petersfield"
+        },
+        "via": [
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "LIS",
+            "name": "Liss",
+            "minutesToCrossing": 3
+          },
+          {
+            "crs": "LIP",
+            "name": "Liphook",
+            "minutesToCrossing": 7
+          },
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": -1
+          }
+        ]
+      }
+    ],
+    "notes": "Automatic half barriers 0.9 km north of Petersfield station. Upgraded autumn 2025 — barrier type may have changed."
+  },
+  {
+    "id": "sheet",
+    "name": "Sheet",
+    "road": "School Lane, Sheet",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.01611,
+    "lon": -0.92536,
+    "barrierType": "unknown",
     "closeBeforeSec": 90,
     "openAfterSec": 30,
     "directions": [
@@ -22,13 +369,40 @@
         "label": "Northbound",
         "towards": "London",
         "enters": "south",
-        "board": { "crs": "HSL", "name": "Haslemere" },
-        "via": ["LIS", "PTR", "RWM", "HAV", "BDH", "CSA", "HLS", "FTN", "PMS", "PMH", "FRM", "SOU"],
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
         "references": [
-          { "crs": "PTR", "name": "Petersfield", "minutesToCrossing": 4 },
-          { "crs": "RWM", "name": "Rowlands Castle", "minutesToCrossing": 10 },
-          { "crs": "HAV", "name": "Havant", "minutesToCrossing": 14 },
-          { "crs": "HSL", "name": "Haslemere", "minutesToCrossing": -9 }
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": 1.5
+          },
+          {
+            "crs": "RLN",
+            "name": "Rowlands Castle",
+            "minutesToCrossing": 9
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -10
+          }
         ]
       },
       {
@@ -36,16 +410,664 @@
         "label": "Southbound",
         "towards": "Portsmouth",
         "enters": "north",
-        "board": { "crs": "PTR", "name": "Petersfield" },
-        "via": ["LIS", "LIP", "HSL", "WTY", "MLF", "GOD", "FNC", "GLD", "WPL", "WOK", "CLJ", "WAT"],
+        "board": {
+          "crs": "PTR",
+          "name": "Petersfield"
+        },
+        "via": [
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
         "references": [
-          { "crs": "LIP", "name": "Liphook", "minutesToCrossing": 5 },
-          { "crs": "HSL", "name": "Haslemere", "minutesToCrossing": 10 },
-          { "crs": "GLD", "name": "Guildford", "minutesToCrossing": 28 },
-          { "crs": "PTR", "name": "Petersfield", "minutesToCrossing": -4 }
+          {
+            "crs": "LIS",
+            "name": "Liss",
+            "minutesToCrossing": 2.5
+          },
+          {
+            "crs": "LIP",
+            "name": "Liphook",
+            "minutesToCrossing": 6.5
+          },
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": -1.5
+          }
         ]
       }
     ],
-    "notes": "platformsSide (which side of the barriers the platforms sit) and holdDuringDwell (whether the signaller keeps the barriers down while a train sits in the platform) need confirming on site."
+    "notes": "1.2 km north of Petersfield. Barrier type not tagged in OSM; new barriers fitted autumn 2025 per Network Rail — confirm on site."
+  },
+  {
+    "id": "princes-bridge",
+    "name": "Princes Bridge",
+    "road": "Andlers Ash Road, Liss",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.03532,
+    "lon": -0.90111,
+    "barrierType": "unknown",
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "LIS",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": 3
+          },
+          {
+            "crs": "RLN",
+            "name": "Rowlands Castle",
+            "minutesToCrossing": 10.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -8.5
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "PTR",
+          "name": "Petersfield"
+        },
+        "via": [
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "LIS",
+            "name": "Liss",
+            "minutesToCrossing": 1
+          },
+          {
+            "crs": "LIP",
+            "name": "Liphook",
+            "minutesToCrossing": 5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": 8.5
+          },
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": -3
+          }
+        ]
+      }
+    ],
+    "notes": "1 km south of Liss station. Barrier type not tagged in OSM; new barriers fitted autumn 2025 — confirm on site."
+  },
+  {
+    "id": "liss",
+    "name": "Liss",
+    "road": "Station Road (B3006)",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.04332,
+    "lon": -0.89336,
+    "barrierType": "full",
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
+    "station": {
+      "crs": "LIS",
+      "name": "Liss",
+      "platformsSide": "north",
+      "holdDuringDwell": false,
+      "dwellSec": 40
+    },
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "LIS",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": 3.5
+          },
+          {
+            "crs": "RLN",
+            "name": "Rowlands Castle",
+            "minutesToCrossing": 11
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -8
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "PTR",
+          "name": "Petersfield"
+        },
+        "via": [
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "LIP",
+            "name": "Liphook",
+            "minutesToCrossing": 4.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": 8
+          },
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": -3.5
+          }
+        ]
+      }
+    ],
+    "notes": "Full-barrier crossing at the Portsmouth end of the platforms (OSM puts it ~85 m south-west of the station). holdDuringDwell needs confirming on site."
+  },
+  {
+    "id": "mill-road-liss",
+    "name": "Mill Road",
+    "road": "Mill Road, Liss",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.04886,
+    "lon": -0.88383,
+    "barrierType": "unknown",
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "LIS",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "LIS",
+            "name": "Liss",
+            "minutesToCrossing": 1
+          },
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": 4.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -7.5
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "PTR",
+          "name": "Petersfield"
+        },
+        "via": [
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "LIP",
+            "name": "Liphook",
+            "minutesToCrossing": 4
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": 7.5
+          },
+          {
+            "crs": "PTR",
+            "name": "Petersfield",
+            "minutesToCrossing": -4
+          }
+        ]
+      }
+    ],
+    "notes": "0.7 km north of Liss station. Barrier type not tagged in OSM — confirm on site."
+  },
+  {
+    "id": "milford",
+    "name": "Milford",
+    "road": "Station Lane",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.163,
+    "lon": -0.637,
+    "barrierType": "half",
+    "closeBeforeSec": 40,
+    "openAfterSec": 15,
+    "station": {
+      "crs": "MLF",
+      "name": "Milford",
+      "platformsSide": "south",
+      "holdDuringDwell": false,
+      "dwellSec": 40
+    },
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "GLD",
+          "name": "Guildford"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "WTY",
+            "name": "Witley",
+            "minutesToCrossing": 2.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": 5.5
+          },
+          {
+            "crs": "GLD",
+            "name": "Guildford",
+            "minutesToCrossing": -6
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "MLF",
+          "GOD",
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "GOD",
+            "name": "Godalming",
+            "minutesToCrossing": 2.5
+          },
+          {
+            "crs": "FNC",
+            "name": "Farncombe",
+            "minutesToCrossing": 3.5
+          },
+          {
+            "crs": "GLD",
+            "name": "Guildford",
+            "minutesToCrossing": 6.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -5.5
+          }
+        ]
+      }
+    ],
+    "notes": "Automatic half barriers at Milford station. Which end of the platforms the road is on is a guess (platformsSide) — confirm on site."
+  },
+  {
+    "id": "farncombe",
+    "name": "Farncombe",
+    "road": "Farncombe Street",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.19607,
+    "lon": -0.6058,
+    "barrierType": "full",
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
+    "station": {
+      "crs": "FNC",
+      "name": "Farncombe",
+      "platformsSide": "north",
+      "holdDuringDwell": false,
+      "dwellSec": 40
+    },
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "GLD",
+          "name": "Guildford"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "GOD",
+            "name": "Godalming",
+            "minutesToCrossing": 1.5
+          },
+          {
+            "crs": "MLF",
+            "name": "Milford",
+            "minutesToCrossing": 3.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": 8
+          },
+          {
+            "crs": "GLD",
+            "name": "Guildford",
+            "minutesToCrossing": -4
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "GLD",
+            "name": "Guildford",
+            "minutesToCrossing": 3.5
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -8
+          }
+        ]
+      }
+    ],
+    "notes": "Full-barrier crossing at the Godalming end of the platforms."
+  },
+  {
+    "id": "bourne-road",
+    "name": "Bourne Road",
+    "road": "Bourne Road, Farncombe",
+    "line": "Portsmouth Direct Line",
+    "lat": 51.19857,
+    "lon": -0.6024,
+    "barrierType": "full",
+    "closeBeforeSec": 90,
+    "openAfterSec": 30,
+    "station": {
+      "crs": "FNC",
+      "name": "Farncombe",
+      "platformsSide": "south",
+      "holdDuringDwell": false,
+      "dwellSec": 40
+    },
+    "directions": [
+      {
+        "key": "north",
+        "label": "Northbound",
+        "towards": "London",
+        "enters": "south",
+        "board": {
+          "crs": "GLD",
+          "name": "Guildford"
+        },
+        "via": [
+          "PMH",
+          "PMS",
+          "FTN",
+          "HLS",
+          "BDH",
+          "HAV",
+          "RLN",
+          "PTR",
+          "LIS",
+          "LIP",
+          "HSL",
+          "WTY",
+          "MLF",
+          "GOD",
+          "FNC",
+          "CSA",
+          "PTC",
+          "FRM",
+          "SOU"
+        ],
+        "references": [
+          {
+            "crs": "GOD",
+            "name": "Godalming",
+            "minutesToCrossing": 2
+          },
+          {
+            "crs": "MLF",
+            "name": "Milford",
+            "minutesToCrossing": 4
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": 8.5
+          },
+          {
+            "crs": "GLD",
+            "name": "Guildford",
+            "minutesToCrossing": -3.5
+          }
+        ]
+      },
+      {
+        "key": "south",
+        "label": "Southbound",
+        "towards": "Portsmouth",
+        "enters": "north",
+        "board": {
+          "crs": "HSL",
+          "name": "Haslemere"
+        },
+        "via": [
+          "FNC",
+          "GLD",
+          "WPL",
+          "WOK",
+          "CLJ",
+          "WAT"
+        ],
+        "references": [
+          {
+            "crs": "GLD",
+            "name": "Guildford",
+            "minutesToCrossing": 3
+          },
+          {
+            "crs": "HSL",
+            "name": "Haslemere",
+            "minutesToCrossing": -8.5
+          }
+        ]
+      }
+    ],
+    "notes": "Full-barrier crossing at the Guildford end of Farncombe station, 330 m from the Farncombe Street crossing."
   }
 ]

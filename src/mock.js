@@ -5,6 +5,18 @@
 import { fmtClock } from './time.js';
 
 const PATTERN = {
+  east: [
+    { minute: 3, stops: true },
+    { minute: 18, stops: false },
+    { minute: 33, stops: true, lateMin: 2 },
+    { minute: 48, stops: false },
+  ],
+  west: [
+    { minute: 9, stops: false },
+    { minute: 24, stops: true },
+    { minute: 39, stops: false, lateMin: 4 },
+    { minute: 54, stops: true },
+  ],
   north: [
     { minute: 7, stops: true },
     { minute: 22, stops: false, lateMin: 3 },
@@ -54,7 +66,7 @@ export function mockBoard(crossing, dir, now = new Date()) {
       if (arrive.getTime() + lateMs <= now.getTime()) continue; // already arrived — off the board
       const sta = fmtClock(arrive);
       services.push({
-        serviceID: `mock-${dir.key}-${sta}`,
+        serviceID: `mock-${crossing.id}-${dir.key}-${fmtClock(cross)}`,
         sta,
         eta: lateMs ? fmtClock(new Date(arrive.getTime() + lateMs)) : 'On time',
         operator: 'South Western Railway',

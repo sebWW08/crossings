@@ -18,6 +18,10 @@ function human(ms, { about = false } = {}) {
   return `${m}:${String(r).padStart(2, '0')}`;
 }
 
+function barrierLabel(t) {
+  return { full: 'full barriers', half: 'half barriers', unknown: 'barriers (type unconfirmed)' }[t] ?? esc(t ?? '');
+}
+
 function setLive(live) {
   liveBadge.hidden = false;
   liveBadge.textContent = live ? 'live' : 'demo data';
@@ -43,7 +47,7 @@ async function renderList() {
     document.getElementById('list').innerHTML = items.length
       ? items.map((c) => `
         <a href="#/${esc(c.id)}"><div class="card">
-          <div><div class="name">${esc(c.name)}</div><div class="muted small">${esc(c.road)} · ${esc(c.line)}</div></div>
+          <div><div class="name">${esc(c.name)}</div><div class="muted small">${esc(c.road)} · ${esc(c.line)} · ${barrierLabel(c.barrierType)}</div></div>
           <div class="muted small">${c.distanceKm != null ? `${c.distanceKm} km` : ''}</div>
         </div></a>`).join('')
       : '<p class="muted">No crossings match.</p>';

@@ -63,7 +63,7 @@ async function api(url, res) {
         now: now.getTime(),
         ...p,
         movements: undefined,
-        directions: crossing.directions.map((d) => ({ key: d.key, label: d.label, towards: d.towards })),
+        directions: [...new Map(crossing.directions.map((d) => [d.key, { key: d.key, label: d.label, towards: d.towards }])).values()],
       });
     } catch (err) {
       console.error(err);

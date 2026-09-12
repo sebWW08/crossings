@@ -42,10 +42,10 @@ test('non-stop northbound train: Petersfield departure + run time', () => {
   assert.equal(p.movements.length, 1);
   const m = p.movements[0];
   assert.equal(m.stops, false);
-  assert.equal(m.basis, 'PTR +4 min');
-  // crosses at 12:05; closes 90s before, opens 30s after
-  assert.equal(m.closeAt, now.getTime() + 5 * 60_000 - 90_000);
-  assert.equal(m.openAt, now.getTime() + 5 * 60_000 + 30_000);
+  assert.equal(m.basis, 'PTR +3.5 min');
+  // crosses at 12:04:30; closes 90s before, opens 30s after
+  assert.equal(m.closeAt, now.getTime() + 4.5 * 60_000 - 90_000);
+  assert.equal(m.openAt, now.getTime() + 4.5 * 60_000 + 30_000);
   assert.equal(p.state, 'open');
   assert.equal(p.next.closeAt, m.closeAt);
 });
@@ -63,11 +63,11 @@ test('train that has already left Petersfield uses the actual time and can be "c
     PTR: { trainServices: [] },
   };
   const p = predict(liss, boards, now);
-  assert.equal(p.state, 'closed'); // crosses at 12:01, window 11:59:30–12:01:30
+  assert.equal(p.state, 'closed'); // crosses at 12:00:30, window 11:59:00–12:01:00
   assert.equal(p.movements[0].actual, true);
 });
 
-test('stopping southbound train: crosses before the platform, so keyed off arrival', () => {
+test('stopping southbound train: platforms before the barriers, so keyed off departure', () => {
   const boards = {
     HSL: { trainServices: [] },
     PTR: { trainServices: [{
@@ -82,13 +82,12 @@ test('stopping southbound train: crosses before the platform, so keyed off arriv
   };
   const m = predict(liss, boards, now).movements[0];
   assert.equal(m.stops, true);
-  assert.equal(m.basis, 'LIS arrival');
-  const arr = now.getTime() + 10 * 60_000 - liss.station.dwellSec * 1000;
-  assert.equal(m.closeAt, arr - 90_000);
-  assert.equal(m.openAt, arr + 30_000);
+  assert.equal(m.basis, 'LIS departure');
+  assert.equal(m.closeAt, now.getTime() + 10 * 60_000 - 90_000);
+  assert.equal(m.openAt, now.getTime() + 10 * 60_000 + 30_000);
 });
 
-test('stopping northbound train: platform before barriers, so keyed off departure', () => {
+test('stopping northbound train: crosses before reaching the platform, so keyed off arrival', () => {
   const boards = {
     PTR: { trainServices: [] },
     HSL: { trainServices: [{
@@ -102,8 +101,40 @@ test('stopping northbound train: platform before barriers, so keyed off departur
     }] },
   };
   const m = predict(liss, boards, now).movements[0];
-  assert.equal(m.basis, 'LIS departure');
-  assert.equal(m.closeAt, now.getTime() + 10 * 60_000 - 90_000);
+  assert.equal(m.basis, 'LIS arrival');
+  const arr = now.getTime() + 10 * 60_000 - liss.station.dwellSec * 1000;
+  assert.equal(m.closeAt, arr - 90_000);
+  assert.equal(m.openAt, arr + 30_000);
+});
+
+test('the same train on two boards for one direction is counted once', () => {
+  const bdh = getCrossing('bedhampton');
+  const svc = {
+    serviceID: 'same', sta: at(8), eta: 'On time',
+    origin: [{ locationName: 'Brighton', crs: 'BTN' }],
+    destination: [{ locationName: 'Portsmouth Harbour', crs: 'PMH' }],
+    previousCallingPoints: [{ callingPoint: [{ locationName: 'Havant', crs: 'HAV', st: at(1), et: 'On time' }] }],
+  };
+  const p = predict(bdh, { HAV: { trainServices: [] }, FTN: { trainServices: [svc] }, CSA: { trainServices: [svc] } }, now);
+  assert.equal(p.movements.length, 1);
+  assert.equal(p.movements[0].basis, 'HAV +1.5 min');
+});
+
+test('every registry entry is well-formed', async () => {
+  const { crossings } = await import('../src/registry.js');
+  const ids = new Set();
+  for (const c of crossings) {
+    assert.ok(!ids.has(c.id), `duplicate id ${c.id}`); ids.add(c.id);
+    assert.ok(c.directions.length >= 2, `${c.id} needs both directions`);
+    for (const d of c.directions) {
+      assert.ok(d.references.some((r) => r.crs === d.board.crs && r.minutesToCrossing < 0), `${c.id}/${d.key}: board station must be a negative-offset fallback reference`);
+      assert.ok(d.via.length > 0);
+      if (c.station) assert.ok(['north', 'south', 'east', 'west'].includes(c.station.platformsSide));
+    }
+    const boards = Object.fromEntries(c.directions.map((d) => [d.board.crs, mockBoard(c, d, now)]));
+    const p = predict(c, boards, now);
+    assert.ok(p.upcoming.length >= 4, `${c.id}: mock gives ${p.upcoming.length} closures`);
+  }
 });
 
 test('ignores cancelled trains and trains from the wrong side', () => {

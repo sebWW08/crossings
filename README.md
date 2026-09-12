@@ -69,16 +69,43 @@ board read, two boards per crossing, cached 30 s.
 - Windows within 45 s of each other merge into one closure.
 - `et: "Delayed"` marks the closure *uncertain* in the UI; cancelled trains are dropped.
 
-## Calibrating Liss
+## Crossings covered
 
-Two things in the registry are guesses that need checking on site:
+Every road crossing on the Portsmouth Harbour – London Waterloo route (there
+are none between Portsmouth and Bedhampton, Havant and Petersfield, Liss and
+Milford, or Guildford and Waterloo). Positions and road names are from
+OpenStreetMap; run times are worked out from track distance.
 
-- `platformsSide` — is the road at the London end or the Portsmouth end of the platforms?
-- `holdDuringDwell` — do the barriers stay down while a London-bound train sits in the platform?
+| Crossing | Road | Barriers | Notes |
+| --- | --- | --- | --- |
+| Bedhampton | Bedhampton Road / West Street | full | at Bedhampton station; also Fareham–Havant trains |
+| Petersfield | Station Road | full | London end of the platforms |
+| Kingsfernsden Lane | Kingsfernsden Lane, Sheet | half (AHB) | |
+| Sheet | School Lane, Sheet | new barriers 2025, type unconfirmed | |
+| Princes Bridge | Andlers Ash Road, Liss | new barriers 2025, type unconfirmed | |
+| Liss | Station Road (B3006) | full | Portsmouth end of the platforms |
+| Mill Road | Mill Road, Liss | type unconfirmed | |
+| Milford | Station Lane | half (AHB) | at Milford station, which end is a guess |
+| Farncombe | Farncombe Street | full | Godalming end of the platforms |
+| Bourne Road | Bourne Road, Farncombe | full | Guildford end of the platforms |
 
-Stand at the crossing for an hour with the app open and compare. The `references`
-run times (PTR +4, LIP +5) are from timetable distances and should be trimmed
-to what the fasts actually do.
+### What needs checking on the ground
+
+Each registry entry carries a `notes` field with its open questions. The
+recurring ones:
+
+- `platformsSide` — which end of the platforms the road is on, taken from the
+  crossing's position relative to OSM's station node (unreliable when the
+  crossing is within ~50 m of it, as at Milford).
+- `holdDuringDwell` — whether the signaller keeps the barriers down while a
+  train stands in the platform before crossing.
+- Barrier type at Sheet, Princes Bridge and Mill Road after Network Rail's
+  autumn-2025 upgrades (this sets `closeBeforeSec`: ~90 s for full barriers,
+  ~40 s for automatic half barriers).
+- `minutesToCrossing` for non-stopping trains: distance ÷ ~110 km/h plus half
+  a minute; trim to what the fasts actually do.
+
+Stand at a crossing for an hour with the app open and compare.
 
 ## Scaling to every crossing in the UK
 

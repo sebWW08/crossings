@@ -117,10 +117,23 @@ export function mergeClosures(movements) {
   return out;
 }
 
+/** A direction may read several boards (the line forks beyond the crossing),
+ *  so the same train can turn up twice. Keep the sighting with the best
+ *  evidence: an actual time beats an estimate. */
+export function dedupe(movements) {
+  const best = new Map();
+  for (const m of movements) {
+    const key = m.serviceId ?? `${m.direction}:${m.closeAt}`;
+    const cur = best.get(key);
+    if (!cur || (m.actual && !cur.actual) || (m.actual === cur.actual && !m.uncertain && cur.uncertain)) best.set(key, m);
+  }
+  return [...best.values()];
+}
+
 export function predict(crossing, boards, now = new Date()) {
-  const movements = crossing.directions.flatMap((dir) =>
+  const movements = dedupe(crossing.directions.flatMap((dir) =>
     movementsForDirection(crossing, dir, boards[dir.board.crs], now),
-  );
+  ));
   const closures = mergeClosures(movements);
   const t = now.getTime();
   const current = closures.find((c) => c.closeAt <= t && t < c.openAt) ?? null;
