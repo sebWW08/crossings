@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 // Generate registry entries for every road level crossing in a bounding box.
 //
-//   node tools/build-registry.mjs --bbox S,W,N,E [--margin 25] [--dry-run] [--only id]
+//   node tools/build-registry.mjs --bbox S,W,N,E [--margin 25] [--tile 0.5,1] [--dry-run] [--only id]
 //
 // Crossings come from OpenStreetMap; the surrounding track (bbox + margin) is
-// walked to find the stations either side. Results are merged into
+// walked to find the stations either side. Overpass won't serve a whole
+// region's track at once, so --tile splits the box into lat×lon degree tiles
+// fetched and walked one at a time (each with its own margin). Results are merged into
 // data/crossings.json: hand-written entries always win. Overpass responses are
 // cached in data/cache/ because Overpass is slow and flaky.
 
@@ -31,10 +33,25 @@ function args() {
   const bbox = get('--bbox');
   if (!bbox) { console.error('usage: build-registry --bbox S,W,N,E [--margin km] [--dry-run] [--only id]'); process.exit(2); }
   const [s, w, n, e] = bbox.split(',').map(Number);
-  return { bbox: { s, w, n, e }, margin: Number(get('--margin', 25)), dryRun: a.includes('--dry-run'), only: get('--only') };
+  const tile = get('--tile');
+  return {
+    bbox: { s, w, n, e },
+    margin: Number(get('--margin', 25)),
+    tile: tile ? tile.split(',').map(Number) : null,
+    dryRun: a.includes('--dry-run'),
+    only: get('--only'),
+  };
 }
 
 const fmt = (b) => `${b.s},${b.w},${b.n},${b.e}`;
+const r3 = (x) => Math.round(x * 1000) / 1000;
+function tiles(b, [dLat, dLon]) {
+  const out = [];
+  for (let s = b.s; s < b.n; s = r3(s + dLat)) {
+    for (let w = b.w; w < b.e; w = r3(w + dLon)) out.push({ s, w, n: r3(Math.min(s + dLat, b.n)), e: r3(Math.min(w + dLon, b.e)) });
+  }
+  return out;
+}
 function grow(b, km) {
   const dLat = km / 111;
   const dLon = km / (111 * Math.cos((((b.s + b.n) / 2) * Math.PI) / 180));
@@ -66,41 +83,46 @@ async function overpass(query, label) {
   throw lastErr;
 }
 
-async function main() {
-  const { bbox, margin, dryRun, only } = args();
-  const wide = grow(bbox, margin);
-
-  // One query at a time: the public mirrors rate-limit parallel requests.
-  const network = await overpass(`[out:json][timeout:300][maxsize:1073741824];
-      way["railway"="rail"]["service"!~"^(yard|siding|spur)$"](${fmt(wide)});
-      out body; >; out skel qt;`, 'network');
-  const stationsRaw = await overpass(`[out:json][timeout:120];
-      nwr["railway"~"^(station|halt)$"]["ref:crs"]["ref:crs"!~"^Z"](${fmt(wide)});
+async function fetchStations(box) {
+  const raw = await overpass(`[out:json][timeout:180];
+      nwr["railway"~"^(station|halt)$"]["ref:crs"]["ref:crs"!~"^Z"](${fmt(box)});
       out center tags;`, 'stations');
-  const crossingsRaw = await overpass(`[out:json][timeout:120];
-      node["railway"="level_crossing"](${fmt(bbox)})->.x;
-      .x out body;
-      way(bn.x)["highway"];
-      out body;`, 'crossings');
-
-  const graph = buildGraph(network.elements);
-  const stations = stationsRaw.elements.map((el) => ({
+  return raw.elements.map((el) => ({
     crs: el.tags['ref:crs'].toUpperCase(),
     name: el.tags.name ?? el.tags['ref:crs'],
     lat: el.lat ?? el.center.lat,
     lon: el.lon ?? el.center.lon,
   }));
-  const index = stationIndex(stations);
-  console.error(`graph: ${graph.nodes.size} nodes, ${graph.adj.size} linked; ${stations.length} stations`);
+}
 
-  const nodes = crossingsRaw.elements.filter((el) => el.type === 'node');
-  const highways = crossingsRaw.elements.filter((el) => el.type === 'way');
-  const highwaysAt = (ids) => highways.filter((w) => w.nodes.some((n) => ids.includes(n)));
+async function fetchCrossings(box) {
+  const raw = await overpass(`[out:json][timeout:180];
+      node["railway"="level_crossing"](${fmt(box)})->.x;
+      .x out body;
+      way(bn.x)["highway"];
+      out body;`, 'crossings');
+  return {
+    nodes: raw.elements.filter((el) => el.type === 'node'),
+    highways: raw.elements.filter((el) => el.type === 'way'),
+  };
+}
 
+async function fetchNetwork(box) {
+  const raw = await overpass(`[out:json][timeout:300][maxsize:1073741824];
+      way["railway"="rail"]["service"!~"^(yard|siding|spur)$"](${fmt(box)});
+      out body; >; out skel qt;`, 'network');
+  return buildGraph(raw.elements);
+}
+
+const inBox = (p, b) => p.lat >= b.s && p.lat <= b.n && p.lon >= b.w && p.lon <= b.e;
+
+/** Generate entries for the crossings inside one tile, walking that tile's track. */
+function buildTile(graph, index, crossings, box) {
+  const highwaysAt = (ids) => crossings.highways.filter((w) => w.nodes.some((n) => ids.includes(n)));
   const generated = [];
   const skipped = {};
   const directCache = new Map();
-  for (const cluster of clusterCrossings(nodes)) {
+  for (const cluster of clusterCrossings(crossings.nodes.filter((n) => inBox(n, box)))) {
     const ids = cluster.members.map((m) => m.id);
     const hw = highwaysAt(ids);
     if (!hw.some(isRoadCrossing)) { skipped['not a public road'] = (skipped['not a public road'] ?? 0) + 1; continue; }
@@ -112,13 +134,44 @@ async function main() {
     generated.push(r.entry);
   }
   console.error(`generated ${generated.length} crossings; skipped:`, skipped);
+  return generated;
+}
+
+async function main() {
+  const { bbox, margin, tile, dryRun, only } = args();
+  // Stations and crossings are small lists: one query for the whole region.
+  // Track is the bulk, so it goes tile by tile (each with its own margin).
+  const stations = await fetchStations(grow(bbox, margin));
+  const index = stationIndex(stations);
+  const crossings = await fetchCrossings(bbox);
+  console.error(`${stations.length} stations, ${crossings.nodes.length} crossing nodes in the region`);
+
+  const boxes = tile ? tiles(bbox, tile) : [bbox];
+  const generated = [];
+  const failed = [];
+  for (const [i, box] of boxes.entries()) {
+    if (!crossings.nodes.some((n) => inBox(n, box))) continue; // sea, mostly
+    if (boxes.length > 1) console.error(`\n== tile ${i + 1}/${boxes.length}: ${fmt(box)}`);
+    try {
+      const graph = await fetchNetwork(grow(box, margin));
+      console.error(`graph: ${graph.nodes.size} nodes`);
+      generated.push(...buildTile(graph, index, crossings, box));
+    } catch (e) {
+      console.error(`tile ${fmt(box)} failed: ${e.message}`);
+      failed.push(fmt(box));
+    }
+  }
+  if (failed.length) console.error(`\n${failed.length} tile(s) failed — re-run for: ${failed.join(' ; ')}`);
+  // A crossing exactly on a tile edge can come back from both tiles.
+  const seen = new Set();
+  const unique = generated.filter((g) => !seen.has(g.osm) && seen.add(g.osm));
 
   const existing = JSON.parse(await readFile(REGISTRY, 'utf8'));
-  const { registry, stats } = mergeRegistry(existing, generated);
+  const { registry, stats } = mergeRegistry(existing, unique);
   console.error('merge:', stats);
 
   if (only) {
-    const hit = generated.find((c) => String(c.osm) === only || c.name === only) ?? registry.find((c) => c.id === only);
+    const hit = unique.find((c) => String(c.osm) === only || c.name === only) ?? registry.find((c) => c.id === only);
     console.log(JSON.stringify(hit, null, 2));
     return;
   }

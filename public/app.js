@@ -98,7 +98,8 @@ async function renderList() {
   const res = await fetch('/api/crossings');
   const data = await res.json();
   setLive(data.live);
-  let list = data.crossings;
+  const byName = (a, b) => a.name.localeCompare(b.name, 'en-GB');
+  let list = [...data.crossings].sort(byName);
 
   const filtered = () => {
     const q = (document.getElementById('q')?.value ?? '').trim().toLowerCase();
@@ -108,6 +109,7 @@ async function renderList() {
   const draw = () => {
     const items = filtered();
     drawMap(items);
+    document.getElementById('count').textContent = `${items.length} of ${list.length} crossings`;
     document.getElementById('list').innerHTML = items.length
       ? items.map((c) => `
         <a href="#/${esc(c.id)}"><div class="card">
@@ -126,6 +128,7 @@ async function renderList() {
       <button id="map-toggle" title="Show crossings on a map" aria-pressed="false">Map</button>
     </div>
     <div id="map" class="map" hidden></div>
+    <p id="count" class="muted small"></p>
     <div id="list" class="list"></div>`;
   draw();
   document.getElementById('q').addEventListener('input', draw);
