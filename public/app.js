@@ -1,6 +1,7 @@
 const app = document.getElementById('app');
 const liveBadge = document.getElementById('live-badge');
 const REFRESH_MS = 30_000;
+const LEAFLET = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet';
 
 let refreshTimer = null;
 let tickTimer = null;
@@ -33,17 +34,80 @@ function stopTimers() {
   clearInterval(tickTimer);
 }
 
+// ---------- map ----------
+let leafletLoad = null; // Leaflet is only fetched the first time the map is opened
+function loadLeaflet() {
+  if (window.L) return Promise.resolve(window.L);
+  leafletLoad ??= new Promise((resolve, reject) => {
+    document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href: `${LEAFLET}.css` }));
+    const s = Object.assign(document.createElement('script'), { src: `${LEAFLET}.js` });
+    s.onload = () => resolve(window.L);
+    s.onerror = () => { leafletLoad = null; reject(new Error('map library failed to load')); };
+    document.head.append(s);
+  });
+  return leafletLoad;
+}
+
+let map = null;    // { L, map, markers: Map<id, marker>, layer }
+function markerColour(c) {
+  return { full: '#2563eb', half: '#b45309' }[c.barrierType] ?? '#6b7280';
+}
+
+async function showMap(container, crossings) {
+  const L = await loadLeaflet();
+  const m = L.map(container, { zoomSnap: 0.5 });
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(m);
+  const layer = L.layerGroup().addTo(m);
+  const markers = new Map();
+  for (const c of crossings) {
+    const mk = L.circleMarker([c.lat, c.lon], { radius: 7, color: '#fff', weight: 2, fillColor: markerColour(c), fillOpacity: 1 })
+      .bindTooltip(`<b>${esc(c.name)}</b><br>${esc(c.road)}`)
+      .on('click', () => { location.hash = `#/${c.id}`; });
+    markers.set(c.id, mk);
+  }
+  map = { L, map: m, markers, layer };
+  return map;
+}
+
+// Show only the given crossings on the map and fit the view to them.
+function drawMap(items) {
+  if (!map) return;
+  map.layer.clearLayers();
+  const pts = [];
+  for (const c of items) {
+    const mk = map.markers.get(c.id);
+    if (!mk) continue;
+    mk.addTo(map.layer);
+    pts.push(mk.getLatLng());
+  }
+  if (pts.length) map.map.fitBounds(map.L.latLngBounds(pts), { padding: [24, 24], maxZoom: 14, animate: false });
+}
+
+function destroyMap() {
+  map?.map.remove();
+  map = null;
+}
+
 // ---------- list ----------
 async function renderList() {
   stopTimers();
+  destroyMap();
   const res = await fetch('/api/crossings');
   const data = await res.json();
   setLive(data.live);
   let list = data.crossings;
 
-  const draw = () => {
+  const filtered = () => {
     const q = (document.getElementById('q')?.value ?? '').trim().toLowerCase();
-    const items = list.filter((c) => !q || `${c.name} ${c.road} ${c.line}`.toLowerCase().includes(q));
+    return list.filter((c) => !q || `${c.name} ${c.road} ${c.line}`.toLowerCase().includes(q));
+  };
+
+  const draw = () => {
+    const items = filtered();
+    drawMap(items);
     document.getElementById('list').innerHTML = items.length
       ? items.map((c) => `
         <a href="#/${esc(c.id)}"><div class="card">
@@ -59,10 +123,35 @@ async function renderList() {
     <div class="row">
       <input id="q" class="search" placeholder="Search by name, road or line" autocomplete="off">
       <button id="near" title="Sort by distance from me">Near me</button>
+      <button id="map-toggle" title="Show crossings on a map" aria-pressed="false">Map</button>
     </div>
+    <div id="map" class="map" hidden></div>
     <div id="list" class="list"></div>`;
   draw();
   document.getElementById('q').addEventListener('input', draw);
+
+  const mapEl = document.getElementById('map');
+  const mapBtn = document.getElementById('map-toggle');
+  const toggleMap = async (open) => {
+    mapEl.hidden = !open;
+    mapBtn.setAttribute('aria-pressed', String(open));
+    try { localStorage.setItem('map', open ? '1' : '0'); } catch { /* private mode */ }
+    if (!open) return;
+    if (!map) {
+      try {
+        await showMap(mapEl, list);
+      } catch (e) {
+        mapEl.innerHTML = `<p class="err small">${esc(e.message)}</p>`;
+        return;
+      }
+    }
+    map.map.invalidateSize();
+    drawMap(filtered());
+  };
+  mapBtn.addEventListener('click', () => toggleMap(mapEl.hidden));
+  let wanted = false;
+  try { wanted = localStorage.getItem('map') === '1'; } catch { /* private mode */ }
+  if (wanted) toggleMap(true);
   document.getElementById('near').addEventListener('click', () => {
     navigator.geolocation?.getCurrentPosition(async (pos) => {
       const r = await fetch(`/api/crossings?near=${pos.coords.latitude},${pos.coords.longitude}`);

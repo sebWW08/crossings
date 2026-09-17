@@ -45,4 +45,11 @@ h2 { font-size: 15px; margin: 24px 0 8px; color: var(--muted); text-transform: u
 .search { width: 100%; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: inherit; }
 button { font: inherit; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: inherit; cursor: pointer; }
 .row { display: flex; gap: 8px; align-items: center; margin: 8px 0 16px; }
+button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.map { height: 340px; border: 1px solid var(--line); border-radius: 14px; margin: 0 0 12px; background: var(--card); overflow: hidden; }
+.map .leaflet-tooltip { font: 13px/1.3 system-ui, sans-serif; }
+@media (prefers-color-scheme: dark) {
+  .map .leaflet-tile { filter: invert(1) hue-rotate(180deg) brightness(.85) contrast(.9); }
+  .map .leaflet-control-attribution, .map .leaflet-bar a { background: var(--card); color: var(--ink); }
+}
 .err { color: var(--closed); }
