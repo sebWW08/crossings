@@ -6,7 +6,7 @@ import { mockBoard } from './mock.js';
 const TTL_MS = 30_000;
 const KEY = process.env.DARWIN_API_KEY || '';
 const BASE = (process.env.DARWIN_ARRIVALS_URL ||
-  'https://api1.raildata.org.uk/1010-live-arrival-board-arr1_2/LDBWS/api/20220120/GetArrBoardWithDetails'
+  'https://api1.raildata.org.uk/1010-live-arrival-and-departure-boards-arr-and-dep1_1/LDBWS/api/20220120/GetArrDepBoardWithDetails'
 ).replace(/\/$/, '');
 
 export const live = Boolean(KEY);

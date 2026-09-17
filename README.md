@@ -21,7 +21,7 @@ Node 22+, no dependencies. Without `DARWIN_API_KEY` the app runs on a
 synthetic clock-face timetable (badged "demo data") so the UI can be worked
 on offline. For live data, get a free key from the
 [Rail Data Marketplace](https://raildata.org.uk) — product
-*Live Arrival Board – Arrivals* (LDBWS) — and put it in `.env`.
+*Live Arrival and Departure Boards* (LDBWS) — and put it in `.env`.
 
 ## How a crossing is described
 
