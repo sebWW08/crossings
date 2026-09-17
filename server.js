@@ -55,13 +55,15 @@ async function api(url, res) {
     if (!crossing) return json(res, 404, { error: 'unknown crossing' });
     const now = new Date();
     try {
-      const boards = await boardsFor(crossing, now);
+      const { boards, errors } = await boardsFor(crossing, now);
       const p = predict(crossing, boards, now);
+      if (errors.length) console.warn(`${crossing.id}: partial boards —`, errors.join('; '));
       return json(res, 200, {
         crossing: summarise(crossing),
         live,
         now: now.getTime(),
         ...p,
+        partial: errors.length ? errors : undefined,
         movements: undefined,
         directions: [...new Map(crossing.directions.map((d) => [d.key, { key: d.key, label: d.label, towards: d.towards }])).values()],
       });

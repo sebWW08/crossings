@@ -32,9 +32,21 @@ export function arrivalsBoard(crossing, dir, now = new Date()) {
   return board;
 }
 
+/**
+ * Every board a crossing reads, keyed by CRS. A board that fails is left out
+ * and its error reported, so one bad station (a typo in the registry, a
+ * Darwin hiccup) degrades that direction rather than the whole crossing.
+ * Throws only if nothing could be read at all.
+ */
 export async function boardsFor(crossing, now = new Date()) {
-  const entries = await Promise.all(
-    crossing.directions.map(async (dir) => [dir.board.crs, await arrivalsBoard(crossing, dir, now)]),
-  );
-  return Object.fromEntries(entries);
+  const wanted = [...new Map(crossing.directions.map((d) => [d.board.crs, d])).values()];
+  const results = await Promise.allSettled(wanted.map((dir) => arrivalsBoard(crossing, dir, now)));
+  const boards = {};
+  const errors = [];
+  results.forEach((r, i) => {
+    if (r.status === 'fulfilled') boards[wanted[i].board.crs] = r.value;
+    else errors.push(`${wanted[i].board.crs}: ${r.reason?.message ?? r.reason}`);
+  });
+  if (!Object.keys(boards).length) throw new Error(errors.join('; '));
+  return { boards, errors };
 }

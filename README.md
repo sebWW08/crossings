@@ -69,12 +69,56 @@ board read, two boards per crossing, cached 30 s.
 - Windows within 45 s of each other merge into one closure.
 - `et: "Delayed"` marks the closure *uncertain* in the UI; cancelled trains are dropped.
 
+### Generated entries
+
+Most of the registry is produced by `tools/build-registry.mjs` rather than
+by hand. Those entries carry `"generated": true` and a few extra fields:
+
+```jsonc
+"directions": [{
+  "boards": [{ "crs": "NSH", "min": 1.5 }, { "crs": "RMD", "min": 2.5 }, …],
+                                 // read the next few stations, not just the
+                                 // nearest: fast trains skip the nearest one
+  "via": ["MTL", "BNS", …],      // stations on the side the train comes from
+  "beyond": ["NSH", "RMD", …],   // stations on the side it is going to
+}],
+"times": { "BNS": 0.6, "MTL": 0.6, "NSH": 1.5, … },  // run time from the crossing
+"bypass": { "WTN": ["HOU", "ISL"] }   // consecutive calls that go round a loop,
+                                      // not over this road (Hounslow, Kingston…)
+```
+
+With those, the predictor doesn't need a fixed run time: it finds the train's
+latest leg from a `via` station to a `beyond` station (the board itself
+counts) and places the crossing along that leg in proportion to `times`,
+using the actual departure from the near station once it has left. A leg in
+`bypass`, or one scheduled far quicker than the run via the crossing, means
+the train came round another way. Hand-written entries (no `beyond`) use the
+`references` rule above.
+
 ## Crossings covered
 
-Every road crossing on the Portsmouth Harbour – London Waterloo route (there
-are none between Portsmouth and Bedhampton, Havant and Petersfield, Liss and
-Milford, or Guildford and Waterloo). Positions and road names are from
-OpenStreetMap; run times are worked out from track distance.
+The Portsmouth Harbour – London Waterloo route by hand (there are none
+between Portsmouth and Bedhampton, Havant and Petersfield, Liss and Milford,
+or Guildford and Waterloo), plus every public road crossing OpenStreetMap
+knows about in a box around London (51.25–51.75 N, 0.75 W–0.45 E: Woking to
+Brentwood, St Albans to Sevenoaks) — 58 of them, generated.
+
+To add an area:
+
+```
+node tools/build-registry.mjs --bbox S,W,N,E [--margin 25] [--dry-run]
+```
+
+It fetches the crossings in the box and the track and stations for the box
+plus a margin from Overpass (cached in `data/cache/`), walks the track graph
+from each crossing to the stations either side, and merges the result into
+`data/crossings.json`. Hand-written entries are never touched and suppress
+generated ones at the same spot; re-running an area updates its generated
+entries in place. Footpath, farm and unnamed depot-access crossings are
+skipped. Expect a couple of minutes for a London-sized box.
+
+The hand-written Portsmouth line entries — positions and road names are from
+OpenStreetMap; run times are worked out from track distance:
 
 | Crossing | Road | Barriers | Notes |
 | --- | --- | --- | --- |
@@ -109,28 +153,21 @@ Stand at a crossing for an hour with the app open and compare.
 
 ## Scaling to every crossing in the UK
 
-The app is already generic; the work is producing registry entries.
+The generator above is the plan; what's left:
 
-1. **Where the crossings are** — OpenStreetMap has every `railway=level_crossing`
-   node (~6,000 in GB) with road names, and Network Rail's open
+1. **Run it everywhere** — tile GB into boxes and run each (Overpass won't
+   serve the whole country's track in one go). ~6,000 `level_crossing` nodes
+   in GB, perhaps a third of them public roads on passenger lines.
+2. **Barrier types** — OSM's `crossing:barrier` is patchy, so `closeBeforeSec`
+   is a guess for many. Network Rail's open
    [level crossing dataset](https://www.networkrail.co.uk/who-we-are/transparency-and-ethics/transparency/open-data-feeds/)
-   has the official name, type (AHB, MCB, CCTV, footpath…) and Engineer's Line Reference / mileage.
-2. **Which stations sit either side** — walk the OSM `railway=rail` ways from each
-   crossing node in both directions until you hit a station node, collect the
-   CRS codes (from the NaPTAN / Network Rail station list), and turn track
-   distance into `minutesToCrossing` using the line speed (OSM `maxspeed` on
-   the way, else a per-class default). That gives `board`, `references` and
-   `via` automatically; `via` is just "all stations further along that branch".
-3. **Junctions and branches** — where the walk hits a junction before a station,
-   the `via` list branches; the current shape handles that as long as every
-   branch is listed. Crossings inside big junction complexes will need hand
-   entries.
-4. **Cost** — each crossing is two board reads per 30 s *while someone is
-   looking at it*; boards are cached per station so busy stations are shared.
-   RDM's free tier is plenty for hundreds of concurrent crossings. Beyond that,
-   move to the Darwin push port (one streaming feed of everything) and compute
-   for all crossings continuously.
-5. **Ground truth** — once there are users, "was it actually closed?" taps at
+   has the official name and type (AHB, MCB, CCTV…) — match it on position.
+3. **Cost** — each crossing is a handful of board reads per 30 s *while
+   someone is looking at it*; boards are cached per station so busy stations
+   are shared. RDM's free tier is plenty for hundreds of concurrent crossings.
+   Beyond that, move to the Darwin push port (one streaming feed of
+   everything) and compute for all crossings continuously.
+4. **Ground truth** — once there are users, "was it actually closed?" taps at
    the crossing become calibration data for `closeBeforeSec` / run times per crossing.
 
 Not a level crossing sensor: **never rely on this at the crossing — obey the lights.**

@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { predict, mergeClosures } from '../src/predict.js';
+import { predict, mergeClosures, crossingLeg } from '../src/predict.js';
 import { parseClock, resolveCall, fmtClock } from '../src/time.js';
 import { mockBoard } from '../src/mock.js';
-import { getCrossing } from '../src/registry.js';
+import { getCrossing, expandBoards } from '../src/registry.js';
 
 const liss = getCrossing('liss');
 const now = new Date('2026-09-12T11:00:00Z'); // 12:00 BST
@@ -129,7 +129,7 @@ test('every registry entry is well-formed', async () => {
     for (const d of c.directions) {
       assert.ok(d.references.some((r) => r.crs === d.board.crs && r.minutesToCrossing < 0), `${c.id}/${d.key}: board station must be a negative-offset fallback reference`);
       assert.ok(d.via.length > 0);
-      if (c.station) assert.ok(['north', 'south', 'east', 'west'].includes(c.station.platformsSide));
+      if (c.station) assert.ok(c.directions.some((d) => d.key === c.station.platformsSide), `${c.id}: platformsSide must be one of its direction keys`);
     }
     const boards = Object.fromEntries(c.directions.map((d) => [d.board.crs, mockBoard(c, d, now)]));
     const p = predict(c, boards, now);
@@ -168,4 +168,58 @@ test('mock boards run through the same predictor and give a sane picture', () =>
   assert.ok(p.upcoming.length >= 6, `expected a couple of hours of closures, got ${p.upcoming.length}`);
   assert.ok(p.closedSecNextHour > 0 && p.closedSecNextHour < 1800);
   for (const c of p.upcoming) assert.ok(c.openAt > c.closeAt);
+});
+
+// A generated-style crossing between X (near, 2 min) and Y (beyond, 3 min),
+// read from Y's board and Z's beyond it.
+const gen = expandBoards({
+  id: 'gen', name: 'Gen', closeBeforeSec: 60, openAfterSec: 30,
+  times: { WWW: 8, XXX: 2, YYY: 3, ZZZ: 6 },
+  directions: [{
+    key: 'east', label: 'Eastbound', towards: 'Y', enters: 'west',
+    boards: [{ crs: 'YYY', name: 'Y', min: 3.5 }, { crs: 'ZZZ', name: 'Z', min: 6.5 }],
+    via: ['XXX', 'WWW'], beyond: ['YYY', 'ZZZ'], references: [{ crs: 'XXX', name: 'X', minutesToCrossing: 2.5 }],
+  }],
+});
+
+test('expandBoards makes one direction per board with the board as fallback reference', () => {
+  assert.equal(gen.directions.length, 2);
+  assert.deepEqual(gen.directions.map((d) => d.board.crs), ['YYY', 'ZZZ']);
+  assert.deepEqual(gen.directions[1].references.map((r) => [r.crs, r.minutesToCrossing]), [['XXX', 2.5], ['ZZZ', -6.5]]);
+});
+
+test('crossingLeg: latest near→beyond leg, loop legs rejected by schedule', () => {
+  const dir = gen.directions[0];
+  const svc = { sta: at(3), eta: 'On time' };
+  const leg = crossingLeg(gen, dir, svc, [{ crs: 'WWW', st: at(-8) }, { crs: 'XXX', st: at(-2) }]);
+  assert.equal(leg.x.crs, 'XXX');
+  assert.equal(leg.y.crs, 'YYY');
+  assert.ok(Math.abs(leg.frac - 0.4) < 1e-9);
+  // Passed beyond then came back round a loop: X→Y in 1 min can't be via the crossing (5 min).
+  assert.equal(crossingLeg(gen, dir, { sta: at(-1), eta: 'On time' }, [{ crs: 'XXX', st: at(-2) }]), null);
+  // A pair the generator marked as a loop shortcut is never a crossing.
+  const looped = { ...gen, bypass: { XXX: ['YYY'] } };
+  assert.equal(crossingLeg(looped, dir, svc, [{ crs: 'WWW', st: at(-8) }, { crs: 'XXX', st: at(-2) }]), null);
+  // Never on the near side at all.
+  assert.equal(crossingLeg(gen, dir, svc, [{ crs: 'QQQ', st: at(-9) }]), null);
+  // Non-stop from W straight to the board: W→Y is the leg.
+  const fast = crossingLeg(gen, dir, { sta: at(3), eta: 'On time' }, [{ crs: 'WWW', st: at(-8) }]);
+  assert.equal(fast.x.crs, 'WWW');
+  assert.ok(Math.abs(fast.frac - 8 / 11) < 1e-9);
+});
+
+test('generated entry: crossing time interpolated along the leg, deduped across boards', () => {
+  const svc = (id, sta, prev) => ({ serviceID: id, sta, eta: 'On time', previousCallingPoints: [{ callingPoint: prev }] });
+  const boards = {
+    YYY: { trainServices: [svc('t1', at(3), [{ crs: 'XXX', st: at(-2), at: at(-2) }])] },
+    ZZZ: { trainServices: [svc('t1', at(7), [{ crs: 'XXX', st: at(-2), at: at(-2) }, { crs: 'YYY', st: at(4), et: 'On time' }])] },
+  };
+  const p = predict(gen, boards, now);
+  assert.equal(p.movements.length, 1); // same train seen on both boards
+  const m = p.movements[0];
+  assert.equal(m.basis, 'XXX→YYY');
+  assert.equal(m.actual, true);
+  // Departed X at −2, due Y at +3 → crossing at −2 + 5 × 0.4 = 0 → close at −60 s.
+  assert.equal(m.closeAt, now.getTime() - 60_000);
+  assert.equal(m.openAt, now.getTime() + 30_000);
 });

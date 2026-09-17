@@ -165,8 +165,10 @@ async function renderList() {
 let state = null; // last payload for the current crossing
 let skew = 0;     // server now − client now
 
+const ARROWS = { north: '↑', northeast: '↗', east: '→', southeast: '↘', south: '↓', southwest: '↙', west: '←', northwest: '↖' };
+
 function trainLine(t) {
-  const arrow = t.direction === 'north' ? '↑' : t.direction === 'south' ? '↓' : t.direction === 'east' ? '→' : '←';
+  const arrow = ARROWS[t.direction] ?? '·';
   return `<div class="train"><span class="dir">${arrow}</span>${esc(t.destination ?? t.towards)} <span class="kind">· ${t.stops ? 'stopping' : 'non-stop'}${t.operator ? ` · ${esc(t.operator)}` : ''}</span>${t.uncertain ? '<span class="unc">delayed, time uncertain</span>' : ''}</div>`;
 }
 
@@ -222,10 +224,11 @@ async function loadCrossing(id) {
     <div class="muted">${esc(c.road)} · ${esc(c.line)}${c.station ? ` · at ${esc(c.station.name)} station` : ''}</div>
     <div id="status" class="card status"></div>
     <p class="muted small">Barriers expected down for about ${mins} min of the next hour. Updated ${hhmm(data.now)}.</p>
+    ${data.partial ? `<p class="unc small">Some trains may be missing: could not read ${data.partial.length} of the boards this crossing depends on.</p>` : ''}
     <h2>Coming up</h2>
     <div class="card">${data.upcoming.length ? data.upcoming.map(closureBlock).join('') : '<p class="muted">Nothing in the next two hours.</p>'}</div>
     ${data.recent.length ? `<h2>Recent</h2><div class="card">${data.recent.map(closureBlock).join('')}</div>` : ''}
-    <p class="muted small">Directions: ${data.directions.map((d) => `${d.key === 'north' ? '↑' : d.key === 'south' ? '↓' : '·'} ${esc(d.label)} towards ${esc(d.towards)}`).join(' · ')}</p>`;
+    <p class="muted small">Directions: ${data.directions.map((d) => `${ARROWS[d.key] ?? '·'} ${esc(d.label)} towards ${esc(d.towards)}`).join(' · ')}</p>`;
   drawStatus();
 }
 
