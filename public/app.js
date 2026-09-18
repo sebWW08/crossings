@@ -396,6 +396,11 @@ async function loadCrossing(id) {
     <div class="muted">${esc(c.road)} · ${esc(c.line)}${c.station ? ` · at ${esc(c.station.name)} station` : ''}</div>
     <div class="muted small">${barrierLabel(c.barrierType)}${c.nr ? ` · Network Rail: ${esc(c.nr.name)} (${esc(c.nr.type)}), ${esc(c.nr.elr)} ${c.nr.miles}m ${c.nr.chains}ch` : ''}</div>
     <div id="status" class="card status"></div>
+    <div id="verify" class="verify">
+      <span>At the crossing? Was this right — barriers are actually</span>
+      <button type="button" data-observed="down">Down</button>
+      <button type="button" data-observed="up">Up</button>
+    </div>
     <p class="muted small">Barriers expected down for about ${mins} min of the next hour. Updated ${hhmm(data.now)}.</p>
     ${c.parallel ? '<p class="unc small">This road is on a line that runs beside a faster one between the same stations. Trains on the other line never close these barriers, and the live boards cannot tell the two apart, so only trains known to have come this way are shown.</p>' : ''}
     ${data.partial ? `<p class="unc small">Some trains may be missing: could not read ${data.partial.length} of the boards this crossing depends on.</p>` : ''}
@@ -405,7 +410,37 @@ async function loadCrossing(id) {
     <p class="muted small">Directions: ${data.directions.map((d) => `${ARROWS[d.key] ?? '·'} ${esc(d.label)} towards ${esc(d.towards)}`).join(' · ')}</p>
   </div>`;
   bindStars(app);
+  bindVerify(c.id);
   drawStatus();
+}
+
+// "Was this right?": send what the page is showing alongside what they saw.
+function bindVerify(id) {
+  const box = document.getElementById('verify');
+  if (!box) return;
+  for (const b of box.querySelectorAll('button[data-observed]')) {
+    b.addEventListener('click', async () => {
+      const now = Date.now() + skew;
+      const st = statusOf(state, now);
+      const cur = state.current && state.current.openAt > now ? state.current : state.upcoming.find((c) => c.closeAt <= now && now < c.openAt);
+      const next = cur ?? state.upcoming.find((c) => c.closeAt > now) ?? null;
+      const report = {
+        crossing: id, observed: b.dataset.observed, predicted: st.kind, predictedAt: st.at,
+        closeAt: next?.closeAt ?? null, openAt: next?.openAt ?? null,
+        dataAge: Date.now() + skew - state.now, live: state.live, ua: navigator.userAgent,
+      };
+      box.querySelectorAll('button').forEach((x) => { x.disabled = true; });
+      try {
+        const r = await fetch('/api/feedback', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(report) });
+        const agree = (b.dataset.observed === 'down') === (st.kind === 'closed');
+        box.innerHTML = r.ok || r.status === 429
+          ? `<span class="thanks">${agree ? 'Thanks — that matches the estimate.' : 'Thanks — noted that the estimate was wrong here. This is how it gets better.'}</span>`
+          : '<span class="err">Could not send that just now.</span>';
+      } catch {
+        box.innerHTML = '<span class="err">Could not send that just now.</span>';
+      }
+    });
+  }
 }
 
 async function renderCrossing(id) {

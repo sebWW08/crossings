@@ -31,6 +31,17 @@ so the list is in order before the browser answers). The star on a card or
 a crossing page keeps it under "Your crossings" at the top. Both live in the
 browser's localStorage — nothing is sent anywhere.
 
+## Hosting
+
+`render.yaml` describes the site for [Render](https://render.com)'s free
+tier: connect the GitHub repo as a Blueprint, set `DARWIN_API_KEY` in the
+dashboard, done. It is one Node process with no build step; `PORT` is
+honoured and `/api/health` answers the health check. The free instance
+sleeps after 15 minutes idle and its disk is wiped on deploy, which is why
+"was this right?" reports (`POST /api/feedback`, one JSON line each in
+`data/feedback.jsonl`) are also written to the log and, if
+`FEEDBACK_WEBHOOK` is set, posted to that URL.
+
 ## How a crossing is described
 
 `data/crossings.json` (hand-written, pretty-printed) and

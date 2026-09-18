@@ -1,0 +1,20 @@
+# Render blueprint: one free web service, no build step, no database.
+# The free tier sleeps after 15 minutes idle (first hit then takes ~30 s)
+# and its disk is wiped on each deploy, so feedback also goes to the log
+# and, if FEEDBACK_WEBHOOK is set, to that URL.
+services:
+  - type: web
+    name: crossings
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: ""
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DARWIN_API_KEY
+        sync: false   # set in the dashboard, never in git
+      - key: FEEDBACK_WEBHOOK
+        sync: false

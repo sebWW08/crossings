@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { allCrossings, getCrossing, summarise } from './src/registry.js';
 import { boardsFor, live } from './src/darwin.js';
 import { predict } from './src/predict.js';
+import { cleanReport, tooSoon, record } from './src/feedback.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(here, 'public');
@@ -25,6 +26,16 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
+/** Small JSON bodies only; anything else is a 413 or a 400. */
+function readJson(req, limit = 4096) {
+  return new Promise((resolve, reject) => {
+    let size = 0; const chunks = [];
+    req.on('data', (c) => { size += c.length; if (size > limit) { reject(Object.assign(new Error('too large'), { status: 413 })); req.destroy(); } else chunks.push(c); });
+    req.on('end', () => { try { resolve(JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}')); } catch { reject(Object.assign(new Error('bad json'), { status: 400 })); } });
+    req.on('error', reject);
+  });
+}
+
 function haversineKm(a, b) {
   const R = 6371;
   const toRad = (d) => (d * Math.PI) / 180;
@@ -34,7 +45,18 @@ function haversineKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
-async function api(url, res) {
+async function api(url, req, res) {
+  if (url.pathname === '/api/health') return json(res, 200, { ok: true, live, crossings: allCrossings().length });
+  if (url.pathname === '/api/feedback' && req.method === 'POST') {
+    let body;
+    try { body = await readJson(req); } catch (e) { return json(res, e.status ?? 400, { error: e.message }); }
+    const report = cleanReport(body, getCrossing(String(body.crossing ?? '')));
+    if (!report) return json(res, 400, { error: 'bad report' });
+    const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress;
+    if (tooSoon(`${ip}/${report.crossing}`)) return json(res, 429, { error: 'already noted — thanks' });
+    await record(report);
+    return json(res, 200, { ok: true });
+  }
   if (url.pathname === '/api/crossings') {
     let list = allCrossings().map(summarise);
     const near = url.searchParams.get('near');
@@ -95,7 +117,7 @@ async function serveStatic(url, res) {
 http
   .createServer((req, res) => {
     const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`);
-    if (url.pathname.startsWith('/api/')) return api(url, res).catch((e) => json(res, 500, { error: String(e) }));
+    if (url.pathname.startsWith('/api/')) return api(url, req, res).catch((e) => json(res, 500, { error: String(e) }));
     return serveStatic(url, res);
   })
   .listen(PORT, () => {
