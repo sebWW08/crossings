@@ -24,7 +24,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const CACHE = path.join(here, '..', 'data', 'cache');
 const NR = path.join(here, '..', 'data', 'source', 'nr-crossings.json');
 
-const UA = 'crossings-registry-builder/0.1 (https://github.com/seb/crossings; level-crossing wait times)';
+const UA = 'crossings-registry-builder/0.1 (https://github.com/sebWW08/crossings; level-crossing wait times)';
 const MIRRORS = [
   'https://overpass-api.de/api/interpreter',
   'https://overpass.kumi.systems/api/interpreter',
