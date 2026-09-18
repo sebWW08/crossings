@@ -121,7 +121,8 @@ test('the same train on two boards for one direction is counted once', () => {
 });
 
 test('every registry entry is well-formed', async () => {
-  const { crossings } = await import('../src/registry.js');
+  const { allCrossings } = await import('../src/registry.js');
+  const crossings = allCrossings();
   const ids = new Set();
   for (const c of crossings) {
     assert.ok(!ids.has(c.id), `duplicate id ${c.id}`); ids.add(c.id);
@@ -133,7 +134,9 @@ test('every registry entry is well-formed', async () => {
     }
     const boards = Object.fromEntries(c.directions.map((d) => [d.board.crs, mockBoard(c, d, now)]));
     const p = predict(c, boards, now);
-    assert.ok(p.upcoming.length >= 4, `${c.id}: mock gives ${p.upcoming.length} closures`);
+    // On a line paralleled by a faster one, the mock's trains all look as if
+    // they took the other line, so no closures is the right answer there.
+    if (!c.parallel) assert.ok(p.upcoming.length >= 4, `${c.id}: mock gives ${p.upcoming.length} closures`);
   }
 });
 

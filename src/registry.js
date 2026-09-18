@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -24,12 +24,27 @@ export function expandBoards(crossing) {
   return { ...crossing, directions };
 }
 
+// The registry is re-read whenever the file changes, so a long generator
+// run (or a hand edit) shows up without restarting the server.
+let loadedAt = 0;
 /** @type {Array<import('./types').Crossing>} */
-export const crossings = JSON.parse(readFileSync(file, 'utf8')).map(expandBoards);
+let list = [];
+let byId = new Map();
+function load() {
+  const mtime = statSync(file).mtimeMs;
+  if (mtime === loadedAt) return;
+  list = JSON.parse(readFileSync(file, 'utf8')).map(expandBoards);
+  byId = new Map(list.map((c) => [c.id, c]));
+  loadedAt = mtime;
+}
 
-const byId = new Map(crossings.map((c) => [c.id, c]));
+export function allCrossings() {
+  load();
+  return list;
+}
 
 export function getCrossing(id) {
+  load();
   return byId.get(id) ?? null;
 }
 
@@ -44,5 +59,7 @@ export function summarise(c) {
     lon: c.lon,
     barrierType: c.barrierType,
     station: c.station ? { crs: c.station.crs, name: c.station.name } : null,
+    parallel: c.parallel ?? false,
+    nr: c.nr ? { name: c.nr.name, type: c.nr.type, elr: c.nr.elr, miles: c.nr.miles, chains: c.nr.chains } : null,
   };
 }

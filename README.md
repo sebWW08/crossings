@@ -97,25 +97,58 @@ the train came round another way. Hand-written entries (no `beyond`) use the
 
 ## Crossings covered
 
-The Portsmouth Harbour – London Waterloo route by hand (there are none
-between Portsmouth and Bedhampton, Havant and Petersfield, Liss and Milford,
-or Guildford and Waterloo), plus every public road crossing OpenStreetMap
-knows about in a box around London (51.25–51.75 N, 0.75 W–0.45 E: Woking to
-Brentwood, St Albans to Sevenoaks) — 58 of them, generated.
+The whole of Great Britain: 1,272 public road crossings — every one
+OpenStreetMap knows about on a line with National Rail stations either side,
+which is 1,261 of the 1,440 open road crossings on Network Rail's own list
+(the rest are on freight-only or heritage lines, or OSM has the road over
+them tagged as a track). Ten on the Portsmouth line are hand-written; the
+rest are generated.
 
-To add an area:
+### Rebuilding the registry
 
 ```
-node tools/build-registry.mjs --bbox S,W,N,E [--margin 25] [--dry-run]
+curl -o data/source/united-kingdom-latest.osm.pbf \
+     https://download.geofabrik.de/europe/united-kingdom-latest.osm.pbf   # 2.3 GB
+node tools/extract-osm.mjs data/source/united-kingdom-latest.osm.pbf     # ~4 min → data/cache/osm-uk.json
+node tools/build-registry.mjs --extract data/cache/osm-uk.json [--dry-run] # ~4 min
+node tools/enrich-nr.mjs                                                  # re-match Network Rail data
 ```
 
-It fetches the crossings in the box and the track and stations for the box
-plus a margin from Overpass (cached in `data/cache/`), walks the track graph
-from each crossing to the stations either side, and merges the result into
+`tools/pbf.mjs` is a small dependency-free reader for the OSM PBF format;
+`extract-osm.mjs` streams the file twice and keeps just the running lines,
+stations, crossing nodes and the roads over them (65 MB of JSON). The
+generator then builds one track graph for the country, walks it from each
+crossing to the stations either side, and merges the result into
 `data/crossings.json`. Hand-written entries are never touched and suppress
-generated ones at the same spot; re-running an area updates its generated
-entries in place. Footpath, farm and unnamed depot-access crossings are
-skipped. Expect a couple of minutes for a London-sized box.
+generated ones at the same spot; re-running updates generated entries in
+place. Footpath, farm and unnamed depot-access crossings are skipped.
+
+The older Overpass path still works for a small area and needs no download:
+
+```
+node tools/build-registry.mjs --bbox S,W,N,E [--margin 25] [--tile 0.5,1] [--dry-run]
+```
+
+but Overpass refuses country-sized track queries when busy, which is most
+evenings; `--tile` splits the box and halves any tile that fails.
+
+### Network Rail's crossing list
+
+`data/source/nr-crossings.json` is Network Rail's level-crossing
+risk-assessment spreadsheet (from
+[networkrail.co.uk](https://www.networkrail.co.uk/who-we-are/safety-in-the-community/level-crossing-safety/active-level-crossings/),
+6,121 crossings, July 2025) converted to JSON. Every generated entry is
+matched to the nearest NR crossing (within 150 m) and takes its official
+name and protection type from it, which is far more reliable than OSM's
+tagging: CCTV/MCB → full barriers, AHB/ABCL → half, AOCL/OC → open (lights
+only), MG/MWL/TMO → gates. A crossing NR lists as user-worked or footpath is
+dropped even if OSM calls the road public. The record is kept under `nr`
+(with ELR and mileage) and shown on the crossing page.
+
+Entries flagged `parallel` sit on a slow line beside a faster one between the
+same stations (Bishton, under the main-line flyover): trains on the other
+line never close the barriers and the boards can't tell which line a train
+took, so only trains known to have come via the crossing are shown.
 
 The hand-written Portsmouth line entries — positions and road names are from
 OpenStreetMap; run times are worked out from track distance:
@@ -125,10 +158,10 @@ OpenStreetMap; run times are worked out from track distance:
 | Bedhampton | Bedhampton Road / West Street | full | at Bedhampton station; also Fareham–Havant trains |
 | Petersfield | Station Road | full | London end of the platforms |
 | Kingsfernsden Lane | Kingsfernsden Lane, Sheet | half (AHB) | |
-| Sheet | School Lane, Sheet | new barriers 2025, type unconfirmed | |
-| Princes Bridge | Andlers Ash Road, Liss | new barriers 2025, type unconfirmed | |
+| Sheet | School Lane, Sheet | half (AHB) | per Network Rail's list |
+| Princes Bridge | Andlers Ash Road, Liss | half (AHB) | per Network Rail's list |
 | Liss | Station Road (B3006) | full | Portsmouth end of the platforms |
-| Mill Road | Mill Road, Liss | type unconfirmed | |
+| Mill Road | Mill Road, Liss | half (AHB) | NR name: Liss Common |
 | Milford | Station Lane | half (AHB) | at Milford station, which end is a guess |
 | Farncombe | Farncombe Street | full | Godalming end of the platforms |
 | Bourne Road | Bourne Road, Farncombe | full | Guildford end of the platforms |

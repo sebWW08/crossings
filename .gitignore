@@ -1,3 +1,5 @@
 node_modules/
 .env
 data/cache/
+data/source/*.pbf
+data/source/*.xlsx

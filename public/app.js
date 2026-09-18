@@ -20,7 +20,7 @@ function human(ms, { about = false } = {}) {
 }
 
 function barrierLabel(t) {
-  return { full: 'full barriers', half: 'half barriers', unknown: 'barriers (type unconfirmed)' }[t] ?? esc(t ?? '');
+  return { full: 'full barriers', half: 'half barriers', gates: 'gates', open: 'open crossing (lights)', unknown: 'barriers (type unconfirmed)' }[t] ?? esc(t ?? '');
 }
 
 function setLive(live) {
@@ -50,7 +50,7 @@ function loadLeaflet() {
 
 let map = null;    // { L, map, markers: Map<id, marker>, layer }
 function markerColour(c) {
-  return { full: '#2563eb', half: '#b45309' }[c.barrierType] ?? '#6b7280';
+  return { full: '#2563eb', half: '#b45309', gates: '#7c3aed', open: '#dc2626' }[c.barrierType] ?? '#6b7280';
 }
 
 async function showMap(container, crossings) {
@@ -225,8 +225,10 @@ async function loadCrossing(id) {
     <p class="small"><a href="#/">‹ All crossings</a></p>
     <h1>${esc(c.name)}</h1>
     <div class="muted">${esc(c.road)} · ${esc(c.line)}${c.station ? ` · at ${esc(c.station.name)} station` : ''}</div>
+    <div class="muted small">${barrierLabel(c.barrierType)}${c.nr ? ` · Network Rail: ${esc(c.nr.name)} (${esc(c.nr.type)}), ${esc(c.nr.elr)} ${c.nr.miles}m ${c.nr.chains}ch` : ''}</div>
     <div id="status" class="card status"></div>
     <p class="muted small">Barriers expected down for about ${mins} min of the next hour. Updated ${hhmm(data.now)}.</p>
+    ${c.parallel ? '<p class="unc small">This road is on a line that runs beside a faster one between the same stations. Trains on the other line never close these barriers, and the live boards cannot tell the two apart, so only trains known to have come this way are shown.</p>' : ''}
     ${data.partial ? `<p class="unc small">Some trains may be missing: could not read ${data.partial.length} of the boards this crossing depends on.</p>` : ''}
     <h2>Coming up</h2>
     <div class="card">${data.upcoming.length ? data.upcoming.map(closureBlock).join('') : '<p class="muted">Nothing in the next two hours.</p>'}</div>

@@ -2,7 +2,7 @@ import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { crossings, getCrossing, summarise } from './src/registry.js';
+import { allCrossings, getCrossing, summarise } from './src/registry.js';
 import { boardsFor, live } from './src/darwin.js';
 import { predict } from './src/predict.js';
 
@@ -36,7 +36,7 @@ function haversineKm(a, b) {
 
 async function api(url, res) {
   if (url.pathname === '/api/crossings') {
-    let list = crossings.map(summarise);
+    let list = allCrossings().map(summarise);
     const near = url.searchParams.get('near');
     if (near) {
       const [lat, lon] = near.split(',').map(Number);

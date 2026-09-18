@@ -211,7 +211,61 @@ export function barrierFromTags(tags = {}) {
   if (/^half$/.test(b)) return 'half';
   return 'unknown';
 }
-export const CLOSE_BEFORE = { full: 90, half: 40, unknown: 60 };
+export const CLOSE_BEFORE = { full: 90, half: 40, gates: 120, open: 30, unknown: 60 };
+
+// ---------- Network Rail's level crossing list ----------
+// data/source/nr-crossings.json: every crossing on the NR network with its
+// official name and protection type (from the risk-assessment spreadsheet on
+// networkrail.co.uk). The type codes say what actually protects the road.
+
+/** NR crossing types that are public road crossings, and what they mean for us. */
+export const NR_ROAD_TYPES = {
+  CCTV: 'full', 'MCB/MB': 'full', MCB: 'full', MCBOD: 'full', MCBR: 'full', 'MCB-CCTV': 'full', AFBCL: 'full',
+  AHB: 'half', 'AHB-X': 'half', ABCL: 'half', 'ABCL-X': 'half', AOCLB: 'half',
+  AOCL: 'open', AOCR: 'open', OC: 'open', OD: 'open',
+  MGH: 'gates', MG: 'gates', MGW: 'gates', MWLG: 'gates', MWLB: 'gates', MWLO: 'gates', MWLW: 'gates',
+  MBW: 'gates', MBWM: 'gates', TMOB: 'gates', TMOG: 'gates', TOB: 'gates', TOG: 'gates', WG: 'gates', WAG: 'gates',
+};
+
+/**
+ * Nearest Network Rail crossing of any type to a point, or null. Road types
+ * are matched within `withinM`; a footpath or user-worked crossing only
+ * counts when it is right on the spot, and then it tells us OSM's "road" is
+ * really a farm track or footpath (see applyNR).
+ */
+export function matchNR(nr, at, { withinM = 150, otherWithinM = 30 } = {}) {
+  let best = null;
+  for (const c of nr) {
+    if (Math.abs(c.lat - at.lat) > 0.003 || Math.abs(c.lon - at.lon) > 0.005) continue;
+    if (!(c.type in NR_ROAD_TYPES) && distM(c, at) > otherWithinM) continue;
+    const d = distM(c, at);
+    if (d <= withinM && (!best || d < best.d)) best = { ...c, d: Math.round(d) };
+  }
+  return best;
+}
+
+/**
+ * Fold an NR match into a generated entry: official name, barrier type, close
+ * time. Returns null when NR says the crossing is not a public road crossing
+ * (user-worked, footpath…) — those do not belong in the app.
+ */
+export function applyNR(entry, nr) {
+  if (!nr) { const { nameFromRoad, ...rest } = entry; return rest; }
+  const barrierType = NR_ROAD_TYPES[nr.type];
+  if (!barrierType) return null;
+  // "Liss MCB", "Bourne Road AHB" — the type code trails the name.
+  const official = nr.name.replace(/\s+(CCTV|MCB[^\s]*|AHB(-X)?|ABCL(-X)?|AOCL[^\s]*|AOCR|AFBCL|OC|OD|MG[HW]?|MWL[GBOW]|MBWM?|TMO[BG]|TO[BG]|WA?G)$/i, '').trim();
+  const name = entry.nameFromRoad && official ? official : entry.name;
+  const { nameFromRoad, ...rest } = entry;
+  return {
+    ...rest,
+    name,
+    barrierType,
+    closeBeforeSec: CLOSE_BEFORE[barrierType],
+    nr: { uid: nr.uid, name: nr.name, type: nr.type, status: nr.status, elr: nr.elr, miles: nr.miles, chains: nr.chains, distM: nr.d },
+    notes: `${rest.notes.replace(/ Barrier type not tagged in OSM[^.]*\./, '')} Barrier type from Network Rail's crossing list (${nr.type}, ${nr.d} m from the OSM node).`,
+  };
+}
 
 /** A crossing we'd want in the app: a public road, not a farm track or footpath. */
 export function isRoadCrossing(highway) {
@@ -293,6 +347,11 @@ export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at,
       }
     }
   }
+  // When even the two nearest stations are joined more directly some other
+  // way, this road is on a slow/relief line beside a faster one (Bishton, under
+  // the main-line flyover). Boards can't tell which line a train takes, so the
+  // predictions here are only the trains that definitely came this way.
+  const parallel = !!(walks[0][0] && walks[1][0] && bypass[walks[0][0].station.crs]?.includes(walks[1][0].station.crs));
   for (let i = 0; i < 2; i++) {
     const far = walks[i], near = walks[1 - i];
     // Boards: the next station on each branch and the couple beyond it, so a
@@ -323,6 +382,7 @@ export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at,
   // "Station Road" on its own identifies nothing; tag it with the nearest station.
   const nearest = [walks[0][0], walks[1][0]].filter(Boolean).sort((a, b) => a.min - b.min)[0];
   const name = tags.name ?? (atStation ? atStation.name : nearest ? `${road} (${nearest.station.name})` : road);
+  const nameFromRoad = !tags.name && !atStation;
   const barrierType = barrierFromTags(tags);
   const lineName = graph.waysByNode.get(nodeId)?.find((w) => w.tags?.name)?.tags.name
     ?? `${walks[1][0]?.station.name ?? '?'} – ${walks[0][0]?.station.name ?? '?'} line`;
@@ -339,6 +399,7 @@ export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at,
     barrierType === 'unknown' ? 'Barrier type not tagged in OSM (closeBeforeSec assumes 60 s).' : null,
     station ? `platformsSide is the station node's bearing from the crossing (${Math.round(distM(p, atStation))} m away); holdDuringDwell unknown.` : null,
     'Run times are track distance at 80 % of line speed plus 30 s.',
+    parallel ? 'On a line paralleled by a faster route between the same stations: trains on the other line never close these barriers, and the boards cannot tell the two apart.' : null,
   ].filter(Boolean).join(' ');
 
   return {
@@ -347,6 +408,7 @@ export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at,
       osm: nodeId,
       generated: true,
       name, road, line: lineName,
+      ...(nameFromRoad ? { nameFromRoad } : {}),
       lat: Math.round((at?.lat ?? p.lat) * 1e5) / 1e5,
       lon: Math.round((at?.lon ?? p.lon) * 1e5) / 1e5,
       barrierType,
@@ -356,6 +418,7 @@ export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at,
       directions,
       times,
       ...(Object.keys(bypass).length ? { bypass } : {}),
+      ...(parallel ? { parallel } : {}),
       notes,
     },
   };

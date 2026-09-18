@@ -1,24 +1,28 @@
 #!/usr/bin/env node
 // Generate registry entries for every road level crossing in a bounding box.
 //
+//   node tools/build-registry.mjs --extract data/cache/osm-uk.json [--bbox S,W,N,E] [--dry-run] [--only id]
 //   node tools/build-registry.mjs --bbox S,W,N,E [--margin 25] [--tile 0.5,1] [--dry-run] [--only id]
 //
-// Crossings come from OpenStreetMap; the surrounding track (bbox + margin) is
-// walked to find the stations either side. Overpass won't serve a whole
-// region's track at once, so --tile splits the box into lat×lon degree tiles
-// fetched and walked one at a time (each with its own margin). Results are merged into
-// data/crossings.json: hand-written entries always win. Overpass responses are
-// cached in data/cache/ because Overpass is slow and flaky.
+// Crossings come from OpenStreetMap; the surrounding track is walked to find
+// the stations either side. The whole-country way is --extract: a JSON file
+// made by tools/extract-osm.mjs from a Geofabrik PBF, read locally in one
+// go. The older way asks Overpass for a bbox (+ margin) — it won't serve a
+// whole region's track at once, so --tile splits the box into lat×lon degree
+// tiles fetched and walked one at a time. Results are merged into
+// data/crossings.json: hand-written entries always win. Overpass responses
+// are cached in data/cache/ because Overpass is slow and flaky.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildGraph, stationIndex, buildEntry, clusterCrossings, isRoadCrossing, mergeRegistry } from './network.mjs';
+import { buildGraph, stationIndex, buildEntry, clusterCrossings, isRoadCrossing, mergeRegistry, matchNR, applyNR } from './network.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REGISTRY = path.join(here, '..', 'data', 'crossings.json');
 const CACHE = path.join(here, '..', 'data', 'cache');
+const NR = path.join(here, '..', 'data', 'source', 'nr-crossings.json');
 
 const UA = 'crossings-registry-builder/0.1 (https://github.com/seb/crossings; level-crossing wait times)';
 const MIRRORS = [
@@ -31,10 +35,12 @@ function args() {
   const a = process.argv.slice(2);
   const get = (k, d) => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : d; };
   const bbox = get('--bbox');
-  if (!bbox) { console.error('usage: build-registry --bbox S,W,N,E [--margin km] [--dry-run] [--only id]'); process.exit(2); }
-  const [s, w, n, e] = bbox.split(',').map(Number);
+  const extract = get('--extract');
+  if (!bbox && !extract) { console.error('usage: build-registry (--extract osm.json | --bbox S,W,N,E [--margin km] [--tile lat,lon]) [--dry-run] [--only id]'); process.exit(2); }
+  const [s, w, n, e] = bbox ? bbox.split(',').map(Number) : [-90, -180, 90, 180];
   const tile = get('--tile');
   return {
+    extract,
     bbox: { s, w, n, e },
     margin: Number(get('--margin', 25)),
     tile: tile ? tile.split(',').map(Number) : null,
@@ -117,8 +123,10 @@ async function fetchNetwork(box) {
 const inBox = (p, b) => p.lat >= b.s && p.lat <= b.n && p.lon >= b.w && p.lon <= b.e;
 
 /** Generate entries for the crossings inside one tile, walking that tile's track. */
-function buildTile(graph, index, crossings, box) {
-  const highwaysAt = (ids) => crossings.highways.filter((w) => w.nodes.some((n) => ids.includes(n)));
+function buildTile(graph, index, crossings, box, nr) {
+  const byNode = new Map();
+  for (const w of crossings.highways) for (const n of w.nodes) (byNode.get(n) ?? byNode.set(n, []).get(n)).push(w);
+  const highwaysAt = (ids) => [...new Set(ids.flatMap((id) => byNode.get(id) ?? []))];
   const generated = [];
   const skipped = {};
   const directCache = new Map();
@@ -131,47 +139,97 @@ function buildTile(graph, index, crossings, box) {
     if (!nodeId) { skipped['not on a running line'] = (skipped['not on a running line'] ?? 0) + 1; continue; }
     const r = buildEntry({ graph, index, nodeId, tags: cluster.primary.tags, highways: hw.filter(isRoadCrossing), at: cluster.at, directCache });
     if (r.skip) { skipped[r.skip] = (skipped[r.skip] ?? 0) + 1; continue; }
-    generated.push(r.entry);
+    const m = matchNR(nr, r.entry);
+    const entry = applyNR(r.entry, m);
+    if (!entry) { skipped[`Network Rail lists it as ${m.type}`] = (skipped[`Network Rail lists it as ${m.type}`] ?? 0) + 1; continue; }
+    generated.push(entry);
   }
   console.error(`generated ${generated.length} crossings; skipped:`, skipped);
   return generated;
 }
 
+/** Whole-country run from a tools/extract-osm.mjs file: one graph, one pass. */
+async function fromExtract({ extract, bbox, dryRun, only }) {
+  const data = JSON.parse(await readFile(extract, 'utf8'));
+  const nr = JSON.parse(await readFile(NR, 'utf8').catch(() => '[]'));
+  console.error(`${data.source} extracted ${data.extracted.slice(0, 10)}: ${data.ways.length} rail ways, ${data.nodes.length} nodes, ${data.stations.length} stations, ${data.crossings.nodes.length} crossing nodes`);
+  const graph = buildGraph([...data.ways, ...data.nodes.map(([id, lat, lon]) => ({ type: 'node', id, lat, lon }))]);
+  const stations = data.stations.map((el) => ({
+    crs: el.tags['ref:crs'].toUpperCase(),
+    name: el.tags.name ?? el.tags['ref:crs'],
+    lat: el.lat ?? el.center.lat,
+    lon: el.lon ?? el.center.lon,
+  }));
+  const index = stationIndex(stations);
+  console.error(`graph: ${graph.nodes.size} nodes`);
+  const generated = buildTile(graph, index, data.crossings, bbox, nr);
+  const existing = JSON.parse(await readFile(REGISTRY, 'utf8'));
+  const { registry, stats } = mergeRegistry(existing, generated);
+  console.error('merge:', stats);
+  return { registry, stats, unique: generated };
+}
+
 async function main() {
-  const { bbox, margin, tile, dryRun, only } = args();
+  const { extract, bbox, margin, tile, dryRun, only } = args();
+  if (extract) return finish(await fromExtract({ extract, bbox, dryRun, only }), { dryRun, only });
   // Stations and crossings are small lists: one query for the whole region.
   // Track is the bulk, so it goes tile by tile (each with its own margin).
   const stations = await fetchStations(grow(bbox, margin));
   const index = stationIndex(stations);
   const crossings = await fetchCrossings(bbox);
+  const nr = JSON.parse(await readFile(NR, 'utf8').catch(() => '[]'));
   console.error(`${stations.length} stations, ${crossings.nodes.length} crossing nodes in the region`);
 
   const boxes = tile ? tiles(bbox, tile) : [bbox];
   const generated = [];
   const failed = [];
-  for (const [i, box] of boxes.entries()) {
-    if (!crossings.nodes.some((n) => inBox(n, box))) continue; // sea, mostly
-    if (boxes.length > 1) console.error(`\n== tile ${i + 1}/${boxes.length}: ${fmt(box)}`);
+  // A crossing exactly on a tile edge can come back from both tiles.
+  const seen = new Set();
+  const unique = () => generated.filter((g) => !seen.has(g.osm) && seen.add(g.osm));
+  // Merge into the registry as we go: a country-sized run takes hours and
+  // Overpass can drop out at any point, so every finished tile is saved.
+  const merge = async () => {
+    const existing = JSON.parse(await readFile(REGISTRY, 'utf8'));
+    const { registry, stats } = mergeRegistry(existing, unique());
+    generated.length = 0;
+    if (!dryRun && !only) await writeFile(REGISTRY, JSON.stringify(registry, null, 1) + '\n');
+    return { registry, stats };
+  };
+  let registry, stats;
+  // Only stations with a CRS code are any use to us, so tiles with none
+  // nearby (sea, and the French coast) are skipped along with empty ones.
+  const hasStation = (box) => stations.some((st) => inBox(st, grow(box, margin)));
+  const queue = boxes.filter((box) => crossings.nodes.some((n) => inBox(n, box)) && hasStation(box));
+  let done = 0;
+  while (queue.length) {
+    const box = queue.shift();
+    if (boxes.length > 1) console.error(`\n== tile ${++done} (${queue.length} to go): ${fmt(box)}`);
     try {
       const graph = await fetchNetwork(grow(box, margin));
       console.error(`graph: ${graph.nodes.size} nodes`);
-      generated.push(...buildTile(graph, index, crossings, box));
+      generated.push(...buildTile(graph, index, crossings, box, nr));
+      if (!only) ({ registry, stats } = await merge(), console.error('merge:', stats));
     } catch (e) {
-      console.error(`tile ${fmt(box)} failed: ${e.message}`);
-      failed.push(fmt(box));
+      // Overpass gives up on big responses when it is busy: try the tile
+      // again as four quarters (with the same margin), down to 1/8 degree.
+      if (box.n - box.s > 0.126) {
+        const quarters = tiles(box, [r3((box.n - box.s) / 2), r3((box.e - box.w) / 2)]);
+        console.error(`tile ${fmt(box)} failed (${e.message.slice(0, 60)}); splitting into ${quarters.length}`);
+        queue.unshift(...quarters.filter((q) => crossings.nodes.some((n) => inBox(n, q))));
+      } else {
+        console.error(`tile ${fmt(box)} failed: ${e.message}`);
+        failed.push(fmt(box));
+      }
     }
   }
   if (failed.length) console.error(`\n${failed.length} tile(s) failed — re-run for: ${failed.join(' ; ')}`);
-  // A crossing exactly on a tile edge can come back from both tiles.
-  const seen = new Set();
-  const unique = generated.filter((g) => !seen.has(g.osm) && seen.add(g.osm));
+  if (only) ({ registry } = await merge());
+  await finish({ registry, written: !dryRun && !only }, { dryRun, only });
+}
 
-  const existing = JSON.parse(await readFile(REGISTRY, 'utf8'));
-  const { registry, stats } = mergeRegistry(existing, unique);
-  console.error('merge:', stats);
-
+async function finish({ registry, written = false }, { dryRun, only }) {
   if (only) {
-    const hit = unique.find((c) => String(c.osm) === only || c.name === only) ?? registry.find((c) => c.id === only);
+    const hit = registry.find((c) => String(c.osm) === only || c.name === only || c.id === only);
     console.log(JSON.stringify(hit, null, 2));
     return;
   }
@@ -181,7 +239,7 @@ async function main() {
     }
     return;
   }
-  await writeFile(REGISTRY, JSON.stringify(registry, null, 1) + '\n');
+  if (!written) await writeFile(REGISTRY, JSON.stringify(registry, null, 1) + '\n');
   console.error(`wrote ${registry.length} crossings to ${path.relative(process.cwd(), REGISTRY)}`);
 }
 
