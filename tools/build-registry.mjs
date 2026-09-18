@@ -17,10 +17,10 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildGraph, stationIndex, buildEntry, clusterCrossings, isRoadCrossing, mergeRegistry, matchNR, applyNR } from './network.mjs';
+import { readRegistry, writeRegistry, GENERATED } from '../src/registry-files.mjs';
+import { buildGraph, stationIndex, buildEntry, clusterCrossings, isRoadCrossing, mergeRegistry, matchNR, applyNR, NR_ROAD_TYPES } from './network.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const REGISTRY = path.join(here, '..', 'data', 'crossings.json');
 const CACHE = path.join(here, '..', 'data', 'cache');
 const NR = path.join(here, '..', 'data', 'source', 'nr-crossings.json');
 
@@ -133,13 +133,24 @@ function buildTile(graph, index, crossings, box, nr) {
   for (const cluster of clusterCrossings(crossings.nodes.filter((n) => inBox(n, box)))) {
     const ids = cluster.members.map((m) => m.id);
     const hw = highwaysAt(ids);
-    if (!hw.some(isRoadCrossing)) { skipped['not a public road'] = (skipped['not a public road'] ?? 0) + 1; continue; }
-    // Any member node on a running line will do for the walk.
-    const nodeId = ids.find((id) => graph.adj.has(id));
-    if (!nodeId) { skipped['not on a running line'] = (skipped['not on a running line'] ?? 0) + 1; continue; }
-    const r = buildEntry({ graph, index, nodeId, tags: cluster.primary.tags, highways: hw.filter(isRoadCrossing), at: cluster.at, directCache });
+    // Network Rail's word beats OSM's road tagging: a CCTV or barrier crossing
+    // on what OSM calls a track or an unnamed service road is still a crossing
+    // people drive over (port and works accesses, farm lanes with gates).
+    const m = matchNR(nr, cluster.at);
+    const nrRoad = m && m.d <= 30 && m.type in NR_ROAD_TYPES;
+    const roads = hw.filter(isRoadCrossing);
+    if (!roads.length && !nrRoad) { skipped['not a public road'] = (skipped['not a public road'] ?? 0) + 1; continue; }
+    // Walk from a member node on a running line — the plain-line one first;
+    // a node on a spur or crossover beside it may lead nowhere.
+    const onLine = ids.filter((id) => graph.adj.has(id));
+    if (!onLine.length) { skipped['not on a running line'] = (skipped['not on a running line'] ?? 0) + 1; continue; }
+    const plain = (id) => (graph.waysByNode.get(id) ?? []).some((w) => !w.tags.service);
+    let r;
+    for (const nodeId of onLine.sort((a, b) => plain(b) - plain(a))) {
+      r = buildEntry({ graph, index, nodeId, tags: cluster.primary.tags, highways: roads.length ? roads : hw, at: cluster.at, directCache });
+      if (!r.skip) break;
+    }
     if (r.skip) { skipped[r.skip] = (skipped[r.skip] ?? 0) + 1; continue; }
-    const m = matchNR(nr, r.entry);
     const entry = applyNR(r.entry, m);
     if (!entry) { skipped[`Network Rail lists it as ${m.type}`] = (skipped[`Network Rail lists it as ${m.type}`] ?? 0) + 1; continue; }
     generated.push(entry);
@@ -163,8 +174,10 @@ async function fromExtract({ extract, bbox, dryRun, only }) {
   const index = stationIndex(stations);
   console.error(`graph: ${graph.nodes.size} nodes`);
   const generated = buildTile(graph, index, data.crossings, bbox, nr);
-  const existing = JSON.parse(await readFile(REGISTRY, 'utf8'));
-  const { registry, stats } = mergeRegistry(existing, generated);
+  // A whole-country run is authoritative: anything generated earlier that it
+  // did not produce again has gone (retagged in OSM, or NR now calls it a
+  // footpath). A --bbox run only touches its box, like the Overpass path.
+  const { registry, stats } = mergeRegistry(readRegistry(), generated, { dropOthers: bbox.s === -90 });
   console.error('merge:', stats);
   return { registry, stats, unique: generated };
 }
@@ -189,10 +202,9 @@ async function main() {
   // Merge into the registry as we go: a country-sized run takes hours and
   // Overpass can drop out at any point, so every finished tile is saved.
   const merge = async () => {
-    const existing = JSON.parse(await readFile(REGISTRY, 'utf8'));
-    const { registry, stats } = mergeRegistry(existing, unique());
+    const { registry, stats } = mergeRegistry(readRegistry(), unique());
     generated.length = 0;
-    if (!dryRun && !only) await writeFile(REGISTRY, JSON.stringify(registry, null, 1) + '\n');
+    if (!dryRun && !only) writeRegistry(registry);
     return { registry, stats };
   };
   let registry, stats;
@@ -239,8 +251,8 @@ async function finish({ registry, written = false }, { dryRun, only }) {
     }
     return;
   }
-  if (!written) await writeFile(REGISTRY, JSON.stringify(registry, null, 1) + '\n');
-  console.error(`wrote ${registry.length} crossings to ${path.relative(process.cwd(), REGISTRY)}`);
+  if (!written) writeRegistry(registry);
+  console.error(`wrote ${registry.length} crossings (${registry.filter((c) => c.generated).length} to ${path.relative(process.cwd(), GENERATED)})`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

@@ -23,10 +23,20 @@ on offline. For live data, get a free key from the
 [Rail Data Marketplace](https://raildata.org.uk) — product
 *Live Arrival and Departure Boards* (LDBWS) — and put it in `.env`.
 
+## The app
+
+The list opens on a map of the country. "Near me" sorts by distance (once
+allowed, it is used quietly on every visit; the last position is remembered
+so the list is in order before the browser answers). The star on a card or
+a crossing page keeps it under "Your crossings" at the top. Both live in the
+browser's localStorage — nothing is sent anywhere.
+
 ## How a crossing is described
 
-`data/crossings.json` is the registry. The code knows nothing about Liss
-specifically; each crossing is data:
+`data/crossings.json` (hand-written, pretty-printed) and
+`data/generated.json` (the generator's output, one entry per line) make up
+the registry. The code knows nothing about Liss specifically; each crossing
+is data:
 
 ```jsonc
 {
@@ -90,18 +100,21 @@ by hand. Those entries carry `"generated": true` and a few extra fields:
 With those, the predictor doesn't need a fixed run time: it finds the train's
 latest leg from a `via` station to a `beyond` station (the board itself
 counts) and places the crossing along that leg in proportion to `times`,
-using the actual departure from the near station once it has left. A leg in
-`bypass`, or one scheduled far quicker than the run via the crossing, means
-the train came round another way. Hand-written entries (no `beyond`) use the
-`references` rule above.
+using the actual departure from the near station once it has left. The
+split allows for the train pulling away from one call and braking into the
+next (~75 s each at 0.4 m/s², covering what ~37 s at speed would), so a
+crossing just outside a station is reached later than a straight split
+says. A leg in `bypass`, or one scheduled far quicker than the run via the
+crossing, means the train came round another way. Hand-written entries (no
+`beyond`) use the `references` rule above.
 
 ## Crossings covered
 
-The whole of Great Britain: 1,272 public road crossings — every one
-OpenStreetMap knows about on a line with National Rail stations either side,
-which is 1,261 of the 1,440 open road crossings on Network Rail's own list
-(the rest are on freight-only or heritage lines, or OSM has the road over
-them tagged as a track). Ten on the Portsmouth line are hand-written; the
+The whole of Great Britain: 1,339 road crossings — every one OpenStreetMap
+knows about on a line with National Rail stations either side, which is
+1,325 of the 1,430 open road crossings on Network Rail's own list (the rest
+are on freight-only or heritage lines, or NR's position is too far from any
+OSM crossing to match). Ten on the Portsmouth line are hand-written; the
 rest are generated.
 
 ### Rebuilding the registry
@@ -119,9 +132,12 @@ node tools/enrich-nr.mjs                                                  # re-m
 stations, crossing nodes and the roads over them (65 MB of JSON). The
 generator then builds one track graph for the country, walks it from each
 crossing to the stations either side, and merges the result into
-`data/crossings.json`. Hand-written entries are never touched and suppress
-generated ones at the same spot; re-running updates generated entries in
-place. Footpath, farm and unnamed depot-access crossings are skipped.
+`data/generated.json`. Hand-written entries are never touched and suppress
+generated ones at the same spot; a whole-country run replaces the generated
+set, a `--bbox` run updates just its box. Footpath, farm and unnamed
+depot-access crossings are skipped — unless Network Rail lists a road
+crossing at that spot, in which case its word wins (port and works
+accesses, gated farm lanes).
 
 The older Overpass path still works for a small area and needs no download:
 
@@ -142,8 +158,9 @@ matched to the nearest NR crossing (within 150 m) and takes its official
 name and protection type from it, which is far more reliable than OSM's
 tagging: CCTV/MCB → full barriers, AHB/ABCL → half, AOCL/OC → open (lights
 only), MG/MWL/TMO → gates. A crossing NR lists as user-worked or footpath is
-dropped even if OSM calls the road public. The record is kept under `nr`
-(with ELR and mileage) and shown on the crossing page.
+dropped even if OSM calls the road public; where NR has a footpath wicket
+and a road crossing at the same spot, the road one is taken. The record is
+kept under `nr` (with ELR and mileage) and shown on the crossing page.
 
 Entries flagged `parallel` sit on a slow line beside a faster one between the
 same stations (Bishton, under the main-line flyover): trains on the other

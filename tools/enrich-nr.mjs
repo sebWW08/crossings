@@ -6,18 +6,18 @@
 //
 //   node tools/enrich-nr.mjs [--dry-run]
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { matchNR, applyNR, NR_ROAD_TYPES } from './network.mjs';
+import { readRegistry, writeRegistry } from '../src/registry-files.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const REGISTRY = path.join(here, '..', 'data', 'crossings.json');
 const NR = path.join(here, '..', 'data', 'source', 'nr-crossings.json');
 
 const dryRun = process.argv.includes('--dry-run');
 const nr = JSON.parse(await readFile(NR, 'utf8'));
-const registry = JSON.parse(await readFile(REGISTRY, 'utf8'));
+const registry = readRegistry();
 
 const stats = { matched: 0, unmatched: 0, dropped: 0, hand: 0, typeChanged: 0 };
 const out = registry.flatMap((c) => {
@@ -38,4 +38,4 @@ const out = registry.flatMap((c) => {
   return [e];
 });
 console.error(stats);
-if (!dryRun) await writeFile(REGISTRY, JSON.stringify(out, null, 1) + '\n');
+if (!dryRun) writeRegistry(out);

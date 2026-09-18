@@ -55,7 +55,9 @@ export function buildGraph(elements) {
   const ways = [];
   for (const el of elements) {
     if (el.type === 'node') nodes.set(el.id, { lat: el.lat, lon: el.lon, tags: el.tags });
-    else if (el.type === 'way' && el.tags?.railway === 'rail' && !/^(yard|siding|spur)$/.test(el.tags.service ?? '')) ways.push(el);
+    // Spurs stay: OSM tags some passenger branches that way (Felixstowe), and
+    // a spur with no station beyond it drops out in the walk anyway.
+    else if (el.type === 'way' && el.tags?.railway === 'rail' && !/^(yard|siding)$/.test(el.tags.service ?? '')) ways.push(el);
   }
   const adj = new Map();
   const waysByNode = new Map();
@@ -202,7 +204,7 @@ export function sides(graph, nodeId) {
 
 // ---------- entry assembly ----------
 
-const round = (x, step) => Math.round(x / step) * step;
+const round = (x, step) => Number((Math.round(x / step) * step).toFixed(3)); // toFixed: 61 * 0.1 is 6.1000000000000005
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export function barrierFromTags(tags = {}) {
@@ -224,8 +226,11 @@ export const NR_ROAD_TYPES = {
   AHB: 'half', 'AHB-X': 'half', ABCL: 'half', 'ABCL-X': 'half', AOCLB: 'half',
   AOCL: 'open', AOCR: 'open', OC: 'open', OD: 'open',
   MGH: 'gates', MG: 'gates', MGW: 'gates', MWLG: 'gates', MWLB: 'gates', MWLO: 'gates', MWLW: 'gates',
-  MBW: 'gates', MBWM: 'gates', TMOB: 'gates', TMOG: 'gates', TOB: 'gates', TOG: 'gates', WG: 'gates', WAG: 'gates',
+  MBW: 'gates', MBWM: 'gates', TMOB: 'gates', TMOG: 'gates', TOB: 'gates', TOG: 'gates',
 };
+// WG / WAG (wicket gates) and the FP* / UWC* types are the pedestrian gates
+// beside a road crossing or standalone footpath / farm crossings; NR lists
+// them as separate records, often within a metre of the road one.
 
 /**
  * Nearest Network Rail crossing of any type to a point, or null. Road types
@@ -234,14 +239,15 @@ export const NR_ROAD_TYPES = {
  * really a farm track or footpath (see applyNR).
  */
 export function matchNR(nr, at, { withinM = 150, otherWithinM = 30 } = {}) {
-  let best = null;
+  let road = null, other = null;
   for (const c of nr) {
     if (Math.abs(c.lat - at.lat) > 0.003 || Math.abs(c.lon - at.lon) > 0.005) continue;
-    if (!(c.type in NR_ROAD_TYPES) && distM(c, at) > otherWithinM) continue;
     const d = distM(c, at);
-    if (d <= withinM && (!best || d < best.d)) best = { ...c, d: Math.round(d) };
+    if (c.type in NR_ROAD_TYPES) { if (d <= withinM && (!road || d < road.d)) road = { ...c, d: Math.round(d) }; }
+    else if (d <= otherWithinM && (!other || d < other.d)) other = { ...c, d: Math.round(d) };
   }
-  return best;
+  // The road record wins over a footpath wicket at the same spot.
+  return road ?? other;
 }
 
 /**
@@ -454,12 +460,12 @@ export function slug(s) {
  * untouched (and suppress generated ones at the same spot), previously
  * generated entries keep their ids, everything else gets a fresh unique slug.
  */
-export function mergeRegistry(existing, generated, { nearM = 60 } = {}) {
+export function mergeRegistry(existing, generated, { nearM = 60, dropOthers = false } = {}) {
   const hand = existing.filter((c) => !c.generated);
   const prior = new Map(existing.filter((c) => c.generated).map((c) => [c.osm, c]));
   const ids = new Set(hand.map((c) => c.id));
   const out = [...hand];
-  const stats = { kept: hand.length, updated: 0, added: 0, suppressed: 0 };
+  const stats = { kept: hand.length, updated: 0, added: 0, suppressed: 0, dropped: 0 };
   for (const g of generated) {
     if (hand.some((h) => distM(h, g) < nearM)) { stats.suppressed++; continue; }
     const before = prior.get(g.osm);
@@ -475,7 +481,9 @@ export function mergeRegistry(existing, generated, { nearM = 60 } = {}) {
   }
   // Untouched generated entries from earlier runs (outside this run's box) stay.
   for (const [osm, c] of prior) {
-    if (!generated.some((g) => g.osm === osm) && !ids.has(c.id)) { out.push(c); ids.add(c.id); stats.kept++; }
+    if (generated.some((g) => g.osm === osm) || ids.has(c.id)) continue;
+    if (dropOthers) { stats.dropped++; continue; }
+    out.push(c); ids.add(c.id); stats.kept++;
   }
   return { registry: out, stats };
 }

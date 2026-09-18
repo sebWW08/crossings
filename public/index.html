@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111827">
+  <meta name="theme-color" content="#0b1220">
   <title>Crossings</title>
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="top">
-    <a href="#/" class="brand">Crossings</a>
+    <a href="#/" class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 8l24 16M28 8L4 24" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+      Crossings
+    </a>
     <span id="live-badge" class="badge" hidden></span>
   </header>
-  <main id="app" class="wrap"><p class="muted">Loading…</p></main>
+  <div class="stripe" aria-hidden="true"></div>
+  <main id="app"><p class="wrap muted">Loading…</p></main>
   <footer class="wrap muted small">
     Estimates from live train running data, not from the barriers themselves. Never rely on this at the crossing — obey the lights.
   </footer>

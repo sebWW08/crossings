@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { predict, mergeClosures, crossingLeg } from '../src/predict.js';
+import { predict, mergeClosures, crossingLeg, legFraction, fromStop } from '../src/predict.js';
 import { parseClock, resolveCall, fmtClock } from '../src/time.js';
 import { mockBoard } from '../src/mock.js';
 import { getCrossing, expandBoards } from '../src/registry.js';
@@ -197,7 +197,7 @@ test('crossingLeg: latest near→beyond leg, loop legs rejected by schedule', ()
   const leg = crossingLeg(gen, dir, svc, [{ crs: 'WWW', st: at(-8) }, { crs: 'XXX', st: at(-2) }]);
   assert.equal(leg.x.crs, 'XXX');
   assert.equal(leg.y.crs, 'YYY');
-  assert.ok(Math.abs(leg.frac - 0.4) < 1e-9);
+  assert.ok(Math.abs(leg.frac - legFraction(2, 3)) < 1e-9);
   // Passed beyond then came back round a loop: X→Y in 1 min can't be via the crossing (5 min).
   assert.equal(crossingLeg(gen, dir, { sta: at(-1), eta: 'On time' }, [{ crs: 'XXX', st: at(-2) }]), null);
   // A pair the generator marked as a loop shortcut is never a crossing.
@@ -208,7 +208,18 @@ test('crossingLeg: latest near→beyond leg, loop legs rejected by schedule', ()
   // Non-stop from W straight to the board: W→Y is the leg.
   const fast = crossingLeg(gen, dir, { sta: at(3), eta: 'On time' }, [{ crs: 'WWW', st: at(-8) }]);
   assert.equal(fast.x.crs, 'WWW');
-  assert.ok(Math.abs(fast.frac - 8 / 11) < 1e-9);
+  assert.ok(Math.abs(fast.frac - legFraction(8, 3)) < 1e-9);
+});
+
+test('legFraction: pulling away and braking push the crossing moment towards the middle of the leg', () => {
+  // Continuous through the accelerating zone, and 37.5 s extra beyond it.
+  assert.ok(Math.abs(fromStop(0.625) - 1.25) < 1e-9);
+  assert.ok(Math.abs(fromStop(10) - 10.625) < 1e-9);
+  assert.ok(fromStop(0.1) > 0.1 && fromStop(0.1) < 0.6);
+  // 1 min out of a 11-min leg: a straight split says 9 %, with the start from rest it is 13 %.
+  assert.ok(Math.abs(legFraction(1, 10) - 1.625 / 12.25) < 1e-9);
+  assert.equal(legFraction(5, 5), 0.5);
+  assert.equal(legFraction(0, 0), 0.5);
 });
 
 test('generated entry: crossing time interpolated along the leg, deduped across boards', () => {
@@ -222,7 +233,8 @@ test('generated entry: crossing time interpolated along the leg, deduped across 
   const m = p.movements[0];
   assert.equal(m.basis, 'XXX→YYY');
   assert.equal(m.actual, true);
-  // Departed X at −2, due Y at +3 → crossing at −2 + 5 × 0.4 = 0 → close at −60 s.
-  assert.equal(m.closeAt, now.getTime() - 60_000);
-  assert.equal(m.openAt, now.getTime() + 30_000);
+  // Departed X at −2, due Y at +3 → crossing at −2 + 5 × legFraction(2, 3) min.
+  const cross = now.getTime() - 120_000 + 300_000 * legFraction(2, 3);
+  assert.equal(m.closeAt, cross - 60_000);
+  assert.equal(m.openAt, cross + 30_000);
 });

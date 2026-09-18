@@ -57,9 +57,26 @@ export function crossingLeg(crossing, dir, svc, prev) {
       const run = tx + ty;
       if (legMin < 0.5 * run || legMin > 2 * run + 5) return null;
     }
-    return { x, y, frac: tx + ty > 0 ? tx / (tx + ty) : 0.5 };
+    return { x, y, frac: legFraction(tx, ty) };
   }
   return null;
+}
+
+// X and Y are consecutive calls, so the train pulls away from X and brakes
+// into Y. At ~0.4 m/s² to ~30 m/s each takes ~75 s and covers only what
+// ~37 s at speed would, so a crossing just outside a station is reached
+// later than a straight split of the leg says, and one just before the
+// next station sooner.
+const ACCEL_MIN = 0.625;
+/** Minutes to cover `u` minutes' worth of track (at cruising speed) from, or to, a stop. */
+export function fromStop(u) {
+  return u >= ACCEL_MIN ? u + ACCEL_MIN : 2 * Math.sqrt(u * ACCEL_MIN);
+}
+/** Where along the scheduled leg X→Y the crossing falls, tx / ty being track minutes at speed. */
+export function legFraction(tx, ty) {
+  if (!(tx + ty > 0)) return 0.5;
+  const a = fromStop(tx), b = fromStop(ty);
+  return a / (a + b);
 }
 
 /** Old rule for hand-written entries: it called somewhere on the near side. */

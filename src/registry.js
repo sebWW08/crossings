@@ -1,9 +1,5 @@
-import { readFileSync, statSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const file = path.join(here, '..', 'data', 'crossings.json');
+import { statSync } from 'node:fs';
+import { readRegistry, HAND, GENERATED } from './registry-files.mjs';
 
 /**
  * A generated direction lists several `boards` (the next few stations, so
@@ -24,18 +20,19 @@ export function expandBoards(crossing) {
   return { ...crossing, directions };
 }
 
-// The registry is re-read whenever the file changes, so a long generator
-// run (or a hand edit) shows up without restarting the server.
-let loadedAt = 0;
+// The registry is re-read whenever either file changes, so a generator run
+// (or a hand edit) shows up without restarting the server.
+let loadedAt = '';
 /** @type {Array<import('./types').Crossing>} */
 let list = [];
 let byId = new Map();
+const mtime = (f) => { try { return statSync(f).mtimeMs; } catch { return 0; } };
 function load() {
-  const mtime = statSync(file).mtimeMs;
-  if (mtime === loadedAt) return;
-  list = JSON.parse(readFileSync(file, 'utf8')).map(expandBoards);
+  const stamp = `${mtime(HAND)}/${mtime(GENERATED)}`;
+  if (stamp === loadedAt) return;
+  list = readRegistry().map(expandBoards);
   byId = new Map(list.map((c) => [c.id, c]));
-  loadedAt = mtime;
+  loadedAt = stamp;
 }
 
 export function allCrossings() {

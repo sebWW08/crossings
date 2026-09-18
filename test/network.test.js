@@ -122,7 +122,7 @@ test('mergeRegistry keeps hand entries, reuses ids, suppresses duplicates of han
     { osm: 9, generated: true, name: 'Liss', lat: 51.3, lon: -0.4 },        // name clash only
   ];
   const { registry, stats } = mergeRegistry([hand, oldGen, farAway], gen);
-  assert.deepEqual(stats, { kept: 2, updated: 1, added: 1, suppressed: 1 });
+  assert.deepEqual(stats, { kept: 2, updated: 1, added: 1, suppressed: 1, dropped: 0 });
   assert.deepEqual(registry.map((c) => c.id).sort(), ['elsewhere', 'liss', 'liss-2', 'mill-lane']);
   assert.equal(registry.find((c) => c.id === 'mill-lane').name, 'Mill Lane (renamed)');
 });
