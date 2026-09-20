@@ -7,6 +7,7 @@ import { boardsFor, live } from './src/darwin.js';
 import { predict } from './src/predict.js';
 import { cleanReport, tooSoon, record } from './src/feedback.mjs';
 import * as stats from './src/stats.mjs';
+import { cardPng, W as CARD_W, H as CARD_H } from './src/card.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(here, 'public');
@@ -132,6 +133,7 @@ async function page(url, req, res) {
   }
   stats.landing(req, kind);
   const canonical = `${SITE}${url.pathname}`;
+  const image = `${SITE}/og/${kind === 'crossing' ? id : 'crossings'}.png`;
   const head = [
     `<title>${escHtml(title)}</title>`,
     `<meta name="description" content="${escHtml(description)}">`,
@@ -141,7 +143,12 @@ async function page(url, req, res) {
     `<meta property="og:title" content="${escHtml(title)}">`,
     `<meta property="og:description" content="${escHtml(description)}">`,
     `<meta property="og:url" content="${escHtml(canonical)}">`,
-    `<meta name="twitter:card" content="summary">`,
+    `<meta property="og:image" content="${escHtml(image)}">`,
+    `<meta property="og:image:width" content="${CARD_W}">`,
+    `<meta property="og:image:height" content="${CARD_H}">`,
+    `<meta property="og:image:alt" content="${escHtml(title)}">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<meta name="twitter:image" content="${escHtml(image)}">`,
   ].join('\n  ');
   const html = indexHtml.replace(/<title>[^<]*<\/title>/, head);
   res.writeHead(status, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-cache' });
@@ -160,6 +167,15 @@ async function serveStatic(url, req, res) {
   if (rel === '/sitemap.xml') return sitemap(res);
   if (rel === '/robots.txt') { res.writeHead(200, { 'content-type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE}/sitemap.xml\n`); }
   if (rel === '/' || /^\/[a-z0-9-]+$/.test(rel)) return page(url, req, res);
+  const og = /^\/og\/([a-z0-9-]+)\.png$/.exec(rel);
+  if (og) {
+    // The link-preview picture. Nothing live on it, so it can be cached hard.
+    const crossing = og[1] === 'crossings' ? null : getCrossing(og[1]);
+    if (og[1] !== 'crossings' && !crossing) { res.writeHead(404).end('not found'); return; }
+    const png = cardPng(crossing);
+    res.writeHead(200, { 'content-type': 'image/png', 'content-length': png.length, 'cache-control': 'public, max-age=604800' });
+    return res.end(png);
+  }
   const file = path.normalize(path.join(PUBLIC, rel));
   if (!file.startsWith(PUBLIC + path.sep)) {
     res.writeHead(403).end();

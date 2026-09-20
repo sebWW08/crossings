@@ -17,7 +17,8 @@ npm start                # http://localhost:3000
 npm test
 ```
 
-Node 22+, no dependencies. Without `DARWIN_API_KEY` the app runs on a
+Node 22+; the only dependency is the SVG rasteriser for link-preview
+pictures. Without `DARWIN_API_KEY` the app runs on a
 synthetic clock-face timetable (badged "demo data") so the UI can be worked
 on offline. For live data, get a free key from the
 [Rail Data Marketplace](https://raildata.org.uk) — product
@@ -39,6 +40,13 @@ chat gets a preview and a search for the crossing's name can find it.
 `/sitemap.xml` lists them all. The app still routes itself once loaded;
 old `#/milford` links are carried over.
 
+The preview picture (`/og/milford.png`, 1200×630) is drawn per crossing —
+"Is the barrier down at MILFORD?" over its road and line, in the site's
+own type — by `src/card.mjs` from an SVG, rasterised with
+`@resvg/resvg-js` (the one dependency) and the vendored Barlow Condensed
+font (`assets/`, OFL). Nothing live is on it: chat apps cache previews for
+hours, and a stale "open" under our name would be worse than no picture.
+
 `/api/stats` is a cookieless count of use, per day: people per crossing
 (a phone polling every 30 s is one person — a salted hash of address and
 browser that changes daily and is never stored), how they arrived (a
@@ -51,7 +59,7 @@ the log each day, since the host's disk does not survive a deploy.
 
 `render.yaml` describes the site for [Render](https://render.com)'s free
 tier: connect the GitHub repo as a Blueprint, set `DARWIN_API_KEY` in the
-dashboard, done. It is one Node process with no build step; `PORT` is
+dashboard, done. It is one Node process (build step: `npm ci`); `PORT` is
 honoured and `/api/health` answers the health check. The free instance
 sleeps after 15 minutes idle — `.github/workflows/keepalive.yml` pings it
 every 10 minutes so a shared link never lands on a 50 s cold start — and
