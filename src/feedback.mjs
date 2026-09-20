@@ -27,6 +27,12 @@ export function cleanReport(body, crossing, now = Date.now()) {
     predictedAt: num(body.predictedAt),   // the closure edge the page was counting to (ms epoch)
     closeAt: num(body.closeAt),           // the closure that was current or next…
     openAt: num(body.openAt),             // …so the error can be measured later
+    trains: Array.isArray(body.trains)    // what the page thought was coming: length, held, basis
+      ? body.trains.slice(0, 4).map((t) => ({
+        id: String(t?.id ?? '').slice(0, 40), basis: String(t?.basis ?? '').slice(0, 40),
+        coaches: num(t?.coaches), assumed: !!t?.assumed, held: !!t?.held,
+      }))
+      : [],
     dataAge: num(body.dataAge),           // ms since the page last refreshed
     live: !!body.live,
     ua: String(body.ua ?? '').slice(0, 120),

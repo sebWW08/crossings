@@ -359,7 +359,9 @@ const ARROWS = { north: '↑', northeast: '↗', east: '→', southeast: '↘', 
 
 function trainLine(t) {
   const arrow = ARROWS[t.direction] ?? '·';
-  return `<div class="train"><span class="dir">${arrow}</span>${esc(t.destination ?? t.towards)} <span class="kind">· ${t.stops ? 'stopping' : 'non-stop'}${t.operator ? ` · ${esc(t.operator)}` : ''}</span>${t.uncertain ? '<span class="unc">delayed, time uncertain</span>' : ''}</div>`;
+  const coaches = t.coaches ? ` · ${t.coaches} coaches${t.coachesAssumed ? ' (assumed)' : ''}` : '';
+  const held = t.held ? '<span class="unc">stands over the road — barriers stay down until it leaves</span>' : '';
+  return `<div class="train"><span class="dir">${arrow}</span>${esc(t.destination ?? t.towards)} <span class="kind">· ${t.stops ? 'stopping' : 'non-stop'}${coaches}${t.operator ? ` · ${esc(t.operator)}` : ''}</span>${held}${t.uncertain ? '<span class="unc">delayed, time uncertain</span>' : ''}</div>`;
 }
 
 function closureBlock(c) {
@@ -427,6 +429,8 @@ function bindVerify(id) {
       const report = {
         crossing: id, observed: b.dataset.observed, predicted: st.kind, predictedAt: st.at,
         closeAt: next?.closeAt ?? null, openAt: next?.openAt ?? null,
+        // …and the trains behind it, so a wrong length assumption can be told from a wrong run time.
+        trains: (next?.trains ?? []).slice(0, 4).map((t) => ({ id: t.serviceId, basis: t.basis, coaches: t.coaches, assumed: t.coachesAssumed, held: t.held })),
         dataAge: Date.now() + skew - state.now, live: state.live, ua: navigator.userAgent,
       };
       box.querySelectorAll('button').forEach((x) => { x.disabled = true; });

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { predict, mergeClosures, crossingLeg, legFraction, fromStop } from '../src/predict.js';
+import { predict, mergeClosures, crossingLeg, legFraction, fromStop, stationWindow, trainCoaches } from '../src/predict.js';
 import { parseClock, resolveCall, fmtClock } from '../src/time.js';
 import { mockBoard } from '../src/mock.js';
 import { getCrossing, expandBoards } from '../src/registry.js';
@@ -83,11 +83,15 @@ test('stopping southbound train: platforms before the barriers, so keyed off dep
   const m = predict(liss, boards, now).movements[0];
   assert.equal(m.stops, true);
   assert.equal(m.basis, 'LIS departure');
-  assert.equal(m.closeAt, now.getTime() + 10 * 60_000 - 90_000);
-  assert.equal(m.openAt, now.getTime() + 10 * 60_000 + 30_000);
+  assert.equal(m.held, false);
+  const dep = now.getTime() + 10 * 60_000;
+  // Platforms start 11 m from the road: the front is on it ~7 s after moving off.
+  assert.ok(Math.abs(m.closeAt - (dep + 7_000 - 90_000)) < 1500);
+  // 11 m + 12 coaches (240 m) to clear at 0.5 m/s² ≈ 32 s, then 30 s.
+  assert.ok(Math.abs(m.openAt - (dep + 32_000 + 30_000)) < 1500, `got +${(m.openAt - dep) / 1000}s`);
 });
 
-test('stopping northbound train: crosses before reaching the platform, so keyed off arrival', () => {
+test('stopping northbound train: crosses before reaching the platform; a 12-car then stands on the road', () => {
   const boards = {
     PTR: { trainServices: [] },
     HSL: { trainServices: [{
@@ -101,10 +105,91 @@ test('stopping northbound train: crosses before reaching the platform, so keyed 
     }] },
   };
   const m = predict(liss, boards, now).movements[0];
-  assert.equal(m.basis, 'LIS arrival');
-  const arr = now.getTime() + 10 * 60_000 - liss.station.dwellSec * 1000;
-  assert.equal(m.closeAt, arr - 90_000);
-  assert.equal(m.openAt, arr + 30_000);
+  const dep = now.getTime() + 10 * 60_000;
+  const arr = dep - liss.station.dwellSec * 1000;
+  // Front reaches the road ~27 s before stopping 180 m beyond it.
+  assert.ok(Math.abs(m.closeAt - (arr - 27_000 - 90_000)) < 1500);
+  // 12 coaches assumed (Darwin gives SWR no length) in 170 m of room: the
+  // rear stands on the road, so the barriers hold until it leaves.
+  assert.equal(m.held, true);
+  assert.equal(m.coachesAssumed, true);
+  assert.equal(m.basis, 'LIS departure');
+  assert.ok(m.openAt > dep + 30_000);
+});
+
+// Milford: platforms 19–212 m north of the road, so a northbound train
+// crosses first and stops beyond. Whether the barriers lift while it stands
+// depends on whether its rear is clear of the road.
+const milford = {
+  id: 'm', closeBeforeSec: 40, openAfterSec: 15,
+  station: { crs: 'MLF', platformsSide: 'north', platformStartM: 19, platformEndM: 212, assumeCoaches: 12, holdDuringDwell: false, dwellSec: 40 },
+};
+const north = { key: 'north', enters: 'south' };
+const south = { key: 'south', enters: 'north' };
+const dep = now.getTime() + 8 * 60_000;
+const arr = dep - 40_000;
+const call = (length) => ({ crs: 'MLF', st: at(8), et: 'On time', length });
+
+test('trainCoaches: Darwin first, then the registry assumption, and 0 means unknown', () => {
+  assert.deepEqual(trainCoaches({ length: 0 }, { length: 8 }, milford.station), { coaches: 8, assumed: false });
+  assert.deepEqual(trainCoaches({ length: 10 }, { length: 0 }, milford.station), { coaches: 10, assumed: false });
+  assert.deepEqual(trainCoaches({ length: 0 }, { length: 0 }, milford.station), { coaches: 12, assumed: true });
+  assert.deepEqual(trainCoaches({}, {}, { crs: 'X' }), { coaches: null, assumed: true });
+});
+
+test('a train longer than the platform room beyond the road holds the barriers until it leaves', () => {
+  const w = stationWindow(milford, north, call(12), now, { length: 12 });
+  assert.equal(w.held, true);
+  assert.equal(w.basis, 'MLF departure');
+  // Front reaches the road ~29 s before it stops (212 m at 0.5 m/s²), barriers 40 s before that.
+  assert.ok(Math.abs(w.closeAt - (arr - 29_000 - 40_000)) < 1500, 'closes as the front approaches');
+  // 240 m train, 202 m of room: 38 m still on the road; ~12 s to pull clear, then 15 s.
+  assert.ok(w.openAt > dep + 25_000 && w.openAt < dep + 30_000, `opens after departure, got +${(w.openAt - dep) / 1000}s`);
+});
+
+test('a train that fits beyond the road lifts the barriers while it stands', () => {
+  const w = stationWindow(milford, north, call(8), now, { length: 8 });
+  assert.equal(w.held, false);
+  assert.equal(w.basis, 'MLF arrival');
+  // 160 m train, 212 m to the stop: the rear is past the road ~14 s before it stops.
+  assert.ok(Math.abs(w.openAt - (arr - 14_000 + 15_000)) < 1500, `got ${(w.openAt - arr) / 1000}s after arrival`);
+  assert.ok(w.openAt > w.closeAt + 40_000);
+});
+
+test('unknown length falls back to the registry assumption, and is marked as assumed', () => {
+  const w = stationWindow(milford, north, call(0), now, { length: 0 });
+  assert.equal(w.coaches, 12);
+  assert.equal(w.coachesAssumed, true);
+  assert.equal(w.held, true);
+});
+
+test('with no assumption the train is taken to fill the platform', () => {
+  const st = { ...milford.station, assumeCoaches: undefined };
+  const w = stationWindow({ ...milford, station: st }, north, call(0), now, { length: 0 });
+  assert.equal(w.coaches, null);
+  assert.equal(w.held, false); // 193 m train, 19 m gap: clear of the road
+  const tight = stationWindow({ ...milford, station: { ...st, platformStartM: 4 } }, north, call(0), now, { length: 0 });
+  assert.equal(tight.held, true); // platform starts at the road: the rear sits on it
+});
+
+test('stopping then crossing: the rear clears after the gap plus its own length', () => {
+  const w = stationWindow(milford, south, call(8), now, { length: 8 });
+  assert.equal(w.held, false);
+  assert.equal(w.basis, 'MLF departure');
+  // 19 m gap: front on the road ~9 s after moving off, barriers 40 s before that.
+  assert.ok(Math.abs(w.closeAt - (dep + 9_000 - 40_000)) < 1500);
+  // 179 m to clear at 0.5 m/s² ≈ 27 s, then 15 s.
+  assert.ok(w.openAt > dep + 40_000 && w.openAt < dep + 44_000, `got +${(w.openAt - dep) / 1000}s`);
+});
+
+test('a station with no platform measurements keeps the fixed offsets', () => {
+  const bare = { ...milford, station: { crs: 'MLF', platformsSide: 'north', holdDuringDwell: false, dwellSec: 40 } };
+  const w = stationWindow(bare, north, call(0), now, { length: 0 });
+  assert.equal(w.closeAt, arr - 40_000);
+  assert.equal(w.openAt, arr + 15_000);
+  const w2 = stationWindow(bare, south, call(0), now, { length: 0 });
+  assert.equal(w2.closeAt, dep - 40_000);
+  assert.equal(w2.openAt, dep + 15_000);
 });
 
 test('the same train on two boards for one direction is counted once', () => {

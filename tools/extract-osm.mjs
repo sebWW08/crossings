@@ -31,6 +31,7 @@ const stationNodes = [];            // { id, lat, lon, tags }
 const stationWays = [];             // { id, nodes, tags }
 const railWays = [];                // { id, nodes, tags }
 const highways = [];                // roads through a crossing node
+const platformWays = [];            // { id, nodes } — railway platforms, for where trains stop relative to a road
 const nodeBlocks = [];              // { offset, min, max } — dense node id ranges per block
 const needed = new Set();
 
@@ -53,12 +54,15 @@ for await (const { offset, block } of blocks(src, { onProgress: progress('pass 1
     } else if (isStation(tags)) {
       stationWays.push({ id, nodes: refs, tags });
       for (const r of refs) needed.add(r);
+    } else if (tags.railway === 'platform' || (tags.public_transport === 'platform' && tags.train === 'yes')) {
+      platformWays.push({ id, nodes: refs });
+      for (const r of refs) needed.add(r);
     } else if (tags.highway && refs.some((r) => crossingIds.has(r))) {
       highways.push({ type: 'way', id, nodes: refs, tags });
     }
   });
 }
-console.error(`\n${railWays.length} rail ways, ${stationNodes.length}+${stationWays.length} stations, ${crossingNodes.length} crossing nodes, ${highways.length} roads over them; ${needed.size} coordinates to fetch`);
+console.error(`\n${railWays.length} rail ways, ${stationNodes.length}+${stationWays.length} stations, ${platformWays.length} platforms, ${crossingNodes.length} crossing nodes, ${highways.length} roads over them; ${needed.size} coordinates to fetch`);
 
 // ---------- pass 2: coordinates ----------
 const sorted = Float64Array.from(needed).sort();
@@ -80,12 +84,19 @@ for (const w of stationWays) {
   stations.push({ type: 'way', id: w.id, center: { lat: pts.reduce((s, p) => s + p[0], 0) / pts.length, lon: pts.reduce((s, p) => s + p[1], 0) / pts.length }, tags: w.tags });
 }
 
+// Platforms keep just their outline: the generator projects the points onto
+// the track to find where a stopping train's ends are relative to a road.
+const platforms = platformWays
+  .map((w) => ({ id: w.id, pts: w.nodes.map((n) => coords.get(n)).filter(Boolean).map(([lat, lon]) => [Math.round(lat * 1e6) / 1e6, Math.round(lon * 1e6) / 1e6]) }))
+  .filter((p) => p.pts.length >= 2);
+
 const out = {
   source: src.split('/').pop(),
   extracted: new Date().toISOString(),
   ways: railWays,
   nodes: [...coords].map(([id, [lat, lon]]) => [id, Math.round(lat * 1e7) / 1e7, Math.round(lon * 1e7) / 1e7]),
   stations,
+  platforms,
   crossings: { nodes: crossingNodes, highways },
 };
 await writeFile(dst, JSON.stringify(out));

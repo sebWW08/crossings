@@ -106,8 +106,25 @@ function describe(dir, svc, prev, stops) {
   };
 }
 
+// A stopping train at a station crossing: where it stops relative to the
+// road decides what the barriers do. Distances are along the track from the
+// road; a train pulls away from, or brakes to, a stand at about 0.5 m/s².
+const COACH_M = 20;      // a 20 m coach is the common case (450, 377, 150…); 23 m stock runs a bit long
+const CLEAR_M = 10;      // rear wheels this close beyond the road still hold the barriers down
+const ACCEL = 0.5;       // m/s², from and to a stand
+const secsToCover = (m) => Math.sqrt((2 * Math.max(0, m)) / ACCEL);
+
+/** Coaches in a train: Darwin's word for this calling point, then the
+ *  service, then what the registry assumes here. Darwin says 0 when it
+ *  doesn't know (all of SWR, at the time of writing). */
+export function trainCoaches(svc, call, station) {
+  for (const n of [call?.length, svc?.length]) if (Number(n) > 0) return { coaches: Number(n), assumed: false };
+  if (station?.assumeCoaches > 0) return { coaches: station.assumeCoaches, assumed: true };
+  return { coaches: null, assumed: true };
+}
+
 /** Barrier window for a train that calls at the station on the crossing. */
-function stationWindow(crossing, dir, stopCall, now) {
+export function stationWindow(crossing, dir, stopCall, now, svc = null) {
   const st = crossing.station;
   const r = resolveCall(stopCall, now);
   if (!r) return null;
@@ -115,17 +132,44 @@ function stationWindow(crossing, dir, stopCall, now) {
   const dep = r.time.getTime();
   const arr = dep - st.dwellSec * 1000;
   const stationBefore = st.platformsSide === dir.enters;
-  let closeAt, openAt;
+  const closeBefore = crossing.closeBeforeSec * 1000;
+  const openAfter = crossing.openAfterSec * 1000;
+  const { coaches, assumed } = trainCoaches(svc, stopCall, st);
+  // Without platform measurements the old fixed offsets apply.
+  const S = st.platformStartM ?? 0;                  // road → nearest platform end
+  const E = st.platformEndM ?? null;                 // road → far end, where the front stops
+  // Train length: known, assumed, or "fills the platform".
+  const L = coaches ? coaches * COACH_M : E != null ? E - S : null;
+  const extra = { coaches, coachesAssumed: assumed, held: false };
+  let closeAt, openAt, basis;
   if (stationBefore) {
-    // Train sits in the platform, then crosses on departure.
-    closeAt = (st.holdDuringDwell ? arr : dep) - crossing.closeBeforeSec * 1000;
-    openAt = dep + crossing.openAfterSec * 1000;
+    // Stands in the platform, then pulls away over the road: the front
+    // reaches it after covering the gap, the rear clears after the gap plus
+    // the train's own length.
+    const roadAt = dep + secsToCover(S) * 1000;
+    closeAt = (st.holdDuringDwell ? arr : roadAt) - closeBefore;
+    openAt = dep + (L != null ? secsToCover(S + L) * 1000 : 0) + openAfter;
+    basis = `${st.crs} departure`;
+    extra.held = Boolean(st.holdDuringDwell);
   } else {
-    // Train crosses, then stops: barriers lift once it is in the platform.
-    closeAt = arr - crossing.closeBeforeSec * 1000;
-    openAt = arr + crossing.openAfterSec * 1000;
+    // Crosses the road while braking, then stops with its front E beyond it.
+    const roadAt = E != null ? arr - secsToCover(E) * 1000 : arr;
+    closeAt = roadAt - closeBefore;
+    const overhang = E != null && L != null ? L - (E - CLEAR_M) : null;
+    if (st.holdDuringDwell || overhang > 0) {
+      // Longer than the room beyond the road: its rear stands on the crossing
+      // for the whole stop, and the barriers stay down until it has pulled clear.
+      openAt = dep + (overhang > 0 ? secsToCover(overhang) * 1000 : 0) + openAfter;
+      basis = `${st.crs} departure`;
+      extra.held = true;
+    } else {
+      // The rear passes the road while the train is still braking in.
+      const tailAt = overhang != null ? arr - secsToCover(E - L) * 1000 : arr;
+      openAt = tailAt + openAfter;
+      basis = `${st.crs} arrival`;
+    }
   }
-  return { closeAt, openAt, basis: `${st.crs} ${stationBefore ? 'departure' : 'arrival'}`, uncertain: r.uncertain, actual: r.actual };
+  return { closeAt, openAt, basis, uncertain: r.uncertain, actual: r.actual, ...extra };
 }
 
 /**
@@ -138,7 +182,7 @@ function timeByLeg(crossing, dir, svc, prev, now) {
   if (!leg) return null;
   const st = crossing.station;
   if (st && leg.x.crs === st.crs) {
-    const w = stationWindow(crossing, dir, leg.x, now);
+    const w = stationWindow(crossing, dir, leg.x, now, svc);
     return w && { ...describe(dir, svc, prev, true), ...w };
   }
   const rx = resolveCall(leg.x, now), ry = resolveCall(leg.y, now);
@@ -166,7 +210,7 @@ function timeMovement(crossing, dir, svc, prev, now) {
   const base = describe(dir, svc, prev, Boolean(stopCall));
 
   if (stopCall) {
-    const w = stationWindow(crossing, dir, stopCall, now);
+    const w = stationWindow(crossing, dir, stopCall, now, svc);
     return w && { ...base, ...w };
   }
 

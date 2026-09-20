@@ -56,6 +56,8 @@ is data:
   "openAfterSec": 30,            // …and lift this long after it has passed
   "station": {                   // only if the crossing sits at a station
     "crs": "LIS", "platformsSide": "south",   // which side of the road the platforms are
+    "platformStartM": 19, "platformEndM": 212, // road → nearest / farthest platform end, along the track
+    "assumeCoaches": 12,                       // train length to assume when Darwin gives none
     "holdDuringDwell": false, "dwellSec": 40  // are barriers kept down while it stands?
   },
   "directions": [{
@@ -86,7 +88,19 @@ board read, two boards per crossing, cached 30 s.
 - Stopping train, platforms before the barriers: crosses on **departure**
   (barriers are assumed to stay up while it stands, unless `holdDuringDwell`).
 - Stopping train, platforms after the barriers: crosses on **arrival**
-  (departure time − `dwellSec`), barriers lift once it is in the platform.
+  (departure time − `dwellSec`), barriers lift once it is in the platform —
+  *unless the train is longer than the room beyond the road*, in which case
+  its rear stands on the crossing and the barriers stay down until it leaves.
+- Where the registry has platform measurements (`platformStartM`,
+  `platformEndM`) the fixed offsets give way to a little physics: a train
+  pulls away from, or brakes to, a stand at ~0.5 m/s², so the front reaches
+  the road √(2·gap/0.5) s after departure (or before the stop), and the rear
+  clears it once the gap plus the train's length has been covered. Train
+  length is Darwin's `length` (coaches × 20 m) when it is given, else the
+  entry's `assumeCoaches`, else "fills the platform". Darwin gives no
+  length for SWR trains, so on the Portsmouth line the assumption matters:
+  Milford was seen with a 12-car standing across Station Lane for its whole
+  stop (2026-09-19, via "was this right?"), which the old rule showed as open.
 - Windows within 45 s of each other merge into one closure.
 - `et: "Delayed"` marks the closure *uncertain* in the UI; cancelled trains are dropped.
 
@@ -140,7 +154,7 @@ node tools/enrich-nr.mjs                                                  # re-m
 
 `tools/pbf.mjs` is a small dependency-free reader for the OSM PBF format;
 `extract-osm.mjs` streams the file twice and keeps just the running lines,
-stations, crossing nodes and the roads over them (65 MB of JSON). The
+stations, platforms, crossing nodes and the roads over them (~70 MB of JSON). The
 generator then builds one track graph for the country, walks it from each
 crossing to the stations either side, and merges the result into
 `data/generated.json`. Hand-written entries are never touched and suppress
@@ -190,7 +204,7 @@ OpenStreetMap; run times are worked out from track distance:
 | Princes Bridge | Andlers Ash Road, Liss | half (AHB) | per Network Rail's list |
 | Liss | Station Road (B3006) | full | Portsmouth end of the platforms |
 | Mill Road | Mill Road, Liss | half (AHB) | NR name: Liss Common |
-| Milford | Station Lane | half (AHB) | at Milford station, which end is a guess |
+| Milford | Station Lane | half (AHB) | south end of Milford station; a 12-car stands across the road |
 | Farncombe | Farncombe Street | full | Godalming end of the platforms |
 | Bourne Road | Bourne Road, Farncombe | full | Guildford end of the platforms |
 
@@ -199,9 +213,13 @@ OpenStreetMap; run times are worked out from track distance:
 Each registry entry carries a `notes` field with its open questions. The
 recurring ones:
 
-- `platformsSide` — which end of the platforms the road is on, taken from the
-  crossing's position relative to OSM's station node (unreliable when the
-  crossing is within ~50 m of it, as at Milford).
+- `platformsSide` / `platformStartM` / `platformEndM` — from OSM's platform
+  ways projected onto the track either side of the road. Where OSM has no
+  platforms drawn, the side falls back to the station node's bearing
+  (unreliable when the crossing is within ~50 m of it) and the distances are
+  left out, so the old fixed offsets apply.
+- Train length where Darwin gives none (`assumeCoaches`): the difference
+  between a train that clears the road while it stands and one that doesn't.
 - `holdDuringDwell` — whether the signaller keeps the barriers down while a
   train stands in the platform before crossing.
 - Barrier type at Sheet, Princes Bridge and Mill Road after Network Rail's

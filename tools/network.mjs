@@ -113,6 +113,88 @@ export function stationIndex(stations, radiusM = 150) {
   };
 }
 
+// ---------- platforms ----------
+
+/** Platform ways (railway=platform) bucketed by ~500 m cell, so those near a
+ *  crossing are found without scanning the country. Each is { id, pts: [[lat,lon],…] }. */
+export function platformIndex(platforms, radiusM = 500) {
+  const cell = (radiusM / 111_000) * 2;
+  const grid = new Map();
+  const key = (la, lo) => la * 1_000_000 + lo;
+  for (const pl of platforms) {
+    const cells = new Set(pl.pts.map(([lat, lon]) => key(Math.floor(lat / cell), Math.floor(lon / cell))));
+    for (const k of cells) (grid.get(k) ?? grid.set(k, []).get(k)).push(pl);
+  }
+  return {
+    near(p) {
+      const la = Math.floor(p.lat / cell), lo = Math.floor(p.lon / cell);
+      const out = new Set();
+      for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const pl of grid.get(key(la + i, lo + j)) ?? []) out.add(pl);
+      return [...out];
+    },
+  };
+}
+
+/** Track out from `nodeId` along one side's first hops, as segments with
+ *  their distance from the crossing, up to `maxM` of track. Every branch
+ *  is followed: a platform on a loop line beside the crossing still counts. */
+export function trackSegments(graph, nodeId, edges, maxM = 500, heading = null) {
+  const segs = [];
+  const seen = new Set([nodeId]);
+  const queue = edges.map((e) => ({ from: nodeId, e, d0: 0 }));
+  while (queue.length) {
+    const { from, e, d0 } = queue.shift();
+    if (seen.has(e.to)) continue;
+    const a = graph.nodes.get(from), b = graph.nodes.get(e.to);
+    // A crossover lets the walk turn round and come back down the other
+    // track; anything heading back towards the crossing is not this side.
+    if (heading != null && angleBetween(bearing(a, b), heading) > 120) continue;
+    seen.add(e.to);
+    segs.push({ a, b, d0, len: e.len });
+    if (d0 + e.len < maxM) for (const n of graph.adj.get(e.to) ?? []) if (!seen.has(n.to)) queue.push({ from: e.to, e: n, d0: d0 + e.len });
+  }
+  return segs;
+}
+
+/**
+ * Where a station's platforms lie relative to the road: for each side of
+ * the crossing, the nearest and farthest platform ends measured along the
+ * track (the far end is where the front of a stopping train ends up).
+ * Platform points more than `lateralM` from the track are somebody else's.
+ * Returns [{ startM, endM }|null, …] in the order of `split`.
+ */
+export function platformExtent(graph, nodeId, split, platforms, { maxM = 500, lateralM = 25 } = {}) {
+  const p = graph.nodes.get(nodeId);
+  const kx = 111_320 * Math.cos(toRad(p.lat)), ky = 111_320;
+  const xy = (q) => [((q.lon ?? q[1]) - p.lon) * kx, ((q.lat ?? q[0]) - p.lat) * ky];
+  return split.map((side) => {
+    const segs = trackSegments(graph, nodeId, side.edges, maxM, side.bearing).map((s) => {
+      const [ax, ay] = xy(s.a), [bx, by] = xy(s.b);
+      return { ax, ay, dx: bx - ax, dy: by - ay, d0: s.d0, len: s.len };
+    });
+    let startM = Infinity, endM = -Infinity;
+    for (const pl of platforms) {
+      for (const pt of pl.pts) {
+        // A point beside the road on the other side would project onto this
+        // side's first segment at 0 m; it has to lie this way from the road.
+        if (angleBetween(bearing(p, { lat: pt[0], lon: pt[1] }), side.bearing) > 90) continue;
+        const [x, y] = xy(pt);
+        for (const s of segs) {
+          const l2 = s.dx * s.dx + s.dy * s.dy;
+          if (!l2) continue;
+          const t = Math.max(0, Math.min(1, ((x - s.ax) * s.dx + (y - s.ay) * s.dy) / l2));
+          const lat = Math.hypot(x - (s.ax + t * s.dx), y - (s.ay + t * s.dy));
+          if (lat > lateralM) continue;
+          const along = s.d0 + t * Math.sqrt(l2);
+          if (along < startM) startM = along;
+          if (along > endM) endM = along;
+        }
+      }
+    }
+    return endM > startM + 20 ? { startM: Math.round(startM), endM: Math.round(endM) } : null;
+  });
+}
+
 // ---------- the walk ----------
 
 /**
@@ -294,7 +376,7 @@ export function isRoadCrossing(highway) {
  * @param {object[]} p.highways  highway ways through the crossing
  * @param {{lat:number,lon:number}} p.at  display position
  */
-export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at, today = new Date(), directCache = new Map() }) {
+export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at, today = new Date(), directCache = new Map(), platforms = [] }) {
   const p = graph.nodes.get(nodeId);
   if (!p) return { skip: 'crossing node is not on a running line' };
   const split = sides(graph, nodeId);
@@ -393,17 +475,38 @@ export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at,
   const lineName = graph.waysByNode.get(nodeId)?.find((w) => w.tags?.name)?.tags.name
     ?? `${walks[1][0]?.station.name ?? '?'} – ${walks[0][0]?.station.name ?? '?'} line`;
 
-  let station = null;
+  let station = null, platformNote = null;
   if (atStation) {
-    const b = bearing(p, atStation);
-    const side = angleBetween(b, split[0].bearing) < angleBetween(b, split[1].bearing) ? keys[0] : keys[1];
-    station = { crs: atStation.crs, name: atStation.name, platformsSide: side, holdDuringDwell: false, dwellSec: 40 };
+    // Which side the platforms are on, and how far they reach, from OSM's
+    // platform ways beside the track: that is what decides whether a
+    // stopping train's rear is still on the road while it stands. Without
+    // platforms, the station node's bearing is the best guess.
+    // A platform starting further off than that belongs to the next station.
+    const ext = (platforms.length ? platformExtent(graph, nodeId, split, platforms) : [null, null]).map((e) => (e && e.startM <= 300 ? e : null));
+    const start = (e) => (e ? e.startM : Infinity);
+    let side;
+    if (ext[0] || ext[1]) {
+      const i = start(ext[0]) <= start(ext[1]) ? 0 : 1;
+      side = keys[i];
+      // Platforms starting at the road on both sides: the station straddles
+      // it and a stopping train stands across it whichever way it faces.
+      const straddles = Boolean(ext[1 - i] && ext[1 - i].startM < 60);
+      platformNote = `Platforms ${ext[i].startM}–${ext[i].endM} m ${keys[i]} of the road (OSM)`
+        + (straddles ? `, and ${ext[1 - i].startM}–${ext[1 - i].endM} m ${keys[1 - i]}: trains stand across the road` : '')
+        + '.';
+      station = { crs: atStation.crs, name: atStation.name, platformsSide: side, platformStartM: ext[i].startM, platformEndM: ext[i].endM, holdDuringDwell: straddles, dwellSec: 40 };
+    } else {
+      const b = bearing(p, atStation);
+      side = angleBetween(b, split[0].bearing) < angleBetween(b, split[1].bearing) ? keys[0] : keys[1];
+      platformNote = `platformsSide is the station node's bearing from the crossing (${Math.round(distM(p, atStation))} m away); no platform geometry in OSM.`;
+      station = { crs: atStation.crs, name: atStation.name, platformsSide: side, holdDuringDwell: false, dwellSec: 40 };
+    }
   }
 
   const notes = [
     `Generated from OpenStreetMap ${today.toISOString().slice(0, 10)}; nothing checked on site.`,
     barrierType === 'unknown' ? 'Barrier type not tagged in OSM (closeBeforeSec assumes 60 s).' : null,
-    station ? `platformsSide is the station node's bearing from the crossing (${Math.round(distM(p, atStation))} m away); holdDuringDwell unknown.` : null,
+    platformNote,
     'Run times are track distance at 80 % of line speed plus 30 s.',
     parallel ? 'On a line paralleled by a faster route between the same stations: trains on the other line never close these barriers, and the boards cannot tell the two apart.' : null,
   ].filter(Boolean).join(' ');

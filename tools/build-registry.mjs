@@ -18,7 +18,7 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readRegistry, writeRegistry, GENERATED } from '../src/registry-files.mjs';
-import { buildGraph, stationIndex, buildEntry, clusterCrossings, isRoadCrossing, mergeRegistry, matchNR, applyNR, NR_ROAD_TYPES } from './network.mjs';
+import { buildGraph, stationIndex, platformIndex, buildEntry, clusterCrossings, isRoadCrossing, mergeRegistry, matchNR, applyNR, NR_ROAD_TYPES } from './network.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const CACHE = path.join(here, '..', 'data', 'cache');
@@ -113,6 +113,13 @@ async function fetchCrossings(box) {
   };
 }
 
+async function fetchPlatforms(box) {
+  const raw = await overpass(`[out:json][timeout:180];
+      way["railway"="platform"](${fmt(box)});
+      out geom;`, 'platforms');
+  return raw.elements.filter((el) => el.geometry?.length >= 2).map((el) => ({ id: el.id, pts: el.geometry.map((g) => [g.lat, g.lon]) }));
+}
+
 async function fetchNetwork(box) {
   const raw = await overpass(`[out:json][timeout:300][maxsize:1073741824];
       way["railway"="rail"]["service"!~"^(yard|siding|spur)$"](${fmt(box)});
@@ -123,7 +130,7 @@ async function fetchNetwork(box) {
 const inBox = (p, b) => p.lat >= b.s && p.lat <= b.n && p.lon >= b.w && p.lon <= b.e;
 
 /** Generate entries for the crossings inside one tile, walking that tile's track. */
-function buildTile(graph, index, crossings, box, nr) {
+function buildTile(graph, index, crossings, box, nr, platforms = platformIndex([])) {
   const byNode = new Map();
   for (const w of crossings.highways) for (const n of w.nodes) (byNode.get(n) ?? byNode.set(n, []).get(n)).push(w);
   const highwaysAt = (ids) => [...new Set(ids.flatMap((id) => byNode.get(id) ?? []))];
@@ -147,7 +154,7 @@ function buildTile(graph, index, crossings, box, nr) {
     const plain = (id) => (graph.waysByNode.get(id) ?? []).some((w) => !w.tags.service);
     let r;
     for (const nodeId of onLine.sort((a, b) => plain(b) - plain(a))) {
-      r = buildEntry({ graph, index, nodeId, tags: cluster.primary.tags, highways: roads.length ? roads : hw, at: cluster.at, directCache });
+      r = buildEntry({ graph, index, nodeId, tags: cluster.primary.tags, highways: roads.length ? roads : hw, at: cluster.at, directCache, platforms: platforms.near(cluster.at) });
       if (!r.skip) break;
     }
     if (r.skip) { skipped[r.skip] = (skipped[r.skip] ?? 0) + 1; continue; }
@@ -173,7 +180,9 @@ async function fromExtract({ extract, bbox, dryRun, only }) {
   }));
   const index = stationIndex(stations);
   console.error(`graph: ${graph.nodes.size} nodes`);
-  const generated = buildTile(graph, index, data.crossings, bbox, nr);
+  const platforms = platformIndex(data.platforms ?? []);
+  if (!data.platforms) console.error('extract has no platforms (re-run tools/extract-osm.mjs): platformsSide will be guessed from station nodes');
+  const generated = buildTile(graph, index, data.crossings, bbox, nr, platforms);
   // A whole-country run is authoritative: anything generated earlier that it
   // did not produce again has gone (retagged in OSM, or NR now calls it a
   // footpath). A --bbox run only touches its box, like the Overpass path.
@@ -219,7 +228,7 @@ async function main() {
     try {
       const graph = await fetchNetwork(grow(box, margin));
       console.error(`graph: ${graph.nodes.size} nodes`);
-      generated.push(...buildTile(graph, index, crossings, box, nr));
+      generated.push(...buildTile(graph, index, crossings, box, nr, platformIndex(await fetchPlatforms(grow(box, margin)))));
       if (!only) ({ registry, stats } = await merge(), console.error('merge:', stats));
     } catch (e) {
       // Overpass gives up on big responses when it is busy: try the tile

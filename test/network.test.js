@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildGraph, stationIndex, buildEntry, clusterCrossings, mergeRegistry, lineSpeedMps, compass, isRoadCrossing } from '../tools/network.mjs';
+import { buildGraph, stationIndex, buildEntry, clusterCrossings, mergeRegistry, lineSpeedMps, compass, isRoadCrossing, platformExtent, sides } from '../tools/network.mjs';
 
 // A west–east line with a junction east of the crossing:
 //
@@ -100,6 +100,47 @@ test('a station at the crossing goes into station{} and both via lists', () => {
   assert.equal(entry.name, 'X');
   assert.ok(['east', 'west'].includes(entry.station.platformsSide));
   for (const d of entry.directions) assert.equal(d.via[0], 'XXX');
+});
+
+// Platforms drawn beside the line: 20–200 m east of the crossing, offset
+// 5 m north of the track, plus a stray one 300 m away sideways.
+function platformsEastOf(p) {
+  const kx = 111_320 * Math.cos((p.lat * Math.PI) / 180), ky = 111_320;
+  const at = (dxM, dyM) => [p.lat + dyM / ky, p.lon + dxM / kx];
+  return [
+    { id: 1, pts: [at(20, 5), at(200, 5)] },
+    { id: 2, pts: [at(20, -5), at(110, -5), at(110, -8), at(20, -8)] }, // shorter one as an area
+    { id: 3, pts: [at(50, 300), at(150, 300)] },                        // not this line
+    { id: 4, pts: [at(-400, 5), at(-700, 5)] },                         // the next station west, longer
+  ];
+}
+
+test('platformExtent measures platform ends along the track, per side', () => {
+  const { elements, crossingNode } = toy();
+  const graph = buildGraph(elements);
+  const p = graph.nodes.get(crossingNode);
+  const split = sides(graph, crossingNode);
+  const ext = platformExtent(graph, crossingNode, split, platformsEastOf(p));
+  const east = split[0].bearing < 180 ? 0 : 1; // whichever side of the split points east
+  assert.ok(ext[east], 'platforms found east');
+  assert.ok(Math.abs(ext[east].startM - 20) <= 2 && Math.abs(ext[east].endM - 200) <= 2, JSON.stringify(ext[east]));
+  assert.ok(ext[1 - east] && ext[1 - east].startM >= 398, 'the next station is measured too…');
+});
+
+test('a station with platforms gets platformsSide and distances from them, not the node bearing', () => {
+  const { elements, stations, crossingNode } = toy();
+  const graph = buildGraph(elements);
+  const p = graph.nodes.get(crossingNode);
+  // Station node placed WEST of the road, platforms EAST: geometry wins.
+  const index = stationIndex([...stations, { crs: 'XXX', name: 'X', lat: p.lat, lon: p.lon - 0.0008 }]);
+  const args = { graph, index, nodeId: crossingNode, tags: {}, highways: [{ tags: { highway: 'residential', name: 'Station Road' } }] };
+  assert.equal(buildEntry(args).entry.station.platformsSide, 'west');
+  const { entry } = buildEntry({ ...args, platforms: platformsEastOf(p) });
+  assert.equal(entry.station.platformsSide, 'east'); // …but the nearest platforms are this station's
+  assert.ok(Math.abs(entry.station.platformStartM - 20) <= 2);
+  assert.ok(Math.abs(entry.station.platformEndM - 200) <= 2);
+  assert.equal(entry.station.holdDuringDwell, false);
+  assert.match(entry.notes, /Platforms 2\d–\d{3} m east/);
 });
 
 test('clusterCrossings merges the per-track node pair', () => {

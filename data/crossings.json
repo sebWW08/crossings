@@ -13,6 +13,9 @@
    "crs": "BDH",
    "name": "Bedhampton",
    "platformsSide": "west",
+   "platformStartM": 27,
+   "platformEndM": 173,
+   "assumeCoaches": 12,
    "holdDuringDwell": false,
    "dwellSec": 40
   },
@@ -145,7 +148,7 @@
     ]
    }
   ],
-  "notes": "Full-barrier crossing immediately east (Havant side) of the platforms. Also used by Fareham–Havant trains that never call at Portsmouth. platformsSide/holdDuringDwell need confirming on site.",
+  "notes": "Full-barrier crossing immediately east (Havant side) of the platforms, which run 27–173 m west of it (OSM). Also used by Fareham–Havant trains that never call at Portsmouth. 12 coaches assumed when Darwin gives no length: a westbound 12-car would stand with its rear on the road — confirm on site.",
   "nr": {
    "uid": 2222,
    "name": "Bedhampton",
@@ -171,6 +174,9 @@
    "crs": "PTR",
    "name": "Petersfield",
    "platformsSide": "south",
+   "platformStartM": 7,
+   "platformEndM": 302,
+   "assumeCoaches": 12,
    "holdDuringDwell": false,
    "dwellSec": 40
   },
@@ -264,7 +270,7 @@
     ]
    }
   ],
-  "notes": "Full-barrier crossing at the London end of the platforms. Rebuilt with new barriers in autumn 2025.",
+  "notes": "Full-barrier crossing at the London end of the platforms, which run 7–302 m south of it (OSM) — long enough for a 12-car to clear the road. Rebuilt with new barriers in autumn 2025.",
   "nr": {
    "uid": 2386,
    "name": "Petersfield",
@@ -616,6 +622,9 @@
    "crs": "LIS",
    "name": "Liss",
    "platformsSide": "north",
+   "platformStartM": 11,
+   "platformEndM": 180,
+   "assumeCoaches": 12,
    "holdDuringDwell": false,
    "dwellSec": 40
   },
@@ -704,7 +713,7 @@
     ]
    }
   ],
-  "notes": "Full-barrier crossing at the Portsmouth end of the platforms (OSM puts it ~85 m south-west of the station). holdDuringDwell needs confirming on site.",
+  "notes": "Full-barrier crossing at the Portsmouth end of the platforms, which run 11–180 m north of it (OSM). A southbound train crosses then stops; with 12 coaches assumed (Darwin gives SWR no length) its rear stands on the road and the barriers are shown held until it leaves — an 8-car clears. Worth checking on site: does a southbound stopper keep the barriers down for its whole stop?",
   "nr": {
    "uid": 2220,
    "name": "Liss",
@@ -836,7 +845,10 @@
   "station": {
    "crs": "MLF",
    "name": "Milford",
-   "platformsSide": "south",
+   "platformsSide": "north",
+   "platformStartM": 19,
+   "platformEndM": 212,
+   "assumeCoaches": 12,
    "holdDuringDwell": false,
    "dwellSec": 40
   },
@@ -930,7 +942,7 @@
     ]
    }
   ],
-  "notes": "Automatic half barriers at Milford station. Which end of the platforms the road is on is a guess (platformsSide) — confirm on site.",
+  "notes": "Automatic half barriers at the south end of Milford station: platforms run 19–212 m north of the road (OSM). A northbound train crosses, then stops; anything longer than ~10 coaches stands with its rear on the crossing, so the barriers stay down until it leaves — seen with a 12-car on 2026-09-19 (reported via the app), hence assumeCoaches 12 while Darwin gives no length for SWR.",
   "nr": {
    "uid": 2171,
    "name": "Milford",
@@ -956,6 +968,9 @@
    "crs": "FNC",
    "name": "Farncombe",
    "platformsSide": "north",
+   "platformStartM": 16,
+   "platformEndM": 267,
+   "assumeCoaches": 12,
    "holdDuringDwell": false,
    "dwellSec": 40
   },
@@ -1044,7 +1059,7 @@
     ]
    }
   ],
-  "notes": "Full-barrier crossing at the Godalming end of the platforms.",
+  "notes": "Full-barrier crossing at the Godalming end of the platforms, which run 16–267 m north of it (OSM): a 12-car just clears the road.",
   "nr": {
    "uid": 2385,
    "name": "Farncombe West",
@@ -1070,6 +1085,9 @@
    "crs": "FNC",
    "name": "Farncombe",
    "platformsSide": "south",
+   "platformStartM": 98,
+   "platformEndM": 365,
+   "assumeCoaches": 12,
    "holdDuringDwell": false,
    "dwellSec": 40
   },
@@ -1158,7 +1176,7 @@
     ]
    }
   ],
-  "notes": "Full-barrier crossing at the Guildford end of Farncombe station, 330 m from the Farncombe Street crossing.",
+  "notes": "Full-barrier crossing at the Guildford end of Farncombe station, 330 m from the Farncombe Street crossing; the platforms end 98 m short of it (OSM), so a northbound train is on the road ~20 s after pulling away.",
   "nr": {
    "uid": 2219,
    "name": "Farncombe East",
