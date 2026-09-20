@@ -97,10 +97,12 @@ export function stationIndex(stations, radiusM = 150) {
   }
   return {
     radiusM,
-    near(p) {
+    /** Nearest station within `r` metres (default: the index radius). */
+    near(p, r = radiusM) {
       const la = Math.floor(p.lat / cell), lo = Math.floor(p.lon / cell);
-      let best = null, bestD = radiusM;
-      for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
+      let best = null, bestD = r;
+      const span = Math.ceil(r / (cell * 111_000)) + 1;
+      for (let i = -span; i <= span; i++) for (let j = -span; j <= span; j++) {
         const bucket = grid.get(key(la + i, lo + j));
         if (!bucket) continue;
         for (const s of bucket) {
@@ -296,6 +298,16 @@ export function barrierFromTags(tags = {}) {
   return 'unknown';
 }
 export const CLOSE_BEFORE = { full: 90, half: 40, gates: 120, open: 30, unknown: 60 };
+// A signaller-controlled crossing (CCTV, MCB, gates) closes when the
+// signaller needs the protecting signal clear, well ahead of the train:
+// seen at East Boldon as 3+ minutes for a non-stop, and at Liss, East
+// Boldon and Fen Road as "down before a stopping train even reaches the
+// platform" (via the app's "was this right?" taps, 19–20 Sep 2026). An
+// automatic one (AHB, ABCL, AOCL) is struck in by the train itself, so its
+// timing is fixed and short.
+export const SIGNALLER_TYPES = /^(CCTV|MCB|MCB\/MB|MCBOD|MCBR|MCB-CCTV|AFBCL|MG[HW]?|MWL[GBOW]|MBWM?|TMO[BG]|TO[BG])$/;
+export const CLOSE_BEFORE_SIGNALLER = 150;
+export const controlOf = (nrType) => (nrType ? (SIGNALLER_TYPES.test(nrType) ? 'signaller' : 'automatic') : 'unknown');
 
 // ---------- Network Rail's level crossing list ----------
 // data/source/nr-crossings.json: every crossing on the NR network with its
@@ -345,11 +357,19 @@ export function applyNR(entry, nr) {
   const official = nr.name.replace(/\s+(CCTV|MCB[^\s]*|AHB(-X)?|ABCL(-X)?|AOCL[^\s]*|AOCR|AFBCL|OC|OD|MG[HW]?|MWL[GBOW]|MBWM?|TMO[BG]|TO[BG]|WA?G)$/i, '').trim();
   const name = entry.nameFromRoad && official ? official : entry.name;
   const { nameFromRoad, ...rest } = entry;
+  const control = controlOf(nr.type);
+  // Signaller-controlled: barriers down through a station stop, and a
+  // longer lead for trains passing through. Straddling platforms hold anyway.
+  const station = rest.station
+    ? { ...rest.station, holdDuringDwell: rest.station.holdDuringDwell || control === 'signaller' }
+    : undefined;
   return {
     ...rest,
+    ...(station ? { station } : {}),
     name,
     barrierType,
-    closeBeforeSec: CLOSE_BEFORE[barrierType],
+    control,
+    closeBeforeSec: control === 'signaller' && barrierType === 'full' ? CLOSE_BEFORE_SIGNALLER : CLOSE_BEFORE[barrierType],
     nr: { uid: nr.uid, name: nr.name, type: nr.type, status: nr.status, elr: nr.elr, miles: nr.miles, chains: nr.chains, distM: nr.d },
     notes: `${rest.notes.replace(/ Barrier type not tagged in OSM[^.]*\./, '')} Barrier type from Network Rail's crossing list (${nr.type}, ${nr.d} m from the OSM node).`,
   };
@@ -376,16 +396,39 @@ export function isRoadCrossing(highway) {
  * @param {object[]} p.highways  highway ways through the crossing
  * @param {{lat:number,lon:number}} p.at  display position
  */
+/** How far off a station's platforms may start and still count as "at" the crossing. */
+const NEAR_STATION_M = 400;
+
 export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at, today = new Date(), directCache = new Map(), platforms = [] }) {
   const p = graph.nodes.get(nodeId);
   if (!p) return { skip: 'crossing node is not on a running line' };
   const split = sides(graph, nodeId);
   if (!split) return { skip: 'crossing is at a dead end' };
 
-  // A station right at the crossing belongs to both directions.
-  const atStation = index.near(p);
-  const exclude = new Set(atStation ? [atStation.crs] : []);
+  // A station right at the crossing belongs to both directions. So does one
+  // a few hundred metres off whose platforms reach towards the road (Fen
+  // Road, 300 m south of Cambridge North): trains stand there with the
+  // barriers already down, which is a station stop as far as the road is
+  // concerned, not a train passing through.
+  let atStation = index.near(p);
+  let nearExt = null;
+  if (!atStation && platforms.length) {
+    const ext = platformExtent(graph, nodeId, split, platforms);
+    const i = ext.findIndex((e) => e && e.startM <= NEAR_STATION_M);
+    if (i >= 0) {
+      const cand = index.near(p, NEAR_STATION_M + 150);
+      if (cand && angleBetween(bearing(p, cand), split[i].bearing) < 90) { atStation = cand; nearExt = ext; }
+    }
+  }
+  let exclude = new Set(atStation ? [atStation.crs] : []);
   let walks = split.map((s) => walk(graph, index, nodeId, s.edges, { exclude }));
+  // A terminus a few hundred metres off (King's Lynn, Hampton Court) is the
+  // only station on its side: attaching it would leave that side with no
+  // board to read, so it stays the far-side station instead.
+  if (nearExt && walks.some((w) => !w.length)) {
+    atStation = null; nearExt = null; exclude = new Set();
+    walks = split.map((s) => walk(graph, index, nodeId, s.edges, { exclude }));
+  }
   // Loops (Hounslow, Kingston…) let a walk reach the same station from both
   // sides; it belongs to the side it is nearer from.
   const minOn = walks.map((w) => new Map(w.map((f) => [f.station.crs, f.min])));
@@ -482,7 +525,7 @@ export function buildEntry({ graph, index, nodeId, tags = {}, highways = [], at,
     // stopping train's rear is still on the road while it stands. Without
     // platforms, the station node's bearing is the best guess.
     // A platform starting further off than that belongs to the next station.
-    const ext = (platforms.length ? platformExtent(graph, nodeId, split, platforms) : [null, null]).map((e) => (e && e.startM <= 300 ? e : null));
+    const ext = (nearExt ?? (platforms.length ? platformExtent(graph, nodeId, split, platforms) : [null, null])).map((e) => (e && e.startM <= NEAR_STATION_M ? e : null));
     const start = (e) => (e ? e.startM : Infinity);
     let side;
     if (ext[0] || ext[1]) {

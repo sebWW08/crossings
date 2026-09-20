@@ -7,7 +7,8 @@
   "lat": 50.85412,
   "lon": -0.99582,
   "barrierType": "full",
-  "closeBeforeSec": 90,
+  "closeBeforeSec": 150,
+  "control": "signaller",
   "openAfterSec": 30,
   "station": {
    "crs": "BDH",
@@ -16,7 +17,7 @@
    "platformStartM": 27,
    "platformEndM": 173,
    "assumeCoaches": 12,
-   "holdDuringDwell": false,
+   "holdDuringDwell": true,
    "dwellSec": 40
   },
   "directions": [
@@ -168,7 +169,8 @@
   "lat": 51.00701,
   "lon": -0.94084,
   "barrierType": "full",
-  "closeBeforeSec": 90,
+  "closeBeforeSec": 150,
+  "control": "signaller",
   "openAfterSec": 30,
   "station": {
    "crs": "PTR",
@@ -177,7 +179,7 @@
    "platformStartM": 7,
    "platformEndM": 302,
    "assumeCoaches": 12,
-   "holdDuringDwell": false,
+   "holdDuringDwell": true,
    "dwellSec": 40
   },
   "directions": [
@@ -291,6 +293,7 @@
   "lon": -0.92926,
   "barrierType": "half",
   "closeBeforeSec": 40,
+  "control": "automatic",
   "openAfterSec": 15,
   "directions": [
    {
@@ -398,6 +401,7 @@
   "lon": -0.92536,
   "barrierType": "half",
   "closeBeforeSec": 40,
+  "control": "automatic",
   "openAfterSec": 30,
   "directions": [
    {
@@ -505,6 +509,7 @@
   "lon": -0.90111,
   "barrierType": "half",
   "closeBeforeSec": 40,
+  "control": "automatic",
   "openAfterSec": 30,
   "directions": [
    {
@@ -616,7 +621,8 @@
   "lat": 51.04332,
   "lon": -0.89336,
   "barrierType": "full",
-  "closeBeforeSec": 90,
+  "closeBeforeSec": 150,
+  "control": "signaller",
   "openAfterSec": 30,
   "station": {
    "crs": "LIS",
@@ -625,7 +631,7 @@
    "platformStartM": 11,
    "platformEndM": 180,
    "assumeCoaches": 12,
-   "holdDuringDwell": false,
+   "holdDuringDwell": true,
    "dwellSec": 40
   },
   "directions": [
@@ -734,6 +740,7 @@
   "lon": -0.88383,
   "barrierType": "half",
   "closeBeforeSec": 40,
+  "control": "automatic",
   "openAfterSec": 30,
   "directions": [
    {
@@ -841,6 +848,7 @@
   "lon": -0.637,
   "barrierType": "half",
   "closeBeforeSec": 40,
+  "control": "automatic",
   "openAfterSec": 15,
   "station": {
    "crs": "MLF",
@@ -962,7 +970,8 @@
   "lat": 51.19607,
   "lon": -0.6058,
   "barrierType": "full",
-  "closeBeforeSec": 90,
+  "closeBeforeSec": 150,
+  "control": "signaller",
   "openAfterSec": 30,
   "station": {
    "crs": "FNC",
@@ -971,7 +980,7 @@
    "platformStartM": 16,
    "platformEndM": 267,
    "assumeCoaches": 12,
-   "holdDuringDwell": false,
+   "holdDuringDwell": true,
    "dwellSec": 40
   },
   "directions": [
@@ -1079,7 +1088,8 @@
   "lat": 51.19857,
   "lon": -0.6024,
   "barrierType": "full",
-  "closeBeforeSec": 90,
+  "closeBeforeSec": 150,
+  "control": "signaller",
   "openAfterSec": 30,
   "station": {
    "crs": "FNC",
@@ -1088,7 +1098,7 @@
    "platformStartM": 98,
    "platformEndM": 365,
    "assumeCoaches": 12,
-   "holdDuringDwell": false,
+   "holdDuringDwell": true,
    "dwellSec": 40
   },
   "directions": [

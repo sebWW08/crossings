@@ -55,6 +55,7 @@ export function summarise(c) {
     lat: c.lat,
     lon: c.lon,
     barrierType: c.barrierType,
+    control: c.control ?? 'unknown',
     station: c.station ? { crs: c.station.crs, name: c.station.name } : null,
     parallel: c.parallel ?? false,
     nr: c.nr ? { name: c.nr.name, type: c.nr.type, elr: c.nr.elr, miles: c.nr.miles, chains: c.nr.chains } : null,

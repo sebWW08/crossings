@@ -129,6 +129,21 @@ board read, two boards per crossing, cached 30 s.
   length for SWR trains, so on the Portsmouth line the assumption matters:
   Milford was seen with a 12-car standing across Station Lane for its whole
   stop (2026-09-19, via "was this right?"), which the old rule showed as open.
+- **Who closes it matters more than what closes it.** A signaller-controlled
+  crossing (Network Rail types CCTV, MCB, MCB-OD, manned gates — `control:
+  "signaller"`) goes down when the signaller needs the protecting signal
+  clear: about 150 s ahead of a train passing through, and *before* a
+  stopping train reaches the platform, staying down until it has left
+  (`holdDuringDwell` is true for these). An automatic one (AHB, ABCL, AOCL
+  — `control: "automatic"`) is struck in by the train itself ~40 s out and
+  lifts as soon as it has cleared. This came straight from the first day of
+  "was this right?" taps: East Boldon (CCTV) down 3+ min before a non-stop
+  and 2 min before a stopping Metro arrived; Fen Road (CCTV) down while a
+  train stood at Cambridge North; Liss (CCTV) confirmed on site; Milford
+  (AHB) lifting on time.
+- A station whose platforms start within 400 m of the road (Cambridge
+  North, 300 m from Fen Road) counts as being at the crossing, so a train
+  standing there is a stop with the barriers down, not a train in transit.
 - Windows within 45 s of each other merge into one closure.
 - `et: "Delayed"` marks the closure *uncertain* in the UI; cancelled trains are dropped.
 
@@ -251,8 +266,11 @@ recurring ones:
 - `holdDuringDwell` — whether the signaller keeps the barriers down while a
   train stands in the platform before crossing.
 - Barrier type at Sheet, Princes Bridge and Mill Road after Network Rail's
-  autumn-2025 upgrades (this sets `closeBeforeSec`: ~90 s for full barriers,
-  ~40 s for automatic half barriers).
+  autumn-2025 upgrades (this sets `closeBeforeSec`: ~150 s for signaller-
+  controlled full barriers, ~40 s for automatic half barriers).
+- Freight and empty-stock trains are not on passenger boards, so a closure
+  for one is invisible here (Fen Road at midnight). Nothing to do about it
+  without a different data feed.
 - `minutesToCrossing` for non-stopping trains: distance ÷ ~110 km/h plus half
   a minute; trim to what the fasts actually do.
 

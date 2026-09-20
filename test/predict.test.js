@@ -43,8 +43,8 @@ test('non-stop northbound train: Petersfield departure + run time', () => {
   const m = p.movements[0];
   assert.equal(m.stops, false);
   assert.equal(m.basis, 'PTR +3.5 min');
-  // crosses at 12:04:30; closes 90s before, opens 30s after
-  assert.equal(m.closeAt, now.getTime() + 4.5 * 60_000 - 90_000);
+  // crosses at 12:04:30; a CCTV crossing closes 150 s before, opens 30 s after
+  assert.equal(m.closeAt, now.getTime() + 4.5 * 60_000 - 150_000);
   assert.equal(m.openAt, now.getTime() + 4.5 * 60_000 + 30_000);
   assert.equal(p.state, 'open');
   assert.equal(p.next.closeAt, m.closeAt);
@@ -67,7 +67,7 @@ test('train that has already left Petersfield uses the actual time and can be "c
   assert.equal(p.movements[0].actual, true);
 });
 
-test('stopping southbound train: platforms before the barriers, so keyed off departure', () => {
+test('stopping southbound train: platforms before the barriers; CCTV holds it down from before arrival', () => {
   const boards = {
     HSL: { trainServices: [] },
     PTR: { trainServices: [{
@@ -83,10 +83,11 @@ test('stopping southbound train: platforms before the barriers, so keyed off dep
   const m = predict(liss, boards, now).movements[0];
   assert.equal(m.stops, true);
   assert.equal(m.basis, 'LIS departure');
-  assert.equal(m.held, false);
+  // CCTV: the signaller has the barriers down before the train reaches the
+  // platform (seen at Liss), so the closure runs from 150 s before arrival.
+  assert.equal(m.held, true);
   const dep = now.getTime() + 10 * 60_000;
-  // Platforms start 11 m from the road: the front is on it ~7 s after moving off.
-  assert.ok(Math.abs(m.closeAt - (dep + 7_000 - 90_000)) < 1500);
+  assert.equal(m.closeAt, dep - 40_000 - 150_000);
   // 11 m + 12 coaches (240 m) to clear at 0.5 m/s² ≈ 32 s, then 30 s.
   assert.ok(Math.abs(m.openAt - (dep + 32_000 + 30_000)) < 1500, `got +${(m.openAt - dep) / 1000}s`);
 });
@@ -107,8 +108,8 @@ test('stopping northbound train: crosses before reaching the platform; a 12-car 
   const m = predict(liss, boards, now).movements[0];
   const dep = now.getTime() + 10 * 60_000;
   const arr = dep - liss.station.dwellSec * 1000;
-  // Front reaches the road ~27 s before stopping 180 m beyond it.
-  assert.ok(Math.abs(m.closeAt - (arr - 27_000 - 90_000)) < 1500);
+  // Front reaches the road ~27 s before stopping 180 m beyond it; CCTV lead 150 s.
+  assert.ok(Math.abs(m.closeAt - (arr - 27_000 - 150_000)) < 1500);
   // 12 coaches assumed (Darwin gives SWR no length) in 170 m of room: the
   // rear stands on the road, so the barriers hold until it leaves.
   assert.equal(m.held, true);

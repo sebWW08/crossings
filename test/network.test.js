@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildGraph, stationIndex, buildEntry, clusterCrossings, mergeRegistry, lineSpeedMps, compass, isRoadCrossing, platformExtent, sides } from '../tools/network.mjs';
+import { buildGraph, stationIndex, buildEntry, clusterCrossings, mergeRegistry, lineSpeedMps, compass, isRoadCrossing, platformExtent, sides, applyNR } from '../tools/network.mjs';
 
 // A west–east line with a junction east of the crossing:
 //
@@ -166,4 +166,19 @@ test('mergeRegistry keeps hand entries, reuses ids, suppresses duplicates of han
   assert.deepEqual(stats, { kept: 2, updated: 1, added: 1, suppressed: 1, dropped: 0 });
   assert.deepEqual(registry.map((c) => c.id).sort(), ['elsewhere', 'liss', 'liss-2', 'mill-lane']);
   assert.equal(registry.find((c) => c.id === 'mill-lane').name, 'Mill Lane (renamed)');
+});
+
+test('applyNR: a signaller-controlled crossing holds through a stop and closes early; an automatic one does not', () => {
+  const base = { name: 'X', notes: '', station: { crs: 'XXX', platformsSide: 'east', holdDuringDwell: false, dwellSec: 40 } };
+  const cctv = applyNR(base, { uid: 1, name: 'X CCTV', type: 'CCTV', d: 5 });
+  assert.equal(cctv.control, 'signaller');
+  assert.equal(cctv.closeBeforeSec, 150);
+  assert.equal(cctv.station.holdDuringDwell, true);
+  const ahb = applyNR(base, { uid: 2, name: 'X AHB', type: 'AHB', d: 5 });
+  assert.equal(ahb.control, 'automatic');
+  assert.equal(ahb.closeBeforeSec, 40);
+  assert.equal(ahb.station.holdDuringDwell, false);
+  const gates = applyNR({ name: 'Y', notes: '' }, { uid: 3, name: 'Y MGH', type: 'MGH', d: 5 });
+  assert.equal(gates.control, 'signaller');
+  assert.equal(gates.closeBeforeSec, 120);
 });
