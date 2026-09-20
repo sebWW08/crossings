@@ -31,16 +31,36 @@ so the list is in order before the browser answers). The star on a card or
 a crossing page keeps it under "Your crossings" at the top. Both live in the
 browser's localStorage — nothing is sent anywhere.
 
+## Sharing, finding and counting
+
+Every crossing has its own URL — `/milford`, `/liss` — served with a real
+title and description (and Open Graph tags) so a link pasted into a group
+chat gets a preview and a search for the crossing's name can find it.
+`/sitemap.xml` lists them all. The app still routes itself once loaded;
+old `#/milford` links are carried over.
+
+`/api/stats` is a cookieless count of use, per day: people per crossing
+(a phone polling every 30 s is one person — a salted hash of address and
+browser that changes daily and is never stored), how they arrived (a
+crossing link, the home page, the map), which sites sent them, whether the
+device had been before (the page says so from its own localStorage), and
+"was this right?" taps. It is kept in `data/stats.json` and summarised to
+the log each day, since the host's disk does not survive a deploy.
+
 ## Hosting
 
 `render.yaml` describes the site for [Render](https://render.com)'s free
 tier: connect the GitHub repo as a Blueprint, set `DARWIN_API_KEY` in the
 dashboard, done. It is one Node process with no build step; `PORT` is
 honoured and `/api/health` answers the health check. The free instance
-sleeps after 15 minutes idle and its disk is wiped on deploy, which is why
-"was this right?" reports (`POST /api/feedback`, one JSON line each in
-`data/feedback.jsonl`) are also written to the log and, if
-`FEEDBACK_WEBHOOK` is set, posted to that URL.
+sleeps after 15 minutes idle — `.github/workflows/keepalive.yml` pings it
+every 10 minutes so a shared link never lands on a 50 s cold start — and
+its disk is wiped on deploy, which is why "was this right?" reports
+(`POST /api/feedback`, one JSON line each in `data/feedback.jsonl`) are
+also written to the log and, if `FEEDBACK_WEBHOOK` is set, posted to that
+URL. To read them: Render dashboard → the service → Logs, search
+`feedback`. `SITE_URL` sets the host used in canonical links and the
+sitemap (default `https://crossings.onrender.com`).
 
 ## How a crossing is described
 

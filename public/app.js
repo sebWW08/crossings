@@ -16,6 +16,14 @@ const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* private mode */ } },
 };
+
+// "new" on this device's first ever visit, "ret" after: the one thing the
+// server counts that the request itself can't tell it. No cookie, no id.
+function visitor() {
+  const seen = store.get('seen', false);
+  if (!seen) store.set('seen', true);
+  return seen ? 'ret' : 'new';
+}
 const favourites = () => new Set(store.get('favourites', []));
 function toggleFavourite(id) {
   const f = favourites();
@@ -98,7 +106,7 @@ async function showMap(container, crossings) {
   for (const c of crossings) {
     const mk = L.circleMarker([c.lat, c.lon], { radius: 7, color: '#fff', weight: 2, fillColor: markerColour(c), fillOpacity: 1 })
       .bindTooltip(`<b>${esc(c.name)}</b><br>${esc(c.road)}`)
-      .on('click', () => { location.hash = `#/${c.id}`; });
+      .on('click', () => { navigate(`/${c.id}`); });
     markers.set(c.id, mk);
   }
   // Dots the size of towns at the national zoom; full size once zoomed in.
@@ -167,6 +175,7 @@ function statusOf(data, now) {
 async function renderList() {
   stopTimers();
   destroyMap();
+  document.title = 'Crossings — is the barrier down?';
   const res = await fetch('/api/crossings');
   const data = await res.json();
   setLive(data.live);
@@ -187,7 +196,7 @@ async function renderList() {
   };
 
   const card = (c) => `
-    <div class="card"><a href="#/${esc(c.id)}" class="main">
+    <div class="card"><a href="/${esc(c.id)}" class="main">
       <span class="dot" style="background:${markerColour(c)}"></span>
       <span style="min-width:0">
         <div class="name">${esc(c.name)}</div>
@@ -207,7 +216,7 @@ async function renderList() {
     const d = tileStates.get(id);
     const st = d ? statusOf(d, Date.now() + skew) : null;
     const km = here ? kmLabel(kmBetween(here, c)) : '';
-    return `<a class="tile ${st ? st.kind : 'loading'}" href="#/${esc(id)}">
+    return `<a class="tile ${st ? st.kind : 'loading'}" href="/${esc(id)}">
       <div class="tname">${esc(c.name)}</div>
       <div class="troad">${esc(c.road)}${km ? ` · ${km}` : ''}</div>
       <div class="tstate">${st ? st.state : '…'}</div>
@@ -268,7 +277,7 @@ async function renderList() {
         <p class="stats"><span><b>${all.length.toLocaleString('en-GB')}</b> crossings</span><span><b>${nrShare}%</b> matched to Network Rail's register</span><span>${data.live ? '<b>live</b> Darwin data' : '<b>demo</b> timetable'}</span></p>
       </div></div>
       ${LEGEND}
-      <a class="explore-link" href="#/map" title="Just the map, full screen">Explore the map ↗</a>
+      <a class="explore-link" href="/map" title="Just the map, full screen">Explore the map ↗</a>
     </section>
     <div class="wrap home">
       <div id="tiles" hidden></div>
@@ -315,7 +324,7 @@ async function renderList() {
   tickTimer = setInterval(drawTiles, 1000);
   const schedule = () => {
     refreshTimer = setTimeout(async () => {
-      if (location.hash && location.hash !== '#/') return;
+      if (location.pathname !== '/') return;
       tileStates.clear();
       await loadTiles();
       schedule();
@@ -330,13 +339,14 @@ async function renderList() {
 async function renderMap() {
   stopTimers();
   destroyMap();
+  document.title = 'Every level crossing in Great Britain — Crossings';
   const res = await fetch('/api/crossings');
   const data = await res.json();
   setLive(data.live);
   app.innerHTML = `
     <section class="explore">
       <div id="map" class="map"></div>
-      <a class="explore-back" href="#/">‹ Back</a>
+      <a class="explore-back" href="/">‹ Back</a>
       ${LEGEND}
       <div class="explore-count">${data.crossings.length.toLocaleString('en-GB')} level crossings · tap one</div>
     </section>`;
@@ -381,19 +391,20 @@ function drawStatus() {
 }
 
 async function loadCrossing(id) {
-  const res = await fetch(`/api/crossings/${encodeURIComponent(id)}`);
+  const res = await fetch(`/api/crossings/${encodeURIComponent(id)}?v=${visitor()}`);
   const data = await res.json();
   if (!res.ok) {
-    app.innerHTML = `<div class="wrap"><p class="err">${esc(data.error ?? 'error')}</p><p class="muted small">${esc(data.detail ?? '')}</p><p><a href="#/">All crossings</a></p></div>`;
+    app.innerHTML = `<div class="wrap"><p class="err">${esc(data.error ?? 'error')}</p><p class="muted small">${esc(data.detail ?? '')}</p><p><a href="/">All crossings</a></p></div>`;
     return;
   }
   setLive(data.live);
   state = data;
   skew = data.now - Date.now();
   const c = data.crossing;
+  document.title = `Is the barrier down at ${c.name}? — Crossings`;
   const mins = Math.round(data.closedSecNextHour / 60);
   app.innerHTML = `<div class="wrap page">
-    <p class="small"><a href="#/">‹ All crossings</a></p>
+    <p class="small"><a href="/">‹ All crossings</a></p>
     <div class="title"><h1>${esc(c.name)}</h1>${starButton(c.id)}</div>
     <div class="muted">${esc(c.road)} · ${esc(c.line)}${c.station ? ` · at ${esc(c.station.name)} station` : ''}</div>
     <div class="muted small">${barrierLabel(c.barrierType)}${c.nr ? ` · Network Rail: ${esc(c.nr.name)} (${esc(c.nr.type)}), ${esc(c.nr.elr)} ${c.nr.miles}m ${c.nr.chains}ch` : ''}</div>
@@ -454,7 +465,7 @@ async function renderCrossing(id) {
   tickTimer = setInterval(drawStatus, 1000);
   const schedule = () => {
     refreshTimer = setTimeout(async () => {
-      if (location.hash !== `#/${id}`) return;
+      if (location.pathname !== `/${id}`) return;
       try { await loadCrossing(id); } catch (e) { console.warn('refresh failed', e); }
       schedule();
     }, REFRESH_MS);
@@ -462,8 +473,17 @@ async function renderCrossing(id) {
   schedule();
 }
 
+// ---------- routing ----------
+// Real paths (/milford, /map) so a shared link previews and indexes; the
+// server serves index.html for any of them with the right <title>. Links
+// inside the app are intercepted so the page doesn't reload.
+function navigate(path) {
+  if (location.pathname === path) return;
+  history.pushState(null, '', path);
+  route();
+}
 function route() {
-  const m = /^#\/([a-z0-9-]+)/.exec(location.hash);
+  const m = /^\/([a-z0-9-]+)$/.exec(location.pathname);
   if (m?.[1] === 'map') renderMap().catch(showError);
   else if (m) renderCrossing(m[1]).catch(showError);
   else renderList().catch(showError);
@@ -471,5 +491,14 @@ function route() {
 function showError(e) {
   app.innerHTML = `<p class="wrap err">Something went wrong: ${esc(e.message ?? e)}</p>`;
 }
-window.addEventListener('hashchange', route);
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="/"]');
+  if (!a || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
+  e.preventDefault();
+  navigate(a.getAttribute('href'));
+});
+window.addEventListener('popstate', route);
+// Old links were hash-routed (#/milford); carry them over.
+const legacy = /^#\/([a-z0-9-]*)/.exec(location.hash);
+if (legacy) history.replaceState(null, '', `/${legacy[1]}`);
 route();

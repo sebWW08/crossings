@@ -4,3 +4,4 @@ data/cache/
 data/source/*.pbf
 data/source/*.xlsx
 data/feedback.jsonl
+data/stats.json

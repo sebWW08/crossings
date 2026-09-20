@@ -1,7 +1,7 @@
 {
   "name": "Crossings — level crossing wait times",
   "short_name": "Crossings",
-  "start_url": "./",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#111827",
   "theme_color": "#111827",

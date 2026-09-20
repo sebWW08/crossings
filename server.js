@@ -1,15 +1,17 @@
 import http from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { allCrossings, getCrossing, summarise } from './src/registry.js';
 import { boardsFor, live } from './src/darwin.js';
 import { predict } from './src/predict.js';
 import { cleanReport, tooSoon, record } from './src/feedback.mjs';
+import * as stats from './src/stats.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(here, 'public');
 const PORT = Number(process.env.PORT) || 3000;
+const SITE = (process.env.SITE_URL || 'https://crossings.onrender.com').replace(/\/$/, '');
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -47,6 +49,7 @@ function haversineKm(a, b) {
 
 async function api(url, req, res) {
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, live, crossings: allCrossings().length });
+  if (url.pathname === '/api/stats') return json(res, 200, stats.snapshot());
   if (url.pathname === '/api/feedback' && req.method === 'POST') {
     let body;
     try { body = await readJson(req); } catch (e) { return json(res, e.status ?? 400, { error: e.message }); }
@@ -55,6 +58,7 @@ async function api(url, req, res) {
     const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress;
     if (tooSoon(`${ip}/${report.crossing}`)) return json(res, 429, { error: 'already noted — thanks' });
     await record(report);
+    stats.feedbackTap(report.crossing);
     return json(res, 200, { ok: true });
   }
   if (url.pathname === '/api/crossings') {
@@ -75,6 +79,7 @@ async function api(url, req, res) {
   if (m) {
     const crossing = getCrossing(m[1]);
     if (!crossing) return json(res, 404, { error: 'unknown crossing' });
+    stats.watched(req, crossing.id, url.searchParams.get('v'));
     const now = new Date();
     try {
       const { boards, errors } = await boardsFor(crossing, now);
@@ -97,18 +102,78 @@ async function api(url, req, res) {
   return json(res, 404, { error: 'not found' });
 }
 
-async function serveStatic(url, res) {
+const escHtml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const BARRIER = { full: 'full barriers', half: 'half barriers', gates: 'gates', open: 'lights only' };
+
+/**
+ * The app is one page, but each crossing gets its own URL (/milford) with
+ * a real <title> and description, so a link pasted into a group chat gets
+ * a preview and a search for the crossing's name can find it. The HTML is
+ * the same file with the head filled in; the page then routes itself.
+ */
+let indexHtml = null;
+async function page(url, req, res) {
+  indexHtml ??= await readFile(path.join(PUBLIC, 'index.html'), 'utf8');
+  const id = url.pathname.slice(1);
+  let title, description, kind = 'home', status = 200;
+  if (!id) {
+    title = 'Crossings — is the barrier down?';
+    description = 'Live estimates for every level crossing in Great Britain: whether the barriers are down now, and when they will next close, from the trains heading towards it.';
+  } else if (id === 'map') {
+    title = 'Every level crossing in Great Britain — Crossings';
+    description = 'A map of every road level crossing on the National Rail network, each with a live estimate of when its barriers will next close.';
+    kind = 'map';
+  } else {
+    const c = getCrossing(id);
+    if (!c) { res.writeHead(404, { 'content-type': 'text/plain' }).end('no such crossing'); return; }
+    title = `Is the barrier down at ${c.name}? — Crossings`;
+    description = `Live estimate of when the level crossing on ${c.road}${c.station ? ` at ${c.station.name} station` : ''} (${c.line}, ${BARRIER[c.barrierType] ?? 'barriers'}) will close and reopen, from the trains heading towards it.`;
+    kind = 'crossing';
+  }
+  stats.landing(req, kind);
+  const canonical = `${SITE}${url.pathname}`;
+  const head = [
+    `<title>${escHtml(title)}</title>`,
+    `<meta name="description" content="${escHtml(description)}">`,
+    `<link rel="canonical" href="${escHtml(canonical)}">`,
+    `<meta property="og:type" content="website">`,
+    `<meta property="og:site_name" content="Crossings">`,
+    `<meta property="og:title" content="${escHtml(title)}">`,
+    `<meta property="og:description" content="${escHtml(description)}">`,
+    `<meta property="og:url" content="${escHtml(canonical)}">`,
+    `<meta name="twitter:card" content="summary">`,
+  ].join('\n  ');
+  const html = indexHtml.replace(/<title>[^<]*<\/title>/, head);
+  res.writeHead(status, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-cache' });
+  res.end(html);
+}
+
+function sitemap(res) {
+  const urls = ['/', '/map', ...allCrossings().map((c) => `/${c.id}`)];
+  const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${escHtml(SITE + u)}</loc></url>`).join('\n')}\n</urlset>\n`;
+  res.writeHead(200, { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=86400' });
+  res.end(body);
+}
+
+async function serveStatic(url, req, res) {
   let rel = decodeURIComponent(url.pathname);
-  if (rel === '/' || !path.extname(rel)) rel = '/index.html'; // hash-routed SPA
+  if (rel === '/sitemap.xml') return sitemap(res);
+  if (rel === '/robots.txt') { res.writeHead(200, { 'content-type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE}/sitemap.xml\n`); }
+  if (rel === '/' || /^\/[a-z0-9-]+$/.test(rel)) return page(url, req, res);
   const file = path.normalize(path.join(PUBLIC, rel));
   if (!file.startsWith(PUBLIC + path.sep)) {
     res.writeHead(403).end();
     return;
   }
   try {
-    const body = await readFile(file);
-    res.writeHead(200, { 'content-type': TYPES[path.extname(file)] ?? 'application/octet-stream' });
-    res.end(body);
+    // Always revalidate, cheaply: a deploy must not leave phones on last
+    // week's app.js, and a 304 costs nothing.
+    const st = await stat(file);
+    const etag = `"${st.size.toString(16)}-${Math.floor(st.mtimeMs).toString(16)}"`;
+    const headers = { 'content-type': TYPES[path.extname(file)] ?? 'application/octet-stream', 'cache-control': 'no-cache', etag };
+    if (req.headers['if-none-match'] === etag) { res.writeHead(304, headers); return res.end(); }
+    res.writeHead(200, headers);
+    res.end(await readFile(file));
   } catch {
     res.writeHead(404).end('not found');
   }
@@ -118,8 +183,10 @@ http
   .createServer((req, res) => {
     const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`);
     if (url.pathname.startsWith('/api/')) return api(url, req, res).catch((e) => json(res, 500, { error: String(e) }));
-    return serveStatic(url, res);
+    return serveStatic(url, req, res).catch((e) => { console.error(e); res.writeHead(500).end(); });
   })
-  .listen(PORT, () => {
+  .listen(PORT, async () => {
+    await stats.load();
+    stats.start();
     console.log(`crossings: http://localhost:${PORT}  (${live ? 'live Darwin data' : 'DEMO data — set DARWIN_API_KEY for live'})`);
   });
