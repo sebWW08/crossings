@@ -1,27 +1,30 @@
 {
  "2026-09-21": {
-  "visitors": 52,
-  "newDevices": 47,
-  "polls": 1213,
+  "visitors": 78,
+  "newDevices": 71,
+  "polls": 1638,
   "landings": {
-   "crossing": 53,
-   "home": 5
+   "crossing": 89,
+   "home": 7
   },
   "referrers": {
-   "facebook.com": 34,
-   "lm.facebook.com": 15,
+   "facebook.com": 56,
+   "lm.facebook.com": 22,
    "l.facebook.com": 2
   },
   "crossings": {
-   "east-boldon": 26,
-   "chesterton-junction": 12,
-   "bedhampton": 9,
+   "east-boldon": 38,
+   "chesterton-junction": 14,
+   "bedhampton": 18,
    "mill-road-liss": 2,
    "liss": 2,
    "princes-bridge": 2,
-   "havant": 4,
-   "cosham": 1,
-   "egham": 1
+   "havant": 8,
+   "cosham": 4,
+   "egham": 1,
+   "brough-east-lc": 1,
+   "warblington": 1,
+   "inlands-road": 1
   },
   "feedback": {
    "chesterton-junction": 1,
