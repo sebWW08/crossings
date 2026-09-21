@@ -1,30 +1,30 @@
 {
  "2026-09-21": {
-  "visitors": 551,
-  "newDevices": 489,
-  "polls": 4467,
+  "visitors": 597,
+  "newDevices": 526,
+  "polls": 5097,
   "landings": {
-   "crossing": 611,
-   "home": 37
+   "crossing": 663,
+   "home": 45
   },
   "referrers": {
-   "facebook.com": 342,
-   "lm.facebook.com": 161,
-   "l.facebook.com": 34,
-   "m.facebook.com": 6
+   "facebook.com": 370,
+   "lm.facebook.com": 177,
+   "l.facebook.com": 39,
+   "m.facebook.com": 7
   },
   "crossings": {
-   "east-boldon": 242,
-   "chesterton-junction": 106,
-   "bedhampton": 89,
+   "east-boldon": 251,
+   "chesterton-junction": 111,
+   "bedhampton": 95,
    "mill-road-liss": 2,
    "liss": 2,
    "princes-bridge": 2,
-   "havant": 38,
+   "havant": 40,
    "cosham": 12,
-   "egham": 19,
-   "brough-east-lc": 8,
-   "warblington": 16,
+   "egham": 21,
+   "brough-east-lc": 13,
+   "warblington": 18,
    "inlands-road": 2,
    "chichester-2": 1,
    "ford": 1,
@@ -32,29 +32,35 @@
    "tile-shed": 3,
    "nutbourne": 1,
    "southbourne": 1,
-   "welton-lc": 9,
+   "welton-lc": 12,
    "pooley-green": 7,
-   "foxton": 10,
+   "foxton": 11,
    "milton-fen": 2,
    "laundry-lane": 2,
    "rusham": 2,
    "thorpe-lane": 3,
    "porthmadog": 1,
    "cherry-hinton-by-pass": 1,
-   "bolton-le-sands-level-crossing": 14,
+   "bolton-le-sands-level-crossing": 17,
    "vine-road-barnes": 1,
    "mitre-bridge": 1,
    "vine-road-barnes-2": 1,
    "cottingham-north-lc": 1,
-   "hest-bank-level-crossing": 28,
-   "hall-dene-way-level-crossing": 1
+   "hest-bank-level-crossing": 40,
+   "hall-dene-way-level-crossing": 1,
+   "acton-central": 1,
+   "adelaide": 1,
+   "addison": 1,
+   "a146-beccles": 1,
+   "bescar-lane": 1
   },
   "feedback": {
-   "chesterton-junction": 10,
+   "chesterton-junction": 12,
    "east-boldon": 8,
    "bedhampton": 1,
    "cosham": 2,
-   "foxton": 4
+   "foxton": 4,
+   "hest-bank-level-crossing": 1
   }
  },
  "2026-09-20": {
