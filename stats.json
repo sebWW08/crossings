@@ -1,24 +1,40 @@
 {
- "2026-09-21": {
-  "visitors": 1008,
-  "newDevices": 788,
-  "polls": 10854,
+ "2026-09-22": {
+  "visitors": 3,
+  "newDevices": 2,
+  "polls": 3,
   "landings": {
-   "crossing": 990,
-   "home": 271
+   "crossing": 2
   },
   "referrers": {
-   "facebook.com": 531,
-   "lm.facebook.com": 267,
+   "facebook.com": 1
+  },
+  "crossings": {
+   "east-boldon": 2,
+   "foxton": 1
+  },
+  "feedback": {}
+ },
+ "2026-09-21": {
+  "visitors": 1015,
+  "newDevices": 794,
+  "polls": 10916,
+  "landings": {
+   "crossing": 998,
+   "home": 272
+  },
+  "referrers": {
+   "facebook.com": 535,
+   "lm.facebook.com": 270,
    "l.facebook.com": 60,
    "m.facebook.com": 13
   },
   "crossings": {
    "east-boldon": 294,
    "chesterton-junction": 161,
-   "bedhampton": 144,
+   "bedhampton": 146,
    "mill-road-liss": 10,
-   "liss": 11,
+   "liss": 12,
    "princes-bridge": 11,
    "havant": 53,
    "cosham": 28,
@@ -34,7 +50,7 @@
    "southbourne": 1,
    "welton-lc": 19,
    "pooley-green": 12,
-   "foxton": 18,
+   "foxton": 19,
    "milton-fen": 6,
    "laundry-lane": 6,
    "rusham": 3,
@@ -46,7 +62,7 @@
    "mitre-bridge": 2,
    "vine-road-barnes-2": 2,
    "cottingham-north-lc": 1,
-   "hest-bank-level-crossing": 83,
+   "hest-bank-level-crossing": 86,
    "hall-dene-way-level-crossing": 1,
    "acton-central": 1,
    "adelaide": 3,
