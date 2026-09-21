@@ -1,12 +1,14 @@
 # Render's free tier puts the site to sleep after 15 minutes without a
 # request, and the next visitor then waits ~50 s on a blank page — the one
 # thing a link shared into a Facebook group must not do. A request every
-# 10 minutes keeps it awake for free. (GitHub runs scheduled workflows
-# late when busy, and stops them in repos with no commits for 60 days.)
+# few minutes keeps it awake for free. GitHub runs scheduled workflows
+# late when busy — a */10 schedule was firing every 16–19 minutes — so
+# this asks for every 5 to stay inside the limit; it also stops them in
+# repos with no commits for 60 days.
 name: keep awake
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 jobs:
   ping:
