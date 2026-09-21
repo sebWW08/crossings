@@ -1,4 +1,87 @@
 {
- "2026-09-21": {"visitors":19,"newDevices":17,"polls":138,"landings":{"crossing":20},"referrers":{"facebook.com":11,"lm.facebook.com":6,"l.facebook.com":1},"crossings":{"east-boldon":9,"chesterton-junction":6,"bedhampton":3,"mill-road-liss":1,"liss":1,"princes-bridge":1},"feedback":{"chesterton-junction":1}},
- "2026-09-20": {"visitors":316,"newDevices":281,"polls":3392,"landings":{"crossing":383,"home":25},"referrers":{"facebook.com":196,"lm.facebook.com":86,"m.facebook.com":21,"l.facebook.com":10,"com.google.android.googlequicksearchbox":3},"crossings":{"bedhampton":96,"chesterton-junction":78,"east-boldon":52,"havant":34,"warblington":19,"cosham":16,"egham":7,"brough-east-lc":6,"highams-park-level-crossing":5,"st-georges-road-level-crossing":5,"chalk-lane-level-crossing":5,"welton-lc":5,"vine-road-barnes":4,"mill-road-liss":3,"princes-bridge":3,"liss":3,"north-sheen":3,"bolton-le-sands-level-crossing":2,"hest-bank-level-crossing":2,"white-hart-lane-barnes":2,"mortlake":2,"vine-road-barnes-2":2,"southbourne":2,"a146-beccles":2,"fulbourn":2,"boldon-level-crossing":2,"inlands-road":1,"petersfield":1,"st-bees":1,"appledore":1,"trinity-lane-waltham-cross":1,"luffenham":1,"cherry-hinton-high-street":1,"damdykes":1,"laundry-lane":1,"milton-fen":1},"feedback":{"bedhampton":2,"chesterton-junction":5,"east-boldon":6,"cherry-hinton-high-street":2}}
+ "2026-09-21": {
+  "visitors": 19,
+  "newDevices": 17,
+  "polls": 138,
+  "landings": {
+   "crossing": 20,
+   "home": 2
+  },
+  "referrers": {
+   "facebook.com": 11,
+   "lm.facebook.com": 6,
+   "l.facebook.com": 1
+  },
+  "crossings": {
+   "east-boldon": 9,
+   "chesterton-junction": 6,
+   "bedhampton": 3,
+   "mill-road-liss": 1,
+   "liss": 1,
+   "princes-bridge": 1
+  },
+  "feedback": {
+   "chesterton-junction": 1
+  }
+ },
+ "2026-09-20": {
+  "visitors": 316,
+  "newDevices": 281,
+  "polls": 3392,
+  "landings": {
+   "crossing": 383,
+   "home": 25
+  },
+  "referrers": {
+   "facebook.com": 196,
+   "lm.facebook.com": 86,
+   "m.facebook.com": 21,
+   "l.facebook.com": 10,
+   "com.google.android.googlequicksearchbox": 3
+  },
+  "crossings": {
+   "bedhampton": 96,
+   "chesterton-junction": 78,
+   "east-boldon": 52,
+   "havant": 34,
+   "warblington": 19,
+   "cosham": 16,
+   "egham": 7,
+   "brough-east-lc": 6,
+   "highams-park-level-crossing": 5,
+   "st-georges-road-level-crossing": 5,
+   "chalk-lane-level-crossing": 5,
+   "welton-lc": 5,
+   "vine-road-barnes": 4,
+   "mill-road-liss": 3,
+   "princes-bridge": 3,
+   "liss": 3,
+   "north-sheen": 3,
+   "bolton-le-sands-level-crossing": 2,
+   "hest-bank-level-crossing": 2,
+   "white-hart-lane-barnes": 2,
+   "mortlake": 2,
+   "vine-road-barnes-2": 2,
+   "southbourne": 2,
+   "a146-beccles": 2,
+   "fulbourn": 2,
+   "boldon-level-crossing": 2,
+   "inlands-road": 1,
+   "petersfield": 1,
+   "st-bees": 1,
+   "appledore": 1,
+   "trinity-lane-waltham-cross": 1,
+   "luffenham": 1,
+   "cherry-hinton-high-street": 1,
+   "damdykes": 1,
+   "laundry-lane": 1,
+   "milton-fen": 1
+  },
+  "feedback": {
+   "bedhampton": 2,
+   "chesterton-junction": 5,
+   "east-boldon": 6,
+   "cherry-hinton-high-street": 2
+  }
+ }
 }
