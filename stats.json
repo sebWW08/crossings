@@ -1,30 +1,30 @@
 {
  "2026-09-21": {
-  "visitors": 635,
-  "newDevices": 558,
-  "polls": 5668,
+  "visitors": 642,
+  "newDevices": 562,
+  "polls": 5717,
   "landings": {
-   "crossing": 706,
-   "home": 51
+   "crossing": 711,
+   "home": 52
   },
   "referrers": {
-   "facebook.com": 387,
-   "lm.facebook.com": 187,
-   "l.facebook.com": 42,
+   "facebook.com": 388,
+   "lm.facebook.com": 188,
+   "l.facebook.com": 43,
    "m.facebook.com": 8
   },
   "crossings": {
-   "east-boldon": 262,
+   "east-boldon": 263,
    "chesterton-junction": 119,
    "bedhampton": 100,
-   "mill-road-liss": 2,
-   "liss": 2,
-   "princes-bridge": 2,
+   "mill-road-liss": 3,
+   "liss": 3,
+   "princes-bridge": 3,
    "havant": 40,
    "cosham": 12,
-   "egham": 23,
-   "brough-east-lc": 15,
-   "warblington": 19,
+   "egham": 24,
+   "brough-east-lc": 16,
+   "warblington": 20,
    "inlands-road": 2,
    "chichester-2": 1,
    "ford": 1,
@@ -34,7 +34,7 @@
    "southbourne": 1,
    "welton-lc": 12,
    "pooley-green": 7,
-   "foxton": 12,
+   "foxton": 13,
    "milton-fen": 3,
    "laundry-lane": 3,
    "rusham": 2,
@@ -46,14 +46,15 @@
    "mitre-bridge": 1,
    "vine-road-barnes-2": 1,
    "cottingham-north-lc": 1,
-   "hest-bank-level-crossing": 44,
+   "hest-bank-level-crossing": 45,
    "hall-dene-way-level-crossing": 1,
    "acton-central": 1,
    "adelaide": 1,
    "addison": 1,
    "a146-beccles": 1,
    "bescar-lane": 1,
-   "abererch": 1
+   "abererch": 1,
+   "shelford": 1
   },
   "feedback": {
    "chesterton-junction": 12,
