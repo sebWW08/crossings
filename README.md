@@ -59,7 +59,9 @@ the log each day, since the host's disk does not survive a deploy.
 
 `render.yaml` describes the site for [Render](https://render.com)'s free
 tier: connect the GitHub repo as a Blueprint, set `DARWIN_API_KEY` in the
-dashboard, done. It is one Node process (build step: `npm ci`); `PORT` is
+dashboard, done. Auto-deploy on push needs Render's GitHub App installed
+on the repo (an OAuth-only connection can read the repo but never hears
+about pushes). It is one Node process (build step: `npm ci`); `PORT` is
 honoured and `/api/health` answers the health check. The free instance
 sleeps after 15 minutes idle — `.github/workflows/keepalive.yml` pings it
 every 10 minutes so a shared link never lands on a 50 s cold start — and
