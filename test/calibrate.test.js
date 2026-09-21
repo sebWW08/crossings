@@ -59,3 +59,30 @@ test('reports made under a later lead are measured against it', () => {
   // …and against a different rule value, the prior pulls back a little.
   assert.ok(leadFromReports(reports, 150, 'signaller', now).leadSec < 240);
 });
+
+test('openError reads the other end of the window', async () => {
+  const { openError } = await import('../src/calibrate.mjs');
+  assert.equal(openError(rep('09:13', 'fxn', 'up', 'closed', '09:09', '09:13')), 0);            // right at the predicted end: −0
+  assert.equal(openError(rep('16:29', 'bdh', 'up', 'closed', '16:21', '16:30')), -60);         // reopened a minute early
+  assert.equal(openError(rep('17:13', 'cmb', 'down', 'closed', '17:05', '17:17')), 0);          // still down late in the window: fine
+  assert.equal(openError(rep('08:07', 'ebl', 'up', 'closed', '08:05', '08:11')), null);        // first half: the lead's business
+  const stillDown = { ...rep('18:52', 'mlf', 'down', 'open', '19:00', '19:01', 40), prevOpenAt: T('18:52') - 30_000 };
+  assert.equal(openError(stillDown), 30);                                                       // 30 s past the predicted reopening, still down
+  const didOpen = { ...rep('18:53', 'mlf', 'up', 'open', '18:59', '19:00', 40), prevOpenAt: T('18:52') };
+  assert.equal(openError(didOpen), 0);
+  assert.equal(openError(rep('13:44', 'hun', 'down', 'open', '13:52', '13:56')), null);         // nothing recent to compare with
+});
+
+test('openAfterFromReports shrinks toward the entry value and is bounded', async () => {
+  const { openAfterFromReports } = await import('../src/calibrate.mjs');
+  const now = T('20:00');
+  const late = [30, 40, 50, 60].map((s, i) => ({ ...rep(`18:${10 + i}`, 'x', 'down', 'open', '19:00', '19:01'), prevOpenAt: T(`18:${10 + i}`) - s * 1000, openAfter: 30 }));
+  const fit = openAfterFromReports(late, 30, now);
+  assert.equal(fit.n, 4);
+  assert.ok(fit.openAfterSec > 30 && fit.openAfterSec <= 60, `got ${fit.openAfterSec}`);
+  const early = [1, 1, 2].map((m) => ({ ...rep(`18:${60 - m}`, 'x', 'up', 'closed', '18:50', '19:00'), openAfter: 30 }));
+  // …and one three minutes early, which is a merged closure, not a reopen-delay error: ignored.
+  early.push({ ...rep('18:57', 'x', 'up', 'closed', '18:50', '19:00'), openAfter: 30 });
+  assert.equal(openAfterFromReports(early, 30, now).openAfterSec, 10);
+  assert.equal(openAfterFromReports(early.slice(0, 2), 30, now), null);
+});

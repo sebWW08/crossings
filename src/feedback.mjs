@@ -64,6 +64,8 @@ export function cleanReport(body, crossing, now = Date.now()) {
     observed: body.observed,              // what they saw: barriers down / up
     predicted: body.predicted,            // what the page said: open / soon / closed
     lead: crossing.closeBeforeSec,        // the lead in force when they tapped, so the error is relative to it
+    openAfter: crossing.openAfterSec,     // …and the reopen delay
+    prevOpenAt: num(body.prevOpenAt),     // when the page thought the last closure ended (ms epoch), if recently
     predictedAt: num(body.predictedAt),   // the closure edge the page was counting to (ms epoch)
     closeAt: num(body.closeAt),           // the closure that was current or next…
     openAt: num(body.openAt),             // …so the error can be measured later

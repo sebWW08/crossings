@@ -313,6 +313,11 @@ The generator above is the plan; what's left:
    are published (minus the browser string) at `GET /api/feedback`, and the
    hourly Action keeps them on the `stats` branch, which a fresh process
    seeds from. The crossing page says "timing tuned from N reports here".
-   Run times per crossing are the next thing the taps could calibrate.
+   The reopen delay (`openAfterSec`) is estimated the same way from the
+   far end of the window: up in the second half of a predicted closure
+   means it lifted early, down shortly after the page's last closure ended
+   (the page sends when that was) means it hadn't; errors over two minutes
+   are a closure that was really two trains, and are ignored. Run times per
+   crossing are the next thing the taps could calibrate.
 
 Not a level crossing sensor: **never rely on this at the crossing — obey the lights.**

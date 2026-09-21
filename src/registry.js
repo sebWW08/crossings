@@ -1,7 +1,7 @@
 import { statSync } from 'node:fs';
 import { readRegistry, HAND, GENERATED, OVERRIDES } from './registry-files.mjs';
 import { reportsFor, reportsVersion } from './feedback.mjs';
-import { leadFromReports } from './calibrate.mjs';
+import { leadFromReports, openAfterFromReports } from './calibrate.mjs';
 
 /**
  * A generated direction lists several `boards` (the next few stations, so
@@ -46,10 +46,21 @@ function withTaps(c) {
   const v = `${loadedAt}/${reportsVersion()}`;
   const hit = calibrated.get(c.id);
   if (hit && hit.version === v) return hit.entry;
-  const fit = leadFromReports(reportsFor(c.id), c.closeBeforeSec, c.control);
-  const entry = fit && fit.leadSec !== c.closeBeforeSec
-    ? { ...c, closeBeforeSec: fit.leadSec, calibrated: { leadSec: fit.leadSec, was: c.closeBeforeSec, reports: fit.n } }
-    : fit ? { ...c, calibrated: { leadSec: c.closeBeforeSec, was: c.closeBeforeSec, reports: fit.n } } : c;
+  const reports = reportsFor(c.id);
+  const lead = leadFromReports(reports, c.closeBeforeSec, c.control);
+  const open = openAfterFromReports(reports, c.openAfterSec);
+  const entry = lead || open
+    ? {
+      ...c,
+      ...(lead ? { closeBeforeSec: lead.leadSec } : {}),
+      ...(open ? { openAfterSec: open.openAfterSec } : {}),
+      calibrated: {
+        leadSec: lead ? lead.leadSec : c.closeBeforeSec, was: c.closeBeforeSec,
+        openAfterSec: open ? open.openAfterSec : c.openAfterSec, wasOpenAfter: c.openAfterSec,
+        reports: Math.max(lead?.n ?? 0, open?.n ?? 0),
+      },
+    }
+    : c;
   calibrated.set(c.id, { version: v, entry });
   return entry;
 }

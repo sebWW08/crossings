@@ -441,6 +441,7 @@ function bindVerify(id) {
       const report = {
         crossing: id, observed: b.dataset.observed, predicted: st.kind, predictedAt: st.at,
         closeAt: next?.closeAt ?? null, openAt: next?.openAt ?? null,
+        prevOpenAt: cur ? null : (state.recent.at(-1)?.openAt ?? null), // when the last closure ended, if the page says it's open
         // …and the trains behind it, so a wrong length assumption can be told from a wrong run time.
         trains: (next?.trains ?? []).slice(0, 4).map((t) => ({ id: t.serviceId, basis: t.basis, coaches: t.coaches, assumed: t.coachesAssumed, held: t.held })),
         dataAge: Date.now() + skew - state.now, live: state.live, ua: navigator.userAgent,

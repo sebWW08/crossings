@@ -17,7 +17,9 @@
 // moves it — and one odd tap doesn't. It needs a few reports before it says
 // anything, and never strays outside what a crossing of that kind can do.
 // A tap more than six minutes from any predicted closure is a train the
-// boards don't know about (freight, empties) and says nothing about the lead.
+// boards don't know about (freight, empties) and says nothing about either.
+// The reopen delay (openAfterSec) is estimated the same way from the other
+// end of the window.
 
 const DAYS = 21;
 const MIN_REPORTS = 3;
@@ -26,6 +28,10 @@ const MAX_ERR_SEC = 360;
 // three taps nudge a crossing and a fortnight of them move it.
 const PRIOR_WEIGHT = 3;
 const BOUNDS = { signaller: [45, 420], automatic: [20, 120], unknown: [30, 300] };
+const OPEN_BOUNDS = [10, 120];
+// A reopening more than two minutes off isn't the reopen delay — it's a
+// closure that was really two trains, or one we couldn't see.
+const OPEN_MAX_ERR_SEC = 120;
 
 /** Seconds by which the lead should have been longer (+) or shorter (−), or null if the tap says nothing about it. */
 export function leadError(r) {
@@ -43,6 +49,47 @@ export function leadError(r) {
   if (at > (r.closeAt + r.openAt) / 2) return null;
   const late = (at - r.closeAt) / 1000;
   return late >= 0 && late <= MAX_ERR_SEC ? -late : null;
+}
+
+/**
+ * The other end of the closure: seconds by which the barriers stayed down
+ * longer (+) or lifted sooner (−) than the page said. Up in the second half
+ * of a predicted closure means it reopened early; down shortly after a
+ * predicted reopening (the page sends when the last closure ended) means it
+ * hadn't. Agreement counts as fine.
+ */
+export function openError(r) {
+  const at = Date.parse(r.at);
+  if (!Number.isFinite(at)) return null;
+  if (r.predicted === 'closed' && r.closeAt != null && r.openAt != null) {
+    if (at <= (r.closeAt + r.openAt) / 2) return null; // the lead's business
+    const early = (r.openAt - at) / 1000;
+    if (r.observed === 'up') return early <= OPEN_MAX_ERR_SEC ? -early || 0 : null;
+    return 0; // still down, as predicted
+  }
+  if (r.prevOpenAt != null) {
+    const since = (at - r.prevOpenAt) / 1000;
+    if (since < 0 || since > OPEN_MAX_ERR_SEC) return null;
+    if (r.observed === 'down') return since;           // predicted open, still down
+    return since <= 180 ? 0 : null;                     // up soon after: it did reopen
+  }
+  return null;
+}
+
+/** The reopen delay the reports point to, or null if there aren't enough usable ones. */
+export function openAfterFromReports(reports, baseOpenAfter, now = Date.now()) {
+  const since = now - DAYS * 86_400_000;
+  const samples = [];
+  for (const r of reports) {
+    if (Date.parse(r.at) < since) continue;
+    const e = openError(r);
+    if (e == null) continue;
+    samples.push((r.openAfter ?? baseOpenAfter) + e);
+  }
+  if (samples.length < MIN_REPORTS) return null;
+  const mean = (samples.reduce((a, b) => a + b, 0) + PRIOR_WEIGHT * baseOpenAfter) / (samples.length + PRIOR_WEIGHT);
+  const [lo, hi] = OPEN_BOUNDS;
+  return { openAfterSec: Math.round(Math.min(hi, Math.max(lo, mean)) / 5) * 5, n: samples.length };
 }
 
 /**
