@@ -1,11 +1,3 @@
 {
- "_": "Per-crossing corrections from what people saw at the barrier (the app's 'was this right?' taps). Merged over the generated entry at load, so they survive a regeneration; station fields merge one level deeper. Say where each number came from.",
- "chesterton-junction": {
-  "closeBeforeSec": 240,
-  "calibration": "21 Sep 2026: three taps saw the barriers down 3–5 min before the 150 s rule said, none the other way. Fen Road's signaller takes it down early."
- },
- "east-boldon": {
-  "closeBeforeSec": 90,
-  "calibration": "21 Sep 2026: four taps saw the barriers up inside predicted closures of 6–11 min — the 150 s lead fused the Metro's 7-minute trains into one long closure. Three taps agreed with it down. 90 s keeps the hold but lets the barriers rise between trains."
- }
+ "_": "Per-crossing corrections merged over the generated entry at load, so they survive a regeneration; station fields merge one level deeper. Lead times are now calibrated automatically from 'was this right?' taps (src/calibrate.mjs) — put a closeBeforeSec here only to force one, and say why."
 }

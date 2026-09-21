@@ -301,7 +301,18 @@ The generator above is the plan; what's left:
    flagged `staleSec` and shown on the page) rather than an error.
    Beyond that, move to the Darwin push port (one streaming feed of
    everything) and compute for all crossings continuously.
-4. **Ground truth** — once there are users, "was it actually closed?" taps at
-   the crossing become calibration data for `closeBeforeSec` / run times per crossing.
+4. **Ground truth** — done, for the lead time: every "was this right?" tap
+   is a measurement of how early the barriers went down relative to what the
+   page showed (`src/calibrate.mjs`). Each crossing's `closeBeforeSec` is
+   re-estimated from its reports of the last three weeks — the mean of
+   (lead in force + error), with the rule's own value weighed in as three
+   reports so one odd tap can't move it, bounded by what that kind of
+   crossing can do, and only once there are three usable reports. Taps more
+   than six minutes from any predicted closure are trains the boards can't
+   see and are ignored. Reports live in memory and `data/feedback.jsonl`,
+   are published (minus the browser string) at `GET /api/feedback`, and the
+   hourly Action keeps them on the `stats` branch, which a fresh process
+   seeds from. The crossing page says "timing tuned from N reports here".
+   Run times per crossing are the next thing the taps could calibrate.
 
 Not a level crossing sensor: **never rely on this at the crossing — obey the lights.**

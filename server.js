@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { allCrossings, getCrossing, summarise } from './src/registry.js';
 import { boardsFor, live } from './src/darwin.js';
 import { predict } from './src/predict.js';
-import { cleanReport, tooSoon, record } from './src/feedback.mjs';
+import { cleanReport, tooSoon, record, recent as recentFeedback, load as loadFeedback } from './src/feedback.mjs';
 import * as stats from './src/stats.mjs';
 import { cardPng, W as CARD_W, H as CARD_H } from './src/card.mjs';
 
@@ -51,6 +51,7 @@ function haversineKm(a, b) {
 async function api(url, req, res) {
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, live, crossings: allCrossings().length });
   if (url.pathname === '/api/stats') return json(res, 200, stats.snapshot());
+  if (url.pathname === '/api/feedback' && req.method === 'GET') return json(res, 200, recentFeedback());
   if (url.pathname === '/api/feedback' && req.method === 'POST') {
     let body;
     try { body = await readJson(req); } catch (e) { return json(res, e.status ?? 400, { error: e.message }); }
@@ -204,7 +205,7 @@ http
     return serveStatic(url, req, res).catch((e) => { console.error(e); res.writeHead(500).end(); });
   })
   .listen(PORT, async () => {
-    await stats.load();
+    await Promise.all([stats.load(), loadFeedback()]);
     stats.start();
     console.log(`crossings: http://localhost:${PORT}  (${live ? 'live Darwin data' : 'DEMO data — set DARWIN_API_KEY for live'})`);
   });

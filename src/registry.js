@@ -1,5 +1,7 @@
 import { statSync } from 'node:fs';
 import { readRegistry, HAND, GENERATED, OVERRIDES } from './registry-files.mjs';
+import { reportsFor, reportsVersion } from './feedback.mjs';
+import { leadFromReports } from './calibrate.mjs';
 
 /**
  * A generated direction lists several `boards` (the next few stations, so
@@ -35,14 +37,31 @@ function load() {
   loadedAt = stamp;
 }
 
+// What people saw at the barrier, applied on top of the entry: once a
+// crossing has a few usable reports, its lead is theirs, not the rule's.
+// Recomputed when the registry or the reports change.
+const calibrated = new Map(); // id -> { version, entry }
+function withTaps(c) {
+  if (!c) return c;
+  const v = `${loadedAt}/${reportsVersion()}`;
+  const hit = calibrated.get(c.id);
+  if (hit && hit.version === v) return hit.entry;
+  const fit = leadFromReports(reportsFor(c.id), c.closeBeforeSec, c.control);
+  const entry = fit && fit.leadSec !== c.closeBeforeSec
+    ? { ...c, closeBeforeSec: fit.leadSec, calibrated: { leadSec: fit.leadSec, was: c.closeBeforeSec, reports: fit.n } }
+    : fit ? { ...c, calibrated: { leadSec: c.closeBeforeSec, was: c.closeBeforeSec, reports: fit.n } } : c;
+  calibrated.set(c.id, { version: v, entry });
+  return entry;
+}
+
 export function allCrossings() {
   load();
-  return list;
+  return list.map(withTaps);
 }
 
 export function getCrossing(id) {
   load();
-  return byId.get(id) ?? null;
+  return withTaps(byId.get(id) ?? null);
 }
 
 /** Public summary — what the list/map page needs, nothing operational. */
@@ -56,6 +75,7 @@ export function summarise(c) {
     lon: c.lon,
     barrierType: c.barrierType,
     control: c.control ?? 'unknown',
+    calibrated: c.calibrated ?? null,
     station: c.station ? { crs: c.station.crs, name: c.station.name } : null,
     parallel: c.parallel ?? false,
     nr: c.nr ? { name: c.nr.name, type: c.nr.type, elr: c.nr.elr, miles: c.nr.miles, chains: c.nr.chains } : null,

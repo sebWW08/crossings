@@ -10,6 +10,45 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FILE = path.join(here, '..', 'data', 'feedback.jsonl');
 const WEBHOOK = process.env.FEEDBACK_WEBHOOK || '';
+// The hourly GitHub Action keeps a copy of recent reports on the `stats`
+// branch (see .github/workflows/stats.yml); a fresh process starts from it,
+// so a deploy doesn't forget what people saw at the barrier.
+const SEED_URL = process.env.FEEDBACK_SEED_URL ?? 'https://raw.githubusercontent.com/sebWW08/crossings/stats/feedback.json';
+const KEEP_DAYS = 60;
+
+/** Every report we know of, newest last. Calibration reads this. */
+const reports = [];
+const seen = new Set();
+let version = 0;
+const key = (r) => `${r.at}|${r.crossing}`;
+function remember(r) {
+  if (seen.has(key(r))) return false;
+  seen.add(key(r));
+  reports.push(r);
+  version++;
+  return true;
+}
+export const reportsVersion = () => version;
+export const reportsFor = (crossingId) => reports.filter((r) => r.crossing === crossingId);
+/** Recent reports without anything about the person (no user agent). */
+export function recent(days = KEEP_DAYS, now = Date.now()) {
+  const since = now - days * 86_400_000;
+  return reports.filter((r) => Date.parse(r.at) >= since).map(({ ua, ...r }) => r);
+}
+
+export async function load() {
+  try {
+    const res = await fetch(SEED_URL, { signal: AbortSignal.timeout(8000), headers: { 'cache-control': 'no-cache' } });
+    if (res.ok) { let n = 0; for (const r of await res.json()) if (r?.at && r.crossing && remember(r)) n++; if (n) console.log(`feedback: seeded ${n} report(s) from ${SEED_URL}`); }
+  } catch (e) {
+    console.warn('feedback: could not seed', e.message);
+  }
+  try {
+    const { readFile } = await import('node:fs/promises');
+    for (const line of (await readFile(FILE, 'utf8')).split('\n')) { if (line.trim()) { try { remember(JSON.parse(line)); } catch { /* a bad line */ } } }
+  } catch { /* first run, or no disk */ }
+  reports.sort((a, b) => a.at.localeCompare(b.at));
+}
 
 const OBSERVED = new Set(['down', 'up']);
 const PREDICTED = new Set(['open', 'soon', 'closed']);
@@ -24,6 +63,7 @@ export function cleanReport(body, crossing, now = Date.now()) {
     crossing: crossing.id,
     observed: body.observed,              // what they saw: barriers down / up
     predicted: body.predicted,            // what the page said: open / soon / closed
+    lead: crossing.closeBeforeSec,        // the lead in force when they tapped, so the error is relative to it
     predictedAt: num(body.predictedAt),   // the closure edge the page was counting to (ms epoch)
     closeAt: num(body.closeAt),           // the closure that was current or next…
     openAt: num(body.openAt),             // …so the error can be measured later
@@ -41,16 +81,17 @@ export function cleanReport(body, crossing, now = Date.now()) {
 
 // One report per crossing per client every 30 s is plenty; anything faster
 // is a stuck finger or a script.
-const recent = new Map();
+const lastTap = new Map();
 export function tooSoon(key, now = Date.now()) {
-  const last = recent.get(key) ?? 0;
+  const last = lastTap.get(key) ?? 0;
   if (now - last < 30_000) return true;
-  recent.set(key, now);
-  if (recent.size > 5000) for (const [k, t] of recent) if (now - t > 60_000) recent.delete(k);
+  lastTap.set(key, now);
+  if (lastTap.size > 5000) for (const [k, t] of lastTap) if (now - t > 60_000) lastTap.delete(k);
   return false;
 }
 
 export async function record(report) {
+  remember(report);
   const line = JSON.stringify(report);
   console.log('feedback', line);
   try {

@@ -2,7 +2,9 @@
 # (/api/stats, cookieless day totals) would vanish with each push. This
 # fetches them every hour and keeps the latest in stats.json on the `stats`
 # branch — never master, which would trigger a deploy — and the server
-# reads that file back when it starts, so a deploy costs nothing.
+# reads that file back when it starts, so a deploy costs nothing. The same
+# goes for feedback.json: every "was this right?" tap, which is what each
+# crossing's lead time is calibrated from.
 name: keep stats
 on:
   schedule:
@@ -19,6 +21,18 @@ jobs:
           ref: stats
       - name: fetch and merge
         run: |
+          curl -fsS --max-time 60 https://crossings.onrender.com/api/feedback -o newfb.json
+          node -e '
+            const fs = require("fs");
+            let old = []; try { old = JSON.parse(fs.readFileSync("feedback.json", "utf8")); } catch {}
+            const fresh = JSON.parse(fs.readFileSync("newfb.json", "utf8"));
+            const seen = new Set(old.map((r) => r.at + "|" + r.crossing));
+            for (const r of fresh) if (!seen.has(r.at + "|" + r.crossing)) { old.push(r); seen.add(r.at + "|" + r.crossing); }
+            const keep = Date.now() - 90 * 86400000;
+            old = old.filter((r) => Date.parse(r.at) >= keep).sort((a, b) => a.at.localeCompare(b.at));
+            fs.writeFileSync("feedback.json", JSON.stringify(old, null, 1) + "\n");
+          '
+          rm newfb.json
           curl -fsS --max-time 60 https://crossings.onrender.com/api/stats -o new.json
           node -e '
             const fs = require("fs");
@@ -34,6 +48,6 @@ jobs:
         run: |
           git config user.name "crossings-stats"
           git config user.email "stats@crossings.invalid"
-          git add stats.json
+          git add stats.json feedback.json
           git diff --cached --quiet || git commit -qm "stats $(date -u +%Y-%m-%dT%H:%MZ)"
           git push

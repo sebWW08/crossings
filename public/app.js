@@ -407,7 +407,7 @@ async function loadCrossing(id) {
     <p class="small"><a href="/">‹ All crossings</a></p>
     <div class="title"><h1>${esc(c.name)}</h1>${starButton(c.id)}</div>
     <div class="muted">${esc(c.road)} · ${esc(c.line)}${c.station ? ` · at ${esc(c.station.name)} station` : ''}</div>
-    <div class="muted small">${barrierLabel(c.barrierType)}${c.control === 'signaller' ? ', signaller-controlled — closed early for each train' : c.control === 'automatic' ? ', automatic — closes ~40 s before each train' : ''}${c.nr ? ` · Network Rail: ${esc(c.nr.name)} (${esc(c.nr.type)}), ${esc(c.nr.elr)} ${c.nr.miles}m ${c.nr.chains}ch` : ''}</div>
+    <div class="muted small">${barrierLabel(c.barrierType)}${c.control === 'signaller' ? ', signaller-controlled — closed early for each train' : c.control === 'automatic' ? ', automatic — closes ~40 s before each train' : ''}${c.calibrated ? ` · timing tuned from ${c.calibrated.reports} report${c.calibrated.reports === 1 ? '' : 's'} here` : ''}${c.nr ? ` · Network Rail: ${esc(c.nr.name)} (${esc(c.nr.type)}), ${esc(c.nr.elr)} ${c.nr.miles}m ${c.nr.chains}ch` : ''}</div>
     <div id="status" class="card status"></div>
     <div id="verify" class="verify">
       <span>At the crossing? Was this right — barriers are actually</span>
