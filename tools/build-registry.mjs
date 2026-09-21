@@ -186,7 +186,7 @@ async function fromExtract({ extract, bbox, dryRun, only }) {
   // A whole-country run is authoritative: anything generated earlier that it
   // did not produce again has gone (retagged in OSM, or NR now calls it a
   // footpath). A --bbox run only touches its box, like the Overpass path.
-  const { registry, stats } = mergeRegistry(readRegistry(), generated, { dropOthers: bbox.s === -90 });
+  const { registry, stats } = mergeRegistry(readRegistry({ raw: true }), generated, { dropOthers: bbox.s === -90 });
   console.error('merge:', stats);
   return { registry, stats, unique: generated };
 }
@@ -211,7 +211,7 @@ async function main() {
   // Merge into the registry as we go: a country-sized run takes hours and
   // Overpass can drop out at any point, so every finished tile is saved.
   const merge = async () => {
-    const { registry, stats } = mergeRegistry(readRegistry(), unique());
+    const { registry, stats } = mergeRegistry(readRegistry({ raw: true }), unique());
     generated.length = 0;
     if (!dryRun && !only) writeRegistry(registry);
     return { registry, stats };

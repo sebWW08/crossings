@@ -1,5 +1,5 @@
 import { statSync } from 'node:fs';
-import { readRegistry, HAND, GENERATED } from './registry-files.mjs';
+import { readRegistry, HAND, GENERATED, OVERRIDES } from './registry-files.mjs';
 
 /**
  * A generated direction lists several `boards` (the next few stations, so
@@ -28,7 +28,7 @@ let list = [];
 let byId = new Map();
 const mtime = (f) => { try { return statSync(f).mtimeMs; } catch { return 0; } };
 function load() {
-  const stamp = `${mtime(HAND)}/${mtime(GENERATED)}`;
+  const stamp = `${mtime(HAND)}/${mtime(GENERATED)}/${mtime(OVERRIDES)}`;
   if (stamp === loadedAt) return;
   list = readRegistry().map(expandBoards);
   byId = new Map(list.map((c) => [c.id, c]));

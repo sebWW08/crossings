@@ -182,3 +182,11 @@ test('applyNR: a signaller-controlled crossing holds through a stop and closes e
   assert.equal(gates.control, 'signaller');
   assert.equal(gates.closeBeforeSec, 120);
 });
+
+test('overrides sit on top of an entry and merge into station{}', async () => {
+  const { applyOverride } = await import('../src/registry-files.mjs');
+  const entry = { id: 'x', closeBeforeSec: 150, station: { crs: 'XXX', holdDuringDwell: true, dwellSec: 40 } };
+  const out = applyOverride(entry, { closeBeforeSec: 240, station: { dwellSec: 60 }, calibration: 'seen' });
+  assert.deepEqual(out, { id: 'x', closeBeforeSec: 240, station: { crs: 'XXX', holdDuringDwell: true, dwellSec: 60 }, calibration: 'seen' });
+  assert.equal(applyOverride(entry, undefined), entry);
+});

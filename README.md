@@ -77,7 +77,9 @@ sitemap (default `https://crossings.onrender.com`).
 
 `data/crossings.json` (hand-written, pretty-printed) and
 `data/generated.json` (the generator's output, one entry per line) make up
-the registry. The code knows nothing about Liss specifically; each crossing
+the registry; `data/overrides.json` holds per-crossing corrections learnt
+from "was this right?" taps (a longer lead at Fen Road, a shorter one at
+East Boldon), merged over the entry at load so a regeneration keeps them. The code knows nothing about Liss specifically; each crossing
 is data:
 
 ```jsonc
