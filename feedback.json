@@ -2038,5 +2038,369 @@
   ],
   "dataAge": 2788,
   "live": true
+ },
+ {
+  "at": "2026-09-21T16:44:52.683Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "predictedAt": 1790009265641,
+  "closeAt": 1790008994545,
+  "openAt": 1790009265641,
+  "trains": [
+   {
+    "id": "GLC@15:38>EUS",
+    "basis": "PNR→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BIF@16:51>MIA",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 11273,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T16:45:35.699Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "predictedAt": 1790009265641,
+  "closeAt": 1790008994545,
+  "openAt": 1790009265641,
+  "trains": [
+   {
+    "id": "GLC@15:38>EUS",
+    "basis": "PNR→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BIF@16:51>MIA",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 23609,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T16:47:28.748Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 180,
+  "predictedAt": 1790009254174,
+  "closeAt": 1790009254174,
+  "openAt": 1790009550000,
+  "trains": [
+   {
+    "id": "KGX@16:48>KLN",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 20073,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T16:47:44.149Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 130,
+  "predictedAt": 1790009321538,
+  "closeAt": 1790009070000,
+  "openAt": 1790009321538,
+  "trains": [
+   {
+    "id": "GLC@15:38>EUS",
+    "basis": "PNR→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BIF@16:51>MIA",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 28670,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T16:49:29.332Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 130,
+  "predictedAt": 1790009477692,
+  "closeAt": 1790009125455,
+  "openAt": 1790009477692,
+  "trains": [
+   {
+    "id": "GLC@15:38>EUS",
+    "basis": "PNR→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BIF@16:51>MIA",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 11653,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T16:51:20.525Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 130,
+  "predictedAt": 1790009618462,
+  "closeAt": 1790009618462,
+  "openAt": 1790010013043,
+  "trains": [
+   {
+    "id": "MIA@16:29>BIF",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "MCM@17:32>LDS",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "EUS@15:30>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 992,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T16:52:19.090Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 150,
+  "predictedAt": 1790009598462,
+  "closeAt": 1790009598462,
+  "openAt": 1790010013043,
+  "trains": [
+   {
+    "id": "MIA@16:29>BIF",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "MCM@17:32>LDS",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "EUS@15:30>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 29143,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T17:00:40.486Z",
+  "crossing": "thorpe-lane",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "predictedAt": 1790010077532,
+  "closeAt": 1790009207273,
+  "openAt": 1790010077532,
+  "trains": [
+   {
+    "id": "WAT@16:52>WYB",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@17:13>AHT",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "RDG@17:09>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@17:18>RDG",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 4111,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T17:01:08.867Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "predictedAt": 1790010180502,
+  "closeAt": 1790009718462,
+  "openAt": 1790010180502,
+  "trains": [
+   {
+    "id": "MIA@16:29>BIF",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "MCM@17:32>LDS",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "EUS@15:30>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 5781,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T17:02:29.021Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "predictedAt": 1790010240502,
+  "closeAt": 1790009718462,
+  "openAt": 1790010240502,
+  "trains": [
+   {
+    "id": "MIA@16:29>BIF",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "MCM@17:32>LDS",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "EUS@15:30>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 25090,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T17:04:42.583Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "predictedAt": 1790010729487,
+  "closeAt": 1790010729487,
+  "openAt": 1790010909487,
+  "trains": [
+   {
+    "id": "CKL@15:50>LAN",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 1834,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T17:25:56.497Z",
+  "crossing": "drayton",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "predictedAt": 1790011974286,
+  "closeAt": 1790011974286,
+  "openAt": 1790012165714,
+  "trains": [
+   {
+    "id": "CCH@18:33>BTN",
+    "basis": "CCH→BAA",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@17:26>PMS",
+    "basis": "BAA→CCH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3543,
+  "live": true
  }
 ]
