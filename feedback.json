@@ -1254,5 +1254,124 @@
   ],
   "dataAge": 29932,
   "live": true
+ },
+ {
+  "at": "2026-09-21T14:58:59.394Z",
+  "crossing": "horton-road",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "predictedAt": 1790003272532,
+  "closeAt": 1790003272532,
+  "openAt": 1790003452532,
+  "trains": [
+   {
+    "id": "GCR@16:09>WEY",
+    "basis": "GCR→YAE",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 23192,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T15:17:15.151Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 180,
+  "predictedAt": 1790003900000,
+  "closeAt": 1790003900000,
+  "openAt": 1790004182680,
+  "trains": [
+   {
+    "id": "PMS@16:07>WAT",
+    "basis": "BDH departure",
+    "coaches": 12,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 3418,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T15:23:10.092Z",
+  "crossing": "friargate",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "predictedAt": 1790005268866,
+  "closeAt": 1790005268866,
+  "openAt": 1790005530000,
+  "trains": [
+   {
+    "id": "LIV@13:19>CLE",
+    "basis": "GMB departure",
+    "coaches": 6,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 2960,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T15:26:47.295Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 190,
+  "predictedAt": 1790004600000,
+  "closeAt": 1790004070000,
+  "openAt": 1790004600000,
+  "trains": [
+   {
+    "id": "PMS@16:07>WAT",
+    "basis": "BDH departure",
+    "coaches": 12,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "PMH@16:15>WAT",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 146229,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T15:27:43.198Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 190,
+  "predictedAt": 1790004600000,
+  "closeAt": 1790004070000,
+  "openAt": 1790004600000,
+  "trains": [
+   {
+    "id": "PMS@16:07>WAT",
+    "basis": "BDH departure",
+    "coaches": 12,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "PMH@16:15>WAT",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 5674,
+  "live": true
  }
 ]
