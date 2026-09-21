@@ -2591,5 +2591,72 @@
   ],
   "dataAge": 17620,
   "live": true
+ },
+ {
+  "at": "2026-09-21T19:13:21.620Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 180,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790018103559,
+  "closeAt": 1790017700000,
+  "openAt": 1790018103559,
+  "trains": [
+   {
+    "id": "ELY@19:58>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BHM@17:22>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2785,
+  "live": true
+ },
+ {
+  "at": "2026-09-21T19:15:54.455Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 180,
+  "openAfter": 15,
+  "prevOpenAt": 1790017616280,
+  "predictedAt": 1790018434174,
+  "closeAt": 1790018434174,
+  "openAt": 1790018955000,
+  "trains": [
+   {
+    "id": "CBG@20:20>NRW",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "KGX@19:18>KLN",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "LST@19:08>ELY",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 28602,
+  "live": true
  }
 ]
