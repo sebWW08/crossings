@@ -291,7 +291,11 @@ The generator above is the plan; what's left:
    has the official name and type (AHB, MCB, CCTV…) — match it on position.
 3. **Cost** — each crossing is a handful of board reads per 30 s *while
    someone is looking at it*; boards are cached per station so busy stations
-   are shared. RDM's free tier is plenty for hundreds of concurrent crossings.
+   are shared. RDM allows 100 requests/s with a burst cap and answers 429
+   for a while once tripped (a whole-registry sweep at 75/s did it), so
+   `src/darwin.js` keeps at most 8 requests in flight, retries a 429 or 5xx
+   once, and otherwise serves the last board it got (up to 15 min old,
+   flagged `staleSec` and shown on the page) rather than an error.
    Beyond that, move to the Darwin push port (one streaming feed of
    everything) and compute for all crossings continuously.
 4. **Ground truth** — once there are users, "was it actually closed?" taps at

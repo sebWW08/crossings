@@ -83,7 +83,7 @@ async function api(url, req, res) {
     stats.watched(req, crossing.id, url.searchParams.get('v'));
     const now = new Date();
     try {
-      const { boards, errors } = await boardsFor(crossing, now);
+      const { boards, errors, staleSec } = await boardsFor(crossing, now);
       const p = predict(crossing, boards, now);
       if (errors.length) console.warn(`${crossing.id}: partial boards —`, errors.join('; '));
       return json(res, 200, {
@@ -92,6 +92,7 @@ async function api(url, req, res) {
         now: now.getTime(),
         ...p,
         partial: errors.length ? errors : undefined,
+        staleSec: staleSec || undefined,
         movements: undefined,
         directions: [...new Map(crossing.directions.map((d) => [d.key, { key: d.key, label: d.label, towards: d.towards }])).values()],
       });
