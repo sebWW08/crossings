@@ -1,57 +1,60 @@
 {
  "2026-09-21": {
-  "visitors": 437,
-  "newDevices": 390,
-  "polls": 3695,
+  "visitors": 551,
+  "newDevices": 489,
+  "polls": 4467,
   "landings": {
-   "crossing": 467,
-   "home": 33
+   "crossing": 611,
+   "home": 37
   },
   "referrers": {
-   "facebook.com": 272,
-   "lm.facebook.com": 127,
-   "l.facebook.com": 24,
-   "m.facebook.com": 4
+   "facebook.com": 342,
+   "lm.facebook.com": 161,
+   "l.facebook.com": 34,
+   "m.facebook.com": 6
   },
   "crossings": {
-   "east-boldon": 224,
-   "chesterton-junction": 81,
-   "bedhampton": 75,
+   "east-boldon": 242,
+   "chesterton-junction": 106,
+   "bedhampton": 89,
    "mill-road-liss": 2,
    "liss": 2,
    "princes-bridge": 2,
-   "havant": 32,
-   "cosham": 9,
-   "egham": 11,
-   "brough-east-lc": 6,
-   "warblington": 10,
+   "havant": 38,
+   "cosham": 12,
+   "egham": 19,
+   "brough-east-lc": 8,
+   "warblington": 16,
    "inlands-road": 2,
    "chichester-2": 1,
    "ford": 1,
-   "boldon-level-crossing": 2,
+   "boldon-level-crossing": 3,
    "tile-shed": 3,
    "nutbourne": 1,
    "southbourne": 1,
-   "welton-lc": 7,
-   "pooley-green": 5,
-   "foxton": 5,
+   "welton-lc": 9,
+   "pooley-green": 7,
+   "foxton": 10,
    "milton-fen": 2,
    "laundry-lane": 2,
-   "rusham": 1,
-   "thorpe-lane": 1,
+   "rusham": 2,
+   "thorpe-lane": 3,
    "porthmadog": 1,
    "cherry-hinton-by-pass": 1,
-   "bolton-le-sands-level-crossing": 5,
+   "bolton-le-sands-level-crossing": 14,
    "vine-road-barnes": 1,
    "mitre-bridge": 1,
    "vine-road-barnes-2": 1,
    "cottingham-north-lc": 1,
-   "hest-bank-level-crossing": 1
+   "hest-bank-level-crossing": 28,
+   "hall-dene-way-level-crossing": 1
   },
   "feedback": {
-   "chesterton-junction": 6,
-   "east-boldon": 7,
-   "bedhampton": 1
+   "chesterton-junction": 10,
+   "east-boldon": 8,
+   "bedhampton": 1,
+   "cosham": 2,
+   "foxton": 4
   }
  },
  "2026-09-20": {
