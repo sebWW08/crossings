@@ -152,3 +152,8 @@ button[aria-pressed="true"] { background: var(--accent); border-color: var(--acc
   .map .leaflet-control-attribution, .map .leaflet-bar a { background: var(--card); color: var(--ink); }
 }
 .err { color: var(--closed); }
+
+/* ---------- coffee ---------- */
+.coffee { display: inline-block; margin-left: 8px; padding: 3px 10px; border-radius: 999px; background: var(--soon-bg); color: var(--soon); text-decoration: none; font-weight: 600; white-space: nowrap; }
+.coffee:hover { filter: brightness(1.1); }
+.foot-links { display: block; margin-top: 8px; }

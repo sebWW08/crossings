@@ -414,7 +414,8 @@ async function loadCrossing(id) {
       <button type="button" data-observed="down">Down</button>
       <button type="button" data-observed="up">Up</button>
     </div>
-    <p class="muted small">Barriers expected down for about ${mins} min of the next hour. Updated ${hhmm(data.now)}.</p>
+    <p class="muted small">Barriers expected down for about ${mins} min of the next hour. Updated ${hhmm(data.now)}.
+      <a class="coffee" href="https://buymeacoffee.com/seb123" target="_blank" rel="noopener">☕ Saved you a wait? Buy me a coffee</a></p>
     ${c.parallel ? '<p class="unc small">This road is on a line that runs beside a faster one between the same stations. Trains on the other line never close these barriers, and the live boards cannot tell the two apart, so only trains known to have come this way are shown.</p>' : ''}
     ${data.partial ? `<p class="unc small">Some trains may be missing: could not read ${data.partial.length} of the boards this crossing depends on.</p>` : ''}
     ${data.staleSec ? `<p class="unc small">The live train service is not answering just now; this is from data ${human(data.staleSec * 1000, { about: true })} old.</p>` : ''}
