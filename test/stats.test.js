@@ -37,3 +37,11 @@ test('crawlers, link previewers and the keep-alive ping are not people', () => {
   watched(req('WhatsApp/2.0'), 'milford', 'new', day);
   assert.equal(snapshot()[day].polls, before);
 });
+
+test('mergeDay takes the larger of two snapshots field by field', async () => {
+  const { mergeDay } = await import('../src/stats.mjs');
+  const a = { visitors: 10, newDevices: 8, polls: 100, landings: { crossing: 9 }, referrers: { 'facebook.com': 5 }, crossings: { liss: 4, milford: 1 }, feedback: {} };
+  const b = { visitors: 3, newDevices: 3, polls: 140, landings: { crossing: 2, home: 1 }, referrers: {}, crossings: { liss: 2, egham: 1 }, feedback: { liss: 1 } };
+  assert.deepEqual(mergeDay(a, b), { visitors: 10, newDevices: 8, polls: 140, landings: { crossing: 9, home: 1 }, referrers: { 'facebook.com': 5 }, crossings: { liss: 4, milford: 1, egham: 1 }, feedback: { liss: 1 } });
+  assert.equal(mergeDay(null, b), b);
+});

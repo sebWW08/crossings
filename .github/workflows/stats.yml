@@ -1,0 +1,39 @@
+# The free host wipes its disk on every deploy, so the site's usage counts
+# (/api/stats, cookieless day totals) would vanish with each push. This
+# fetches them every hour and keeps the latest in stats.json on the `stats`
+# branch — never master, which would trigger a deploy — and the server
+# reads that file back when it starts, so a deploy costs nothing.
+name: keep stats
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: stats
+      - name: fetch and merge
+        run: |
+          curl -fsS --max-time 60 https://crossings.onrender.com/api/stats -o new.json
+          node -e '
+            const fs = require("fs");
+            const max = (x = {}, y = {}) => { const o = { ...x }; for (const [k, v] of Object.entries(y)) o[k] = Math.max(o[k] ?? 0, v); return o; };
+            const day = (a, b) => !a ? b : !b ? a : { visitors: Math.max(a.visitors, b.visitors), newDevices: Math.max(a.newDevices, b.newDevices), polls: Math.max(a.polls, b.polls), landings: max(a.landings, b.landings), referrers: max(a.referrers, b.referrers), crossings: max(a.crossings, b.crossings), feedback: max(a.feedback, b.feedback) };
+            let old = {}; try { old = JSON.parse(fs.readFileSync("stats.json", "utf8")); } catch {}
+            const fresh = JSON.parse(fs.readFileSync("new.json", "utf8"));
+            const out = {}; for (const d of [...new Set([...Object.keys(old), ...Object.keys(fresh)])].sort().reverse()) out[d] = day(old[d], fresh[d]);
+            fs.writeFileSync("stats.json", JSON.stringify(out, null, 1) + "\n");
+          '
+          rm new.json
+      - name: commit
+        run: |
+          git config user.name "crossings-stats"
+          git config user.email "stats@crossings.invalid"
+          git add stats.json
+          git diff --cached --quiet || git commit -qm "stats $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push

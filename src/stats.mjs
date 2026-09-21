@@ -14,6 +14,10 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FILE = path.join(here, '..', 'data', 'stats.json');
+// Where the hourly GitHub Action keeps the last snapshot (see
+// .github/workflows/stats.yml): a fresh process starts from it, so a deploy
+// (which wipes the disk on the free host) doesn't zero the day's numbers.
+const SEED_URL = process.env.STATS_SEED_URL ?? 'https://raw.githubusercontent.com/sebWW08/crossings/stats/stats.json';
 const KEEP_DAYS = 90;
 const MAX_KEYS = 20_000; // per map per day: a bot storm shouldn't eat the heap
 
@@ -100,12 +104,38 @@ export function snapshot() {
   return out;
 }
 
+/** Field-wise maximum of two days' counts: a snapshot can only lag, never lead. */
+export function mergeDay(a, b) {
+  if (!a) return b;
+  if (!b) return a;
+  const maxMap = (x = {}, y = {}) => { const o = { ...x }; for (const [k, v] of Object.entries(y)) o[k] = Math.max(o[k] ?? 0, v); return o; };
+  return {
+    visitors: Math.max(a.visitors, b.visitors), newDevices: Math.max(a.newDevices, b.newDevices), polls: Math.max(a.polls, b.polls),
+    landings: maxMap(a.landings, b.landings), referrers: maxMap(a.referrers, b.referrers), crossings: maxMap(a.crossings, b.crossings), feedback: maxMap(a.feedback, b.feedback),
+  };
+}
+
+async function seed() {
+  if (!SEED_URL) return;
+  try {
+    const res = await fetch(SEED_URL, { signal: AbortSignal.timeout(8000), headers: { 'cache-control': 'no-cache' } });
+    if (!res.ok) return;
+    const snap = await res.json();
+    let n = 0;
+    for (const [day, d] of Object.entries(snap)) { if (typeof d?.visitors === 'number') { days[day] = mergeDay(days[day], d); if (!seen.has(day)) seen.set(day, { site: new Set(), byCrossing: new Map() }); n++; } }
+    if (n) { dirty = true; console.log(`stats: seeded ${n} day(s) from ${SEED_URL}`); }
+  } catch (e) {
+    console.warn('stats: could not seed', e.message);
+  }
+}
+
 export async function load() {
+  await seed();
   try {
     const saved = JSON.parse(await readFile(FILE, 'utf8'));
     if (saved.salt) salt = saved.salt;
-    days = saved.days ?? {};
-    for (const d of Object.keys(days)) seen.set(d, { site: new Set(), byCrossing: new Map() });
+    for (const [d, v] of Object.entries(saved.days ?? {})) days[d] = mergeDay(days[d], v);
+    for (const d of Object.keys(days)) if (!seen.has(d)) seen.set(d, { site: new Set(), byCrossing: new Map() });
     // Today's hashes come back too, so a restart mid-day doesn't count everyone twice.
     const t = saved.seen;
     if (t?.day && days[t.day]) seen.set(t.day, { site: new Set(t.site), byCrossing: new Map(Object.entries(t.byCrossing).map(([k, v]) => [k, new Set(v)])) });
