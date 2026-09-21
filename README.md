@@ -47,7 +47,8 @@ own type — by `src/card.mjs` from an SVG, rasterised with
 font (`assets/`, OFL). Nothing live is on it: chat apps cache previews for
 hours, and a stale "open" under our name would be worse than no picture.
 
-`/api/stats` is a cookieless count of use, per day: people per crossing
+`/stats` is the dashboard — people per day, which crossings, where they came
+from, feedback taps — drawn from `/api/stats`, a cookieless count of use, per day: people per crossing
 (a phone polling every 30 s is one person — a salted hash of address and
 browser that changes daily and is never stored), how they arrived (a
 crossing link, the home page, the map), which sites sent them, whether the

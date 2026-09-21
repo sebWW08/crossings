@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="robots" content="noindex">
+  <title>Crossings — who's using it</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* One series everywhere, so one hue: the site's accent, more = darker via opacity on the surface. */
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 12px 0; }
+    .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+    .kpi .v { font: 800 40px/1 "Barlow Condensed", system-ui, sans-serif; letter-spacing: .01em; font-variant-numeric: tabular-nums; }
+    .kpi .l { font-size: 12px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+    .kpi .d { font-size: 13px; color: var(--muted); margin-top: 6px; }
+    .chart { position: relative; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .chart .grid { stroke: var(--line); stroke-width: 1; }
+    .chart .axis { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .chart .bar { fill: var(--accent); }
+    .chart .bar.ghost { fill: var(--accent); opacity: .35; }
+    .chart .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+    .chart .area { fill: var(--accent); opacity: .12; }
+    .chart .dot { fill: var(--accent); stroke: var(--card); stroke-width: 2; }
+    .chart .hit { fill: transparent; }
+    .chart .label { fill: var(--ink); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .chart .cat { fill: var(--ink); font-size: 13px; }
+    .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 12px; padding: 6px 9px; border-radius: 8px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); display: none; z-index: 2; }
+    .tip b { font-variant-numeric: tabular-nums; }
+    .crosshair { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; display: none; }
+    details { margin-top: 8px; }
+    summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+    th, td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+    td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 8px 0 4px; }
+    .row select { font: inherit; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: inherit; }
+    .note { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a href="/" class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 8l24 16M28 8L4 24" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+      Crossings
+    </a>
+    <span class="badge">stats</span>
+  </header>
+  <div class="stripe" aria-hidden="true"></div>
+  <main class="wrap" id="app"><p class="muted">Loading…</p></main>
+  <footer class="wrap muted small">Counts, not people: a visitor is a daily hash of address and browser that is never stored. Days in Europe/London. Bots and link previewers are left out.</footer>
+  <script type="module">
+    const app = document.getElementById('app');
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const fmt = (n) => Number(n ?? 0).toLocaleString('en-GB');
+    const dayLabel = (d) => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    const sum = (xs) => xs.reduce((a, b) => a + b, 0);
+    const sumMaps = (maps) => { const o = {}; for (const m of maps) for (const [k, v] of Object.entries(m ?? {})) o[k] = (o[k] ?? 0) + v; return o; };
+    const top = (m, n) => Object.entries(m).sort((a, b) => b[1] - a[1]).slice(0, n);
+    // Facebook's various hostnames are one source to us.
+    const source = (h) => /facebook\.com$|^fb\.|fbcdn/.test(h) ? 'facebook' : /google/.test(h) ? 'google' : /nextdoor/.test(h) ? 'nextdoor' : /reddit/.test(h) ? 'reddit' : /whatsapp/.test(h) ? 'whatsapp' : /t\.co$|twitter|x\.com/.test(h) ? 'x / twitter' : h;
+
+    let stats = {};
+    let range = 30;
+
+    async function load() {
+      const res = await fetch('/api/stats', { cache: 'no-store' });
+      stats = await res.json();
+      draw();
+    }
+
+    function draw() {
+      const days = Object.keys(stats).sort(); // oldest first
+      const shown = days.slice(-range);
+      const D = shown.map((d) => ({ day: d, ...stats[d] }));
+      if (!D.length) { app.innerHTML = '<p class="muted">Nothing counted yet.</p>'; return; }
+      const today = D.at(-1), yesterday = D.at(-2);
+      const people = sum(D.map((d) => d.visitors));
+      const taps = sum(D.map((d) => sum(Object.values(d.feedback ?? {}))));
+      const returning = sum(D.map((d) => d.visitors - d.newDevices));
+      const crossings = sumMaps(D.map((d) => d.crossings));
+      const referrers = sumMaps(D.map((d) => d.referrers));
+      const landings = sumMaps(D.map((d) => d.landings));
+      const feedback = sumMaps(D.map((d) => d.feedback));
+      const sources = {}; for (const [h, n] of Object.entries(referrers)) sources[source(h)] = (sources[source(h)] ?? 0) + n;
+      const delta = yesterday ? today.visitors - yesterday.visitors : null;
+
+      app.innerHTML = `
+        <div class="row">
+          <h1 class="display" style="margin:0;font-size:34px;text-transform:uppercase;flex:1">Who's using it</h1>
+          <select id="range" aria-label="Days shown">
+            ${[7, 14, 30, 90].map((n) => `<option value="${n}" ${n === range ? 'selected' : ''}>Last ${n} days</option>`).join('')}
+          </select>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="v">${fmt(today.visitors)}</div><div class="l">people today</div><div class="d">${delta == null ? 'first day' : (delta >= 0 ? '▲ ' : '▼ ') + fmt(Math.abs(delta)) + ' vs yesterday'}</div></div>
+          <div class="kpi"><div class="v">${fmt(people)}</div><div class="l">people, ${D.length} day${D.length === 1 ? '' : 's'}</div><div class="d">${fmt(returning)} came back (${people ? Math.round(100 * returning / people) : 0}%)</div></div>
+          <div class="kpi"><div class="v">${fmt(taps)}</div><div class="l">“was this right?” taps</div><div class="d">${fmt(Object.keys(feedback).length)} crossings</div></div>
+          <div class="kpi"><div class="v">${fmt(Object.keys(crossings).length)}</div><div class="l">crossings looked at</div><div class="d">of 1,339</div></div>
+        </div>
+
+        <h2>People per day</h2>
+        <div class="card">${lineChart(D)}
+          <details><summary>Table</summary><table><tr><th>Day</th><th class="n">People</th><th class="n">New devices</th><th class="n">Polls</th><th class="n">Taps</th></tr>
+          ${[...D].reverse().map((d) => `<tr><td>${dayLabel(d.day)}</td><td class="n">${fmt(d.visitors)}</td><td class="n">${fmt(d.newDevices)}</td><td class="n">${fmt(d.polls)}</td><td class="n">${fmt(sum(Object.values(d.feedback ?? {})))}</td></tr>`).join('')}</table></details>
+        </div>
+
+        <h2>Crossings</h2>
+        <div class="card">${barChart(top(crossings, 15), { link: (id) => `/${id}` })}
+          <details><summary>All ${fmt(Object.keys(crossings).length)}</summary><table><tr><th>Crossing</th><th class="n">People</th><th class="n">Taps</th></tr>
+          ${top(crossings, 1000).map(([id, n]) => `<tr><td><a href="/${esc(id)}">${esc(id)}</a></td><td class="n">${fmt(n)}</td><td class="n">${fmt(feedback[id] ?? 0)}</td></tr>`).join('')}</table></details>
+        </div>
+
+        <h2>Where they came from</h2>
+        <div class="card">${barChart(top(sources, 10))}
+          <p class="note">Landed on: ${Object.entries(landings).map(([k, v]) => `${esc(k === 'crossing' ? 'a crossing link' : k === 'home' ? 'the home page' : 'the map')} ${fmt(v)}`).join(' · ') || 'nothing yet'}. Only visits that arrived with a referrer are counted here; a link opened from an app often has none.</p>
+          <details><summary>Every host</summary><table><tr><th>Host</th><th class="n">Landings</th></tr>${top(referrers, 1000).map(([h, n]) => `<tr><td>${esc(h)}</td><td class="n">${fmt(n)}</td></tr>`).join('')}</table></details>
+        </div>
+
+        <h2>Feedback</h2>
+        <div class="card">${Object.keys(feedback).length ? barChart(top(feedback, 15), { link: (id) => `/${id}` }) : '<p class="muted">No taps yet.</p>'}
+          <p class="note">What each tap said is in the server log (search “feedback”), not here.</p>
+        </div>`;
+      document.getElementById('range').addEventListener('change', (e) => { range = Number(e.target.value); draw(); });
+      bindHover();
+    }
+
+    // ---------- charts: plain SVG, one hue ----------
+    const W = 640, PAD = { l: 36, r: 12, t: 12, b: 26 };
+
+    function lineChart(D) {
+      const H = 200;
+      const max = Math.max(1, ...D.map((d) => d.visitors));
+      const step = niceStep(max);
+      const ymax = Math.ceil(max / step) * step;
+      const x = (i) => PAD.l + (D.length === 1 ? (W - PAD.l - PAD.r) / 2 : (i * (W - PAD.l - PAD.r)) / (D.length - 1));
+      const y = (v) => PAD.t + (H - PAD.t - PAD.b) * (1 - v / ymax);
+      const pts = D.map((d, i) => [x(i), y(d.visitors)]);
+      const path = pts.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)},${py.toFixed(1)}`).join(' ');
+      const area = `${path} L${pts.at(-1)[0].toFixed(1)},${y(0)} L${pts[0][0].toFixed(1)},${y(0)} Z`;
+      const ticks = []; for (let v = 0; v <= ymax; v += step) ticks.push(v);
+      const every = Math.max(1, Math.ceil(D.length / 8));
+      return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="People per day">
+        ${ticks.map((v) => `<line class="grid" x1="${PAD.l}" x2="${W - PAD.r}" y1="${y(v)}" y2="${y(v)}"/><text class="axis" x="${PAD.l - 6}" y="${y(v) + 4}" text-anchor="end">${fmt(v)}</text>`).join('')}
+        ${D.map((d, i) => i % every === 0 || i === D.length - 1 ? `<text class="axis" x="${x(i)}" y="${H - 8}" text-anchor="middle">${dayLabel(d.day).replace(/^\w+ /, '')}</text>` : '').join('')}
+        ${D.length > 1 ? `<path class="area" d="${area}"/><path class="line" d="${path}"/>` : ''}
+        ${pts.map(([px, py], i) => `<circle class="dot" cx="${px}" cy="${py}" r="4"/>`).join('')}
+        <line class="crosshair" id="xh" y1="${PAD.t}" y2="${H - PAD.b}"/>
+        ${pts.map(([px, py], i) => `<rect class="hit" x="${(i ? (pts[i - 1][0] + px) / 2 : PAD.l)}" y="0" width="${((i < pts.length - 1 ? (pts[i + 1][0] + px) / 2 : W - PAD.r) - (i ? (pts[i - 1][0] + px) / 2 : PAD.l))}" height="${H}" data-tip="${esc(dayLabel(D[i].day))}: <b>${fmt(D[i].visitors)}</b> people · ${fmt(D[i].newDevices)} new · ${fmt(D[i].polls)} polls" data-x="${px}" data-y="${py}"/>`).join('')}
+      </svg><div class="tip"></div></div>`;
+    }
+
+    function barChart(rows, { link } = {}) {
+      if (!rows.length) return '<p class="muted">Nothing yet.</p>';
+      const rowH = 26, labelW = 170;
+      const H = rows.length * rowH + 8;
+      const max = Math.max(1, ...rows.map(([, n]) => n));
+      const x0 = labelW, x1 = W - 48;
+      const w = (n) => Math.max(2, ((x1 - x0) * n) / max);
+      return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart">
+        ${rows.map(([k, n], i) => {
+          const y = 4 + i * rowH;
+          const name = k.length > 26 ? k.slice(0, 25) + '…' : k;
+          const label = link ? `<a href="${esc(link(k))}"><text class="cat" x="${x0 - 8}" y="${y + 16}" text-anchor="end">${esc(name)}</text></a>` : `<text class="cat" x="${x0 - 8}" y="${y + 16}" text-anchor="end">${esc(name)}</text>`;
+          return `${label}<rect class="bar" x="${x0}" y="${y + 3}" width="${w(n).toFixed(1)}" height="${rowH - 8}" rx="4"/>
+            <text class="label" x="${x0 + w(n) + 6}" y="${y + 16}">${fmt(n)}</text>
+            <rect class="hit" x="0" y="${y}" width="${W}" height="${rowH}" data-tip="${esc(k)}: <b>${fmt(n)}</b>" data-x="${x0 + w(n) / 2}" data-y="${y + 3}"/>`;
+        }).join('')}
+      </svg><div class="tip"></div></div>`;
+    }
+
+    function niceStep(max) {
+      const raw = max / 4; const p = 10 ** Math.floor(Math.log10(raw));
+      return [1, 2, 5, 10].map((m) => m * p).find((s) => s >= raw) ?? p * 10;
+    }
+
+    function bindHover() {
+      for (const chart of document.querySelectorAll('.chart')) {
+        const tip = chart.querySelector('.tip'), svg = chart.querySelector('svg'), xh = chart.querySelector('.crosshair');
+        const show = (hit) => {
+          const vb = svg.viewBox.baseVal, r = svg.getBoundingClientRect();
+          const sx = r.width / vb.width, sy = r.height / vb.height;
+          tip.innerHTML = hit.dataset.tip;
+          tip.style.display = 'block';
+          const half = tip.offsetWidth / 2;
+          tip.style.left = `${Math.min(Math.max(Number(hit.dataset.x) * sx, half), r.width - half)}px`;
+          tip.style.top = `${Number(hit.dataset.y) * sy}px`;
+          if (xh) { xh.setAttribute('x1', hit.dataset.x); xh.setAttribute('x2', hit.dataset.x); xh.style.display = 'block'; }
+        };
+        const hide = () => { tip.style.display = 'none'; if (xh) xh.style.display = 'none'; };
+        for (const hit of chart.querySelectorAll('.hit')) {
+          hit.addEventListener('mouseenter', () => show(hit));
+          hit.addEventListener('touchstart', () => show(hit), { passive: true });
+        }
+        svg.addEventListener('mouseleave', hide);
+      }
+    }
+
+    load().catch((e) => { app.innerHTML = `<p class="err">Could not load stats: ${esc(e.message)}</p>`; });
+  </script>
+</body>
+</html>

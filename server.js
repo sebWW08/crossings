@@ -166,8 +166,9 @@ function sitemap(res) {
 async function serveStatic(url, req, res) {
   let rel = decodeURIComponent(url.pathname);
   if (rel === '/sitemap.xml') return sitemap(res);
-  if (rel === '/robots.txt') { res.writeHead(200, { 'content-type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE}/sitemap.xml\n`); }
-  if (rel === '/' || /^\/[a-z0-9-]+$/.test(rel)) return page(url, req, res);
+  if (rel === '/robots.txt') { res.writeHead(200, { 'content-type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /stats\nSitemap: ${SITE}/sitemap.xml\n`); }
+  if (rel === '/stats') rel = '/stats.html'; // the usage dashboard, a page of its own
+  else if (rel === '/' || /^\/[a-z0-9-]+$/.test(rel)) return page(url, req, res);
   const og = /^\/og\/([a-z0-9-]+)\.png$/.exec(rel);
   if (og) {
     // The link-preview picture. Nothing live on it, so it can be cached hard.
