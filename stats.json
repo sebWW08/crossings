@@ -1,41 +1,51 @@
 {
  "2026-09-21": {
-  "visitors": 134,
-  "newDevices": 122,
-  "polls": 2145,
+  "visitors": 331,
+  "newDevices": 302,
+  "polls": 3133,
   "landings": {
-   "crossing": 153,
-   "home": 9
+   "crossing": 368,
+   "home": 27
   },
   "referrers": {
-   "facebook.com": 95,
-   "lm.facebook.com": 39,
-   "l.facebook.com": 5
+   "facebook.com": 220,
+   "lm.facebook.com": 99,
+   "l.facebook.com": 14,
+   "m.facebook.com": 3
   },
   "crossings": {
-   "east-boldon": 67,
-   "chesterton-junction": 25,
-   "bedhampton": 26,
+   "east-boldon": 177,
+   "chesterton-junction": 58,
+   "bedhampton": 58,
    "mill-road-liss": 2,
    "liss": 2,
    "princes-bridge": 2,
-   "havant": 16,
-   "cosham": 6,
-   "egham": 1,
-   "brough-east-lc": 2,
-   "warblington": 1,
+   "havant": 26,
+   "cosham": 7,
+   "egham": 10,
+   "brough-east-lc": 3,
+   "warblington": 3,
    "inlands-road": 2,
    "chichester-2": 1,
    "ford": 1,
-   "boldon-level-crossing": 1,
-   "tile-shed": 1,
+   "boldon-level-crossing": 2,
+   "tile-shed": 3,
    "nutbourne": 1,
    "southbourne": 1,
-   "welton-lc": 1
+   "welton-lc": 4,
+   "pooley-green": 5,
+   "foxton": 4,
+   "milton-fen": 2,
+   "laundry-lane": 2,
+   "rusham": 1,
+   "thorpe-lane": 1,
+   "porthmadog": 1,
+   "cherry-hinton-by-pass": 1
   },
   "feedback": {
-   "chesterton-junction": 1,
-   "east-boldon": 1
+   "chesterton-junction": 2,
+   "east-boldon": 2,
+   "bedhampton": 1
   }
  },
  "2026-09-20": {
