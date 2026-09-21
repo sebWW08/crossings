@@ -1,0 +1,502 @@
+[
+ {
+  "at": "2026-09-19T18:48:30.000Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 40
+ },
+ {
+  "at": "2026-09-19T18:49:25.000Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 40
+ },
+ {
+  "at": "2026-09-19T18:49:57.000Z",
+  "crossing": "milford",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 40
+ },
+ {
+  "at": "2026-09-20T21:27:26.000Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T21:29:07.000Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T21:39:30.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:01:04.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:09:58.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:14:43.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "soon",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:15:27.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:22:21.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:30:42.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:32:00.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:38:00.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:43:00.000Z",
+  "crossing": "cherry-hinton-high-street",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:43:01.000Z",
+  "crossing": "cherry-hinton-high-street",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:51:00.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T22:55:00.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "soon",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T23:05:00.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-20T23:19:00.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": null,
+  "openAt": null,
+  "live": true,
+  "lead": 90
+ },
+ {
+  "at": "2026-09-21T02:47:08.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": 1789964967196,
+  "openAt": 1789965450000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:05:40.000Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": 1789970930000,
+  "openAt": 1789971182680,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:07:40.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789970630000,
+  "openAt": 1789971171646,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:18:34.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789971304174,
+  "openAt": 1789971570000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:41:42.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789972670000,
+  "openAt": 1789972928262,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:42:29.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": 1789973150000,
+  "openAt": 1789973670000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:43:36.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": 1789973150000,
+  "openAt": 1789973415826,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:47:20.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789972970000,
+  "openAt": 1789973250000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:49:27.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789973210000,
+  "openAt": 1789973475826,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T06:50:57.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "soon",
+  "closeAt": 1789973570000,
+  "openAt": 1789974155316,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:07:22.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789974350000,
+  "openAt": 1789974690000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:21:07.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789975070000,
+  "openAt": 1789975680759,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:22:44.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789975070000,
+  "openAt": 1789975680759,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:34:12.000Z",
+  "crossing": "cosham",
+  "observed": "up",
+  "predicted": "soon",
+  "closeAt": 1789976150000,
+  "openAt": 1789976670000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:34:16.000Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789976024463,
+  "openAt": 1789976396077,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:36:30.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789975790000,
+  "openAt": 1789976310000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:40:02.000Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "soon",
+  "closeAt": 1789976480880,
+  "openAt": 1789976730000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:42:52.000Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": 1789977081434,
+  "openAt": 1789977330000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:50:23.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789977004174,
+  "openAt": 1789977270000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T07:50:57.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "soon",
+  "closeAt": 1789977064174,
+  "openAt": 1789977330000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T08:12:43.000Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": 1789978701434,
+  "openAt": 1789978950000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T08:13:38.000Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789978190000,
+  "openAt": 1789978436077,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T08:16:48.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789978370000,
+  "openAt": 1789978770000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T08:18:07.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789978370000,
+  "openAt": 1789978770000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T09:12:54.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": 1789982224174,
+  "openAt": 1789982490000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T09:13:39.000Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "closeAt": 1789982224174,
+  "openAt": 1789982490000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T09:19:03.000Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789982121873,
+  "openAt": 1789983021873,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T09:42:18.000Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "closeAt": 1789983710000,
+  "openAt": 1789984170000,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T10:01:12.000Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "closeAt": 1789984370000,
+  "openAt": 1789984980759,
+  "live": true,
+  "lead": 150
+ },
+ {
+  "at": "2026-09-21T10:13:17.000Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "open",
+  "closeAt": 1789985820000,
+  "openAt": 1789986060000,
+  "live": true,
+  "lead": 150
+ }
+]
