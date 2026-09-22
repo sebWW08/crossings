@@ -1,15 +1,15 @@
 {
  "2026-09-22": {
-  "visitors": 155,
-  "newDevices": 77,
-  "polls": 3838,
+  "visitors": 163,
+  "newDevices": 84,
+  "polls": 3879,
   "landings": {
-   "crossing": 137,
-   "home": 37
+   "crossing": 143,
+   "home": 41
   },
   "referrers": {
-   "facebook.com": 36,
-   "lm.facebook.com": 19,
+   "facebook.com": 41,
+   "lm.facebook.com": 22,
    "m.facebook.com": 2,
    "l.facebook.com": 8,
    "teams.public.onecdn.static.microsoft": 1,
@@ -18,15 +18,15 @@
   "crossings": {
    "east-boldon": 25,
    "foxton": 6,
-   "bolton-le-sands-level-crossing": 5,
+   "bolton-le-sands-level-crossing": 6,
    "pooley-green": 8,
    "warblington": 7,
-   "bedhampton": 20,
-   "hest-bank-level-crossing": 16,
+   "bedhampton": 22,
+   "hest-bank-level-crossing": 20,
    "egham": 11,
    "brough-east-lc": 5,
    "helpston": 1,
-   "chesterton-junction": 25,
+   "chesterton-junction": 26,
    "thorpe-lane": 5,
    "cosham": 10,
    "mitcham-eastfields": 1,
@@ -38,7 +38,7 @@
    "broomfleet-lc": 1,
    "cave-lc": 1,
    "lydney": 1,
-   "swannington-level-crossing": 1,
+   "swannington-level-crossing": 2,
    "bardon-hill-level-crossing": 1,
    "milford": 4,
    "liss": 7,
