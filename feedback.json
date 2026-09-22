@@ -4404,5 +4404,81 @@
   ],
   "dataAge": 20671,
   "live": true
+ },
+ {
+  "at": "2026-09-22T15:56:58.801Z",
+  "crossing": "thorpe-lane",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790092784416,
+  "closeAt": 1790092604416,
+  "openAt": 1790092784416,
+  "trains": [
+   {
+    "id": "WYB@16:33>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3896,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T16:00:02.867Z",
+  "crossing": "thorpe-lane",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790092784416,
+  "predictedAt": 1790093775584,
+  "closeAt": 1790093775584,
+  "openAt": 1790093955584,
+  "trains": [
+   {
+    "id": "WAT@16:22>WYB",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 1546,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T16:00:16.235Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 200,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790092982658,
+  "closeAt": 1790092574174,
+  "openAt": 1790092982658,
+  "trains": [
+   {
+    "id": "KGX@15:54>KLN",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "SSD@16:24>BHM",
+    "basis": "CBG→ELY",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 7511,
+  "live": true
  }
 ]
