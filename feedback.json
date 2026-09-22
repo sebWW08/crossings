@@ -3921,5 +3921,331 @@
   ],
   "dataAge": 6897,
   "live": true
+ },
+ {
+  "at": "2026-09-22T13:56:13.839Z",
+  "crossing": "egham",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790085478636,
+  "closeAt": 1790084896355,
+  "openAt": 1790085478636,
+  "trains": [
+   {
+    "id": "RDG@14:09>WAT",
+    "basis": "EGH departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "WAT@13:52>WYB",
+    "basis": "EGH departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "WYB@14:33>WAT",
+    "basis": "EGH departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "WAT@14:18>RDG",
+    "basis": "EGH departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 25885,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T13:58:12.898Z",
+  "crossing": "egham",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790086670000,
+  "closeAt": 1790086670000,
+  "openAt": 1790086950000,
+  "trains": [
+   {
+    "id": "WAT@14:22>WYB",
+    "basis": "EGH departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "RDG@14:39>WAT",
+    "basis": "EGH departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 22223,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T13:59:34.481Z",
+  "crossing": "egham",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790085178636,
+  "predictedAt": 1790086670000,
+  "closeAt": 1790086670000,
+  "openAt": 1790086950000,
+  "trains": [
+   {
+    "id": "WAT@14:22>WYB",
+    "basis": "EGH departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "RDG@14:39>WAT",
+    "basis": "EGH departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 12183,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:03:10.225Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 200,
+  "openAfter": 25,
+  "prevOpenAt": 1790085782658,
+  "predictedAt": 1790085840000,
+  "closeAt": 1790085840000,
+  "openAt": 1790086378604,
+  "trains": [
+   {
+    "id": "ELY@14:51>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "CMB@15:10>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BHM@12:20>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 1716,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:03:59.721Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790086378604,
+  "closeAt": 1790085830000,
+  "openAt": 1790086378604,
+  "trains": [
+   {
+    "id": "ELY@14:51>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "CMB@15:10>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BHM@12:20>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 29339,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:05:11.672Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790086885000,
+  "closeAt": 1790085890000,
+  "openAt": 1790086885000,
+  "trains": [
+   {
+    "id": "ELY@14:51>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "CMB@15:10>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BHM@12:20>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@14:24>ELY",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 961,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:05:44.727Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790086885000,
+  "closeAt": 1790085890000,
+  "openAt": 1790086885000,
+  "trains": [
+   {
+    "id": "ELY@14:51>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "CMB@15:10>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BHM@12:20>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@14:24>ELY",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 3401,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:16:48.895Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790086770000,
+  "closeAt": 1790086424769,
+  "openAt": 1790086770000,
+  "trains": [
+   {
+    "id": "BTN@14:13>SOU",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@14:59>VIC",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 7072,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:19:25.888Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790086770000,
+  "closeAt": 1790086424769,
+  "openAt": 1790086770000,
+  "trains": [
+   {
+    "id": "BTN@14:13>SOU",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@14:59>VIC",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 17743,
+  "live": true
  }
 ]
