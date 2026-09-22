@@ -2806,5 +2806,28 @@
   ],
   "dataAge": 10268,
   "live": true
+ },
+ {
+  "at": "2026-09-22T04:39:22.839Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790052386336,
+  "closeAt": 1790052386336,
+  "openAt": 1790052630000,
+  "trains": [
+   {
+    "id": "PMH@05:28>VIC",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 21898,
+  "live": true
  }
 ]
