@@ -1,16 +1,16 @@
 {
  "2026-09-22": {
-  "visitors": 3,
-  "newDevices": 2,
-  "polls": 3,
+  "visitors": 4,
+  "newDevices": 3,
+  "polls": 4,
   "landings": {
-   "crossing": 2
+   "crossing": 3
   },
   "referrers": {
    "facebook.com": 1
   },
   "crossings": {
-   "east-boldon": 2,
+   "east-boldon": 3,
    "foxton": 1
   },
   "feedback": {}
