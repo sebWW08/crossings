@@ -4903,5 +4903,261 @@
   ],
   "dataAge": 22735,
   "live": true
+ },
+ {
+  "at": "2026-09-22T18:53:05.342Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 140,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790103352804,
+  "closeAt": 1790102977196,
+  "openAt": 1790103352804,
+  "trains": [
+   {
+    "id": "APN@19:07>SHZ",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "SHZ@19:37>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 4298,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T18:53:29.874Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 140,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790103352804,
+  "closeAt": 1790102977196,
+  "openAt": 1790103352804,
+  "trains": [
+   {
+    "id": "APN@19:07>SHZ",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "SHZ@19:37>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 1625,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T19:01:51.263Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 40,
+  "prevOpenAt": null,
+  "predictedAt": 1790103797658,
+  "closeAt": 1790103567658,
+  "openAt": 1790103797658,
+  "trains": [
+   {
+    "id": "SSD@19:25>BHM",
+    "basis": "CBG→ELY",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3023,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T19:02:22.324Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 40,
+  "prevOpenAt": null,
+  "predictedAt": 1790103797658,
+  "closeAt": 1790103567658,
+  "openAt": 1790103797658,
+  "trains": [
+   {
+    "id": "SSD@19:25>BHM",
+    "basis": "CBG→ELY",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3648,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T19:03:20.984Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 190,
+  "openAfter": 40,
+  "prevOpenAt": 1790103797658,
+  "predictedAt": 1790103970000,
+  "closeAt": 1790103970000,
+  "openAt": 1790104398262,
+  "trains": [
+   {
+    "id": "KLN@19:14>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "ELY@19:58>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1476,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T19:03:51.426Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 190,
+  "openAfter": 40,
+  "prevOpenAt": 1790103797658,
+  "predictedAt": 1790104030000,
+  "closeAt": 1790104030000,
+  "openAt": 1790104398262,
+  "trains": [
+   {
+    "id": "KLN@19:14>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "ELY@19:58>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1375,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T19:04:21.594Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 200,
+  "openAfter": 45,
+  "prevOpenAt": 1790103802658,
+  "predictedAt": 1790104020000,
+  "closeAt": 1790104020000,
+  "openAt": 1790104403262,
+  "trains": [
+   {
+    "id": "KLN@19:14>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "ELY@19:58>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1177,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T19:04:56.898Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 200,
+  "openAfter": 45,
+  "prevOpenAt": 1790103802658,
+  "predictedAt": 1790104020000,
+  "closeAt": 1790104020000,
+  "openAt": 1790104403262,
+  "trains": [
+   {
+    "id": "KLN@19:14>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "ELY@19:58>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 3982,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T19:05:39.201Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": 1790103807658,
+  "predictedAt": 1790104020000,
+  "closeAt": 1790104020000,
+  "openAt": 1790104408262,
+  "trains": [
+   {
+    "id": "KLN@19:14>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "ELY@19:58>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 15846,
+  "live": true
  }
 ]

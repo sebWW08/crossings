@@ -1,14 +1,14 @@
 {
  "2026-09-22": {
-  "visitors": 131,
-  "newDevices": 61,
-  "polls": 3721,
+  "visitors": 139,
+  "newDevices": 63,
+  "polls": 3792,
   "landings": {
-   "crossing": 117,
-   "home": 27
+   "crossing": 122,
+   "home": 30
   },
   "referrers": {
-   "facebook.com": 25,
+   "facebook.com": 26,
    "lm.facebook.com": 14,
    "m.facebook.com": 2,
    "l.facebook.com": 7,
@@ -16,17 +16,17 @@
    "com.google.android.googlequicksearchbox": 1
   },
   "crossings": {
-   "east-boldon": 15,
+   "east-boldon": 21,
    "foxton": 6,
    "bolton-le-sands-level-crossing": 5,
    "pooley-green": 8,
-   "warblington": 6,
+   "warblington": 7,
    "bedhampton": 16,
    "hest-bank-level-crossing": 14,
    "egham": 11,
    "brough-east-lc": 4,
    "helpston": 1,
-   "chesterton-junction": 21,
+   "chesterton-junction": 22,
    "thorpe-lane": 5,
    "cosham": 10,
    "mitcham-eastfields": 1,
@@ -51,8 +51,8 @@
    "parsonage-road": 1,
    "petersfield": 1,
    "farncombe": 1,
-   "milton-fen": 1,
-   "laundry-lane": 1,
+   "milton-fen": 2,
+   "laundry-lane": 2,
    "lincoln": 1,
    "sincil-bank": 1,
    "brayford": 1,
@@ -61,18 +61,20 @@
    "hykeham": 1,
    "portslade": 1,
    "rusham": 2,
-   "grove-road-2": 1
+   "grove-road-2": 1,
+   "boldon-level-crossing": 1,
+   "tile-shed": 1
   },
   "feedback": {
    "warblington": 7,
    "bedhampton": 7,
    "thorpe-lane": 5,
-   "chesterton-junction": 15,
+   "chesterton-junction": 22,
    "hest-bank-level-crossing": 1,
    "cosham": 6,
    "foxton": 12,
    "milford": 5,
-   "east-boldon": 2,
+   "east-boldon": 4,
    "egham": 3,
    "bolton-le-sands-level-crossing": 2
   }
