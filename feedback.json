@@ -4480,5 +4480,315 @@
   ],
   "dataAge": 7511,
   "live": true
+ },
+ {
+  "at": "2026-09-22T17:03:54.712Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790096756077,
+  "closeAt": 1790096001434,
+  "openAt": 1790096756077,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KLN@16:41>KGX",
+    "basis": "CMS→RYS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@15:44>CBG",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "CBG@17:51>BTN",
+    "basis": "CMS→RYS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 483,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T17:05:20.396Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790096756077,
+  "closeAt": 1790096001434,
+  "openAt": 1790096756077,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KLN@16:41>KGX",
+    "basis": "CMS→RYS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@15:44>CBG",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@17:18>KLN",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 7015,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T17:06:02.199Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 210,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790096928472,
+  "closeAt": 1790096928472,
+  "openAt": 1790097168472,
+  "trains": [
+   {
+    "id": "CBG@17:51>BTN",
+    "basis": "CMS→RYS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 18418,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T17:06:47.936Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 220,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790096978472,
+  "closeAt": 1790096978472,
+  "openAt": 1790097228472,
+  "trains": [
+   {
+    "id": "CBG@17:51>BTN",
+    "basis": "CMS→RYS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3235,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T17:07:25.271Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 240,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790096876077,
+  "closeAt": 1790095971434,
+  "openAt": 1790096876077,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@15:44>CBG",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@17:18>KLN",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "CBG@17:54>KGX",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 9529,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T17:08:01.800Z",
+  "crossing": "foxton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 240,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790097168472,
+  "closeAt": 1790095971434,
+  "openAt": 1790097168472,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@15:44>CBG",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@17:18>KLN",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "CBG@17:54>KGX",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 15616,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T17:08:47.986Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 240,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790097168472,
+  "closeAt": 1790095971434,
+  "openAt": 1790097168472,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@15:44>CBG",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@17:18>KLN",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "CBG@17:54>KGX",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1050,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T17:09:24.456Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 240,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790097168472,
+  "closeAt": 1790095971434,
+  "openAt": 1790097168472,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@15:44>CBG",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@17:18>KLN",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "CBG@17:54>KGX",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 6700,
+  "live": true
  }
 ]

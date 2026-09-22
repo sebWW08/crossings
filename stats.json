@@ -1,10 +1,10 @@
 {
  "2026-09-22": {
-  "visitors": 118,
-  "newDevices": 59,
-  "polls": 3315,
+  "visitors": 122,
+  "newDevices": 60,
+  "polls": 3679,
   "landings": {
-   "crossing": 108,
+   "crossing": 112,
    "home": 25
   },
   "referrers": {
@@ -16,14 +16,14 @@
    "com.google.android.googlequicksearchbox": 1
   },
   "crossings": {
-   "east-boldon": 13,
+   "east-boldon": 14,
    "foxton": 6,
    "bolton-le-sands-level-crossing": 5,
-   "pooley-green": 7,
+   "pooley-green": 8,
    "warblington": 4,
-   "bedhampton": 13,
+   "bedhampton": 14,
    "hest-bank-level-crossing": 14,
-   "egham": 10,
+   "egham": 11,
    "brough-east-lc": 4,
    "helpston": 1,
    "chesterton-junction": 20,
@@ -60,7 +60,8 @@
    "boultham": 1,
    "hykeham": 1,
    "portslade": 1,
-   "rusham": 1
+   "rusham": 2,
+   "grove-road-2": 1
   },
   "feedback": {
    "warblington": 4,
@@ -69,7 +70,7 @@
    "chesterton-junction": 15,
    "hest-bank-level-crossing": 1,
    "cosham": 6,
-   "foxton": 4,
+   "foxton": 12,
    "milford": 5,
    "east-boldon": 2,
    "egham": 3,
