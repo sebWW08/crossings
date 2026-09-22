@@ -4247,5 +4247,162 @@
   ],
   "dataAge": 17743,
   "live": true
+ },
+ {
+  "at": "2026-09-22T14:41:59.844Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 200,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790088303262,
+  "closeAt": 1790087880000,
+  "openAt": 1790088303262,
+  "trains": [
+   {
+    "id": "NRW@14:27>SSD",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "CMB@15:44>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 3636,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:45:23.540Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 200,
+  "openAfter": 25,
+  "prevOpenAt": 1790088303262,
+  "predictedAt": 1790089157658,
+  "closeAt": 1790089157658,
+  "openAt": 1790089863262,
+  "trains": [
+   {
+    "id": "SSD@15:25>BHM",
+    "basis": "CBG→ELY",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "ELY@15:51>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KGX@14:54>KLN",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BHM@13:22>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6785,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T14:58:18.899Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790089335231,
+  "closeAt": 1790088890000,
+  "openAt": 1790089335231,
+  "trains": [
+   {
+    "id": "VIC@14:05>PMH",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "SOU@15:20>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 30332,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T15:25:13.819Z",
+  "crossing": "bolton-le-sands-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790090756162,
+  "closeAt": 1790090492121,
+  "openAt": 1790090756162,
+  "trains": [
+   {
+    "id": "EDB@14:12>MIA",
+    "basis": "OXN→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "MIA@15:04>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2833,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T15:26:01.926Z",
+  "crossing": "bolton-le-sands-level-crossing",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790090200303,
+  "predictedAt": 1790091063838,
+  "closeAt": 1790091063838,
+  "openAt": 1790091243838,
+  "trains": [
+   {
+    "id": "GLC@14:34>EUS",
+    "basis": "OXN→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 20671,
+  "live": true
  }
 ]

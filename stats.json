@@ -1,33 +1,33 @@
 {
  "2026-09-22": {
-  "visitors": 97,
-  "newDevices": 52,
-  "polls": 2495,
+  "visitors": 107,
+  "newDevices": 54,
+  "polls": 2881,
   "landings": {
-   "crossing": 88,
-   "home": 20
+   "crossing": 95,
+   "home": 21
   },
   "referrers": {
-   "facebook.com": 19,
+   "facebook.com": 20,
    "lm.facebook.com": 14,
    "m.facebook.com": 1,
-   "l.facebook.com": 4,
+   "l.facebook.com": 5,
    "teams.public.onecdn.static.microsoft": 1,
    "com.google.android.googlequicksearchbox": 1
   },
   "crossings": {
    "east-boldon": 13,
    "foxton": 6,
-   "bolton-le-sands-level-crossing": 4,
-   "pooley-green": 4,
-   "warblington": 2,
-   "bedhampton": 12,
+   "bolton-le-sands-level-crossing": 5,
+   "pooley-green": 5,
+   "warblington": 4,
+   "bedhampton": 13,
    "hest-bank-level-crossing": 12,
-   "egham": 6,
+   "egham": 7,
    "brough-east-lc": 3,
    "helpston": 1,
-   "chesterton-junction": 12,
-   "thorpe-lane": 2,
+   "chesterton-junction": 16,
+   "thorpe-lane": 3,
    "cosham": 9,
    "mitcham-eastfields": 1,
    "aberleri": 1,
@@ -58,19 +58,21 @@
    "brayford": 1,
    "doddington-road": 1,
    "boultham": 1,
-   "hykeham": 1
+   "hykeham": 1,
+   "portslade": 1
   },
   "feedback": {
-   "warblington": 3,
+   "warblington": 4,
    "bedhampton": 6,
    "thorpe-lane": 3,
-   "chesterton-junction": 12,
+   "chesterton-junction": 14,
    "hest-bank-level-crossing": 1,
    "cosham": 6,
    "foxton": 4,
    "milford": 5,
    "east-boldon": 2,
-   "egham": 3
+   "egham": 3,
+   "bolton-le-sands-level-crossing": 2
   }
  },
  "2026-09-21": {
