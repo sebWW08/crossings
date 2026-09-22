@@ -1,17 +1,17 @@
 {
  "2026-09-22": {
-  "visitors": 66,
-  "newDevices": 36,
-  "polls": 525,
+  "visitors": 70,
+  "newDevices": 38,
+  "polls": 907,
   "landings": {
-   "crossing": 50,
-   "home": 14
+   "crossing": 55,
+   "home": 16
   },
   "referrers": {
-   "facebook.com": 14,
+   "facebook.com": 17,
    "lm.facebook.com": 13,
    "m.facebook.com": 1,
-   "l.facebook.com": 2,
+   "l.facebook.com": 3,
    "teams.public.onecdn.static.microsoft": 1,
    "com.google.android.googlequicksearchbox": 1
   },
@@ -26,7 +26,7 @@
    "egham": 4,
    "brough-east-lc": 2,
    "helpston": 1,
-   "chesterton-junction": 2,
+   "chesterton-junction": 5,
    "thorpe-lane": 1,
    "cosham": 8,
    "mitcham-eastfields": 1,
@@ -47,13 +47,14 @@
    "lime-kiln": 1,
    "tangley": 1,
    "chilworth": 1,
-   "bourne-road": 1
+   "bourne-road": 1,
+   "parsonage-road": 1
   },
   "feedback": {
    "warblington": 1,
    "bedhampton": 2,
    "thorpe-lane": 3,
-   "chesterton-junction": 1,
+   "chesterton-junction": 7,
    "hest-bank-level-crossing": 1,
    "cosham": 6,
    "foxton": 4
