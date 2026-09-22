@@ -1,37 +1,45 @@
 {
  "2026-09-22": {
-  "visitors": 43,
-  "newDevices": 23,
-  "polls": 260,
+  "visitors": 61,
+  "newDevices": 33,
+  "polls": 342,
   "landings": {
-   "crossing": 33,
-   "home": 5
+   "crossing": 47,
+   "home": 7
   },
   "referrers": {
-   "facebook.com": 8,
-   "lm.facebook.com": 10,
+   "facebook.com": 11,
+   "lm.facebook.com": 13,
    "m.facebook.com": 1,
-   "l.facebook.com": 1,
+   "l.facebook.com": 2,
    "teams.public.onecdn.static.microsoft": 1
   },
   "crossings": {
-   "east-boldon": 7,
-   "foxton": 1,
+   "east-boldon": 9,
+   "foxton": 3,
    "bolton-le-sands-level-crossing": 3,
    "pooley-green": 3,
    "warblington": 1,
-   "bedhampton": 7,
-   "hest-bank-level-crossing": 8,
-   "egham": 3,
+   "bedhampton": 9,
+   "hest-bank-level-crossing": 11,
+   "egham": 4,
    "brough-east-lc": 2,
    "helpston": 1,
    "chesterton-junction": 2,
    "thorpe-lane": 1,
-   "cosham": 6,
+   "cosham": 8,
    "mitcham-eastfields": 1,
    "aberleri": 1,
    "a146-beccles": 1,
-   "abererch": 1
+   "abererch": 1,
+   "oxmardyke-crossing": 4,
+   "welton-lc": 1,
+   "broomfleet-lc": 1,
+   "cave-lc": 1,
+   "lydney": 1,
+   "swannington-level-crossing": 1,
+   "bardon-hill-level-crossing": 1,
+   "milford": 1
   },
   "feedback": {
    "warblington": 1,
@@ -39,7 +47,8 @@
    "thorpe-lane": 3,
    "chesterton-junction": 1,
    "hest-bank-level-crossing": 1,
-   "cosham": 2
+   "cosham": 6,
+   "foxton": 4
   }
  },
  "2026-09-21": {
