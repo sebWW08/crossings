@@ -317,7 +317,14 @@ The generator above is the plan; what's left:
    far end of the window: up in the second half of a predicted closure
    means it lifted early, down shortly after the page's last closure ended
    (the page sends when that was) means it hadn't; errors over two minutes
-   are a closure that was really two trains, and are ignored. Run times per
-   crossing are the next thing the taps could calibrate.
+   are a closure that was really two trains, and are ignored. A tap that
+   would put the lead outside what that kind of crossing can do (five
+   minutes early at an AHB that closes 40 s ahead) is a train the boards
+   cannot see, not a lead error — taking those literally had inflated
+   Milford to 100 s and Foxton to 240 s. Barriers still up well into a
+   closure are kept, held to the shortest lead of its kind: a window too
+   wide to be true is exactly what the lead is there to fix. Where a
+   closure does merge several trains over more than five minutes the page
+   says so, rather than showing one solid block. Run times per
 
 Not a level crossing sensor: **never rely on this at the crossing — obey the lights.**
