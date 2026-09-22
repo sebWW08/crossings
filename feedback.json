@@ -2942,5 +2942,148 @@
   ],
   "dataAge": 9248,
   "live": true
+ },
+ {
+  "at": "2026-09-22T06:46:59.175Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790059755000,
+  "closeAt": 1790059450000,
+  "openAt": 1790059755000,
+  "trains": [
+   {
+    "id": "LWT@05:38>CBG",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "KGX@06:54>KLN",
+    "basis": "CMB departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 4315,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T07:11:16.516Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 240,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790061295000,
+  "closeAt": 1790060970000,
+  "openAt": 1790061295000,
+  "trains": [
+   {
+    "id": "WOK@06:20>PMH",
+    "basis": "FTN -5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@07:59>VIC",
+    "basis": "HLS +3.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 5132,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T07:18:54.949Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 150,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790061540502,
+  "closeAt": 1790061540502,
+  "openAt": 1790061705502,
+  "trains": [
+   {
+    "id": "BHM@06:05>EDB",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 7436,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T07:27:26.961Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 160,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790062115199,
+  "closeAt": 1790061610880,
+  "openAt": 1790062115199,
+  "trains": [
+   {
+    "id": "SOU@07:50>BTN",
+    "basis": "CSA departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@07:09>SOU",
+    "basis": "CSA departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 2661,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T07:28:42.346Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 160,
+  "openAfter": 15,
+  "prevOpenAt": 1790061495000,
+  "predictedAt": 1790062540000,
+  "closeAt": 1790062540000,
+  "openAt": 1790062815000,
+  "trains": [
+   {
+    "id": "PMH@08:23>CDF",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "SOU@07:52>PMH",
+    "basis": "CSA departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 14017,
+  "live": true
  }
 ]
