@@ -5159,5 +5159,35 @@
   ],
   "dataAge": 15846,
   "live": true
+ },
+ {
+  "at": "2026-09-22T21:03:30.019Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 190,
+  "openAfter": 30,
+  "prevOpenAt": 1790110920000,
+  "predictedAt": 1790111780000,
+  "closeAt": 1790111780000,
+  "openAt": 1790112060000,
+  "trains": [
+   {
+    "id": "BTN@21:13>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@22:05>GTW",
+    "basis": "HLS +3.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6839,
+  "live": true
  }
 ]
