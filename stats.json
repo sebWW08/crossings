@@ -1,17 +1,19 @@
 {
  "2026-09-22": {
-  "visitors": 4,
-  "newDevices": 3,
-  "polls": 4,
+  "visitors": 7,
+  "newDevices": 5,
+  "polls": 7,
   "landings": {
-   "crossing": 4
+   "crossing": 5
   },
   "referrers": {
    "facebook.com": 1
   },
   "crossings": {
-   "east-boldon": 3,
-   "foxton": 1
+   "east-boldon": 4,
+   "foxton": 1,
+   "bolton-le-sands-level-crossing": 1,
+   "pooley-green": 1
   },
   "feedback": {}
  },
