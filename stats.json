@@ -1,8 +1,8 @@
 {
  "2026-09-22": {
-  "visitors": 70,
+  "visitors": 72,
   "newDevices": 38,
-  "polls": 907,
+  "polls": 1257,
   "landings": {
    "crossing": 55,
    "home": 16
@@ -17,7 +17,7 @@
   },
   "crossings": {
    "east-boldon": 10,
-   "foxton": 3,
+   "foxton": 4,
    "bolton-le-sands-level-crossing": 4,
    "pooley-green": 3,
    "warblington": 1,
@@ -41,9 +41,9 @@
    "swannington-level-crossing": 1,
    "bardon-hill-level-crossing": 1,
    "milford": 1,
-   "liss": 2,
-   "princes-bridge": 2,
-   "mill-road-liss": 2,
+   "liss": 3,
+   "princes-bridge": 3,
+   "mill-road-liss": 3,
    "lime-kiln": 1,
    "tangley": 1,
    "chilworth": 1,
