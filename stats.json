@@ -1,30 +1,30 @@
 {
  "2026-09-22": {
-  "visitors": 72,
-  "newDevices": 38,
-  "polls": 1257,
+  "visitors": 82,
+  "newDevices": 43,
+  "polls": 1720,
   "landings": {
-   "crossing": 55,
-   "home": 16
+   "crossing": 79,
+   "home": 17
   },
   "referrers": {
-   "facebook.com": 17,
+   "facebook.com": 18,
    "lm.facebook.com": 13,
    "m.facebook.com": 1,
-   "l.facebook.com": 3,
+   "l.facebook.com": 4,
    "teams.public.onecdn.static.microsoft": 1,
    "com.google.android.googlequicksearchbox": 1
   },
   "crossings": {
-   "east-boldon": 10,
-   "foxton": 4,
+   "east-boldon": 12,
+   "foxton": 5,
    "bolton-le-sands-level-crossing": 4,
    "pooley-green": 3,
    "warblington": 1,
-   "bedhampton": 9,
+   "bedhampton": 12,
    "hest-bank-level-crossing": 12,
    "egham": 4,
-   "brough-east-lc": 2,
+   "brough-east-lc": 3,
    "helpston": 1,
    "chesterton-junction": 5,
    "thorpe-lane": 1,
@@ -40,24 +40,28 @@
    "lydney": 1,
    "swannington-level-crossing": 1,
    "bardon-hill-level-crossing": 1,
-   "milford": 1,
-   "liss": 3,
-   "princes-bridge": 3,
-   "mill-road-liss": 3,
+   "milford": 3,
+   "liss": 4,
+   "princes-bridge": 4,
+   "mill-road-liss": 4,
    "lime-kiln": 1,
    "tangley": 1,
    "chilworth": 1,
-   "bourne-road": 1,
-   "parsonage-road": 1
+   "bourne-road": 2,
+   "parsonage-road": 1,
+   "petersfield": 1,
+   "farncombe": 1
   },
   "feedback": {
    "warblington": 1,
-   "bedhampton": 2,
+   "bedhampton": 6,
    "thorpe-lane": 3,
    "chesterton-junction": 7,
    "hest-bank-level-crossing": 1,
    "cosham": 6,
-   "foxton": 4
+   "foxton": 4,
+   "milford": 5,
+   "east-boldon": 2
   }
  },
  "2026-09-21": {

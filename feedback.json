@@ -3554,5 +3554,335 @@
   ],
   "dataAge": 9739,
   "live": true
+ },
+ {
+  "at": "2026-09-22T11:46:23.677Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 230,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790077915000,
+  "closeAt": 1790077060000,
+  "openAt": 1790077915000,
+  "trains": [
+   {
+    "id": "BTN@11:28>PMS",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@12:28>VIC",
+    "basis": "HLS +3.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@12:31>WAT",
+    "basis": "BDH departure",
+    "coaches": 12,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "WAT@11:30>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2973,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T11:55:25.705Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 230,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790079115000,
+  "closeAt": 1790078110000,
+  "openAt": 1790079115000,
+  "trains": [
+   {
+    "id": "SOU@12:20>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "VIC@11:05>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMS@12:57>BTN",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@11:09>PMH",
+    "basis": "FTN -5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 8299,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T11:56:50.488Z",
+  "crossing": "milford",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 40,
+  "openAfter": 15,
+  "prevOpenAt": 1790077665000,
+  "predictedAt": 1790078750000,
+  "closeAt": 1790078750000,
+  "openAt": 1790078805000,
+  "trains": [
+   {
+    "id": "PMH@12:15>WAT",
+    "basis": "HSL +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 26014,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T11:57:34.849Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 230,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790078815000,
+  "closeAt": 1790078110000,
+  "openAt": 1790078815000,
+  "trains": [
+   {
+    "id": "SOU@12:20>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "VIC@11:05>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMS@12:57>BTN",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 7039,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T11:59:08.443Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 220,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790078815000,
+  "closeAt": 1790078120000,
+  "openAt": 1790078815000,
+  "trains": [
+   {
+    "id": "SOU@12:20>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "VIC@11:05>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMS@12:57>BTN",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2127,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T12:02:14.023Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 90,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790078580759,
+  "closeAt": 1790078460759,
+  "openAt": 1790078580759,
+  "trains": [
+   {
+    "id": "NNT@11:43>NCL",
+    "basis": "SUN→HEW",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 25111,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T12:03:03.873Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 90,
+  "openAfter": 30,
+  "prevOpenAt": 1790078580759,
+  "predictedAt": 1790078810000,
+  "closeAt": 1790078810000,
+  "openAt": 1790079090000,
+  "trains": [
+   {
+    "id": "SHZ@12:50>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "APN@12:26>SHZ",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 1224,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T12:05:40.845Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 40,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790078750000,
+  "closeAt": 1790078750000,
+  "openAt": 1790078805000,
+  "trains": [
+   {
+    "id": "PMH@12:15>WAT",
+    "basis": "HSL +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 1706,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T12:06:48.558Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 40,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790079110000,
+  "closeAt": 1790079110000,
+  "openAt": 1790079165000,
+  "trains": [
+   {
+    "id": "WAT@12:30>PMH",
+    "basis": "GOD +2.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 8060,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T12:07:20.016Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 70,
+  "openAfter": 15,
+  "prevOpenAt": 1790078805000,
+  "predictedAt": 1790079080000,
+  "closeAt": 1790079080000,
+  "openAt": 1790079165000,
+  "trains": [
+   {
+    "id": "WAT@12:30>PMH",
+    "basis": "GOD +2.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 19886,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T12:07:52.441Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 80,
+  "openAfter": 15,
+  "prevOpenAt": 1790078805000,
+  "predictedAt": 1790079070000,
+  "closeAt": 1790079070000,
+  "openAt": 1790079165000,
+  "trains": [
+   {
+    "id": "WAT@12:30>PMH",
+    "basis": "GOD +2.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 10800,
+  "live": true
  }
 ]
