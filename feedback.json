@@ -2829,5 +2829,118 @@
   ],
   "dataAge": 21898,
   "live": true
+ },
+ {
+  "at": "2026-09-22T05:46:51.441Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 240,
+  "openAfter": 25,
+  "prevOpenAt": null,
+  "predictedAt": 1790056135000,
+  "closeAt": 1790055630000,
+  "openAt": 1790056135000,
+  "trains": [
+   {
+    "id": "PMH@06:29>VIC",
+    "basis": "HLS +3.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@05:36>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 18101,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T06:28:29.283Z",
+  "crossing": "thorpe-lane",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790058582468,
+  "closeAt": 1790058050649,
+  "openAt": 1790058582468,
+  "trains": [
+   {
+    "id": "WYB@07:02>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "RDG@06:39>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@06:48>RDG",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3899,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T06:29:47.197Z",
+  "crossing": "thorpe-lane",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790057933506,
+  "predictedAt": 1790059304416,
+  "closeAt": 1790059304416,
+  "openAt": 1790059484416,
+  "trains": [
+   {
+    "id": "FNH@06:46>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 20482,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T06:30:42.033Z",
+  "crossing": "thorpe-lane",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790058582468,
+  "predictedAt": 1790059304416,
+  "closeAt": 1790059304416,
+  "openAt": 1790059484416,
+  "trains": [
+   {
+    "id": "FNH@06:46>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 9248,
+  "live": true
  }
 ]
