@@ -4790,5 +4790,118 @@
   ],
   "dataAge": 6700,
   "live": true
+ },
+ {
+  "at": "2026-09-22T18:25:40.428Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790102142166,
+  "closeAt": 1790101160000,
+  "openAt": 1790102142166,
+  "trains": [
+   {
+    "id": "PMH@19:04>VIC",
+    "basis": "HLS +3.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@18:13>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@18:00>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@19:15>WAT",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3027,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T18:31:28.956Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790102130000,
+  "closeAt": 1790101886336,
+  "openAt": 1790102130000,
+  "trains": [
+   {
+    "id": "SOU@18:50>BTN",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 13786,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T18:32:03.519Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790102130000,
+  "closeAt": 1790101886336,
+  "openAt": 1790102130000,
+  "trains": [
+   {
+    "id": "SOU@18:50>BTN",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 16652,
+  "live": true
+ },
+ {
+  "at": "2026-09-22T18:32:40.707Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790102130000,
+  "closeAt": 1790101886336,
+  "openAt": 1790102130000,
+  "trains": [
+   {
+    "id": "SOU@18:50>BTN",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 22735,
+  "live": true
  }
 ]
