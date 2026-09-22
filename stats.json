@@ -1,14 +1,40 @@
 {
- "2026-09-22": {
-  "visitors": 163,
-  "newDevices": 84,
-  "polls": 3879,
+ "2026-09-23": {
+  "visitors": 2,
+  "newDevices": 1,
+  "polls": 38,
   "landings": {
-   "crossing": 143,
-   "home": 41
+   "crossing": 1
   },
   "referrers": {
-   "facebook.com": 41,
+   "m.facebook.com": 1
+  },
+  "crossings": {
+   "abermule-old-station": 1,
+   "bromfield": 1,
+   "craven-arms": 1,
+   "bucknell": 1,
+   "onibury": 1,
+   "carno": 1,
+   "llanidloes-road": 1,
+   "charlton-lane-level-crossing": 1,
+   "berthddu": 1,
+   "bedhampton": 1
+  },
+  "feedback": {
+   "onibury": 1
+  }
+ },
+ "2026-09-22": {
+  "visitors": 166,
+  "newDevices": 85,
+  "polls": 3889,
+  "landings": {
+   "crossing": 143,
+   "home": 44
+  },
+  "referrers": {
+   "facebook.com": 43,
    "lm.facebook.com": 22,
    "m.facebook.com": 2,
    "l.facebook.com": 8,
@@ -16,10 +42,10 @@
    "com.google.android.googlequicksearchbox": 1
   },
   "crossings": {
-   "east-boldon": 25,
+   "east-boldon": 26,
    "foxton": 6,
    "bolton-le-sands-level-crossing": 6,
-   "pooley-green": 8,
+   "pooley-green": 9,
    "warblington": 7,
    "bedhampton": 22,
    "hest-bank-level-crossing": 20,

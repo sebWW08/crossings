@@ -5189,5 +5189,28 @@
   ],
   "dataAge": 6839,
   "live": true
+ },
+ {
+  "at": "2026-09-22T23:03:47.347Z",
+  "crossing": "onibury",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790118045818,
+  "predictedAt": 1790118409273,
+  "closeAt": 1790118409273,
+  "openAt": 1790118589273,
+  "trains": [
+   {
+    "id": "CTR@22:22>CDF",
+    "basis": "CRV→LUD",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 28750,
+  "live": true
  }
 ]
