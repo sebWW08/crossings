@@ -375,9 +375,12 @@ function trainLine(t) {
 }
 
 function closureBlock(c) {
+  // Several trains close together are shown as one closure, but the barriers
+  // may well come up in between — people at the crossing keep telling us so.
+  const long = c.trains.length > 1 && c.openAt - c.closeAt > 5 * 60_000;
   return `<div class="closure">
     <div><div class="when">${hhmm(c.closeAt)}–${hhmm(c.openAt)}</div><div class="dur">${human(c.openAt - c.closeAt, { about: true })} down</div></div>
-    <div>${c.trains.map(trainLine).join('')}</div>
+    <div>${c.trains.map(trainLine).join('')}${long ? `<div class="unc small">${c.trains.length} trains — the barriers may come up briefly in between</div>` : ''}</div>
   </div>`;
 }
 
