@@ -1,27 +1,28 @@
 {
  "2026-09-22": {
-  "visitors": 61,
-  "newDevices": 33,
-  "polls": 342,
+  "visitors": 66,
+  "newDevices": 36,
+  "polls": 525,
   "landings": {
-   "crossing": 47,
-   "home": 7
+   "crossing": 50,
+   "home": 14
   },
   "referrers": {
-   "facebook.com": 11,
+   "facebook.com": 14,
    "lm.facebook.com": 13,
    "m.facebook.com": 1,
    "l.facebook.com": 2,
-   "teams.public.onecdn.static.microsoft": 1
+   "teams.public.onecdn.static.microsoft": 1,
+   "com.google.android.googlequicksearchbox": 1
   },
   "crossings": {
-   "east-boldon": 9,
+   "east-boldon": 10,
    "foxton": 3,
-   "bolton-le-sands-level-crossing": 3,
+   "bolton-le-sands-level-crossing": 4,
    "pooley-green": 3,
    "warblington": 1,
    "bedhampton": 9,
-   "hest-bank-level-crossing": 11,
+   "hest-bank-level-crossing": 12,
    "egham": 4,
    "brough-east-lc": 2,
    "helpston": 1,
@@ -39,7 +40,14 @@
    "lydney": 1,
    "swannington-level-crossing": 1,
    "bardon-hill-level-crossing": 1,
-   "milford": 1
+   "milford": 1,
+   "liss": 2,
+   "princes-bridge": 2,
+   "mill-road-liss": 2,
+   "lime-kiln": 1,
+   "tangley": 1,
+   "chilworth": 1,
+   "bourne-road": 1
   },
   "feedback": {
    "warblington": 1,
