@@ -1,17 +1,17 @@
 {
  "2026-09-23": {
-  "visitors": 93,
-  "newDevices": 36,
-  "polls": 531,
+  "visitors": 101,
+  "newDevices": 38,
+  "polls": 576,
   "landings": {
-   "crossing": 75,
+   "crossing": 79,
    "home": 26
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 10,
-   "lm.facebook.com": 7,
-   "facebook.com": 17
+   "l.facebook.com": 11,
+   "lm.facebook.com": 8,
+   "facebook.com": 19
   },
   "crossings": {
    "abermule-old-station": 1,
@@ -23,30 +23,30 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 10,
-   "hest-bank-level-crossing": 9,
+   "bedhampton": 11,
+   "hest-bank-level-crossing": 10,
    "east-boldon": 14,
    "warblington": 11,
    "egham": 10,
    "kempston-hardwick": 3,
-   "foxton": 7,
+   "foxton": 8,
    "cosham": 4,
    "rusham": 1,
    "pooley-green": 6,
    "ridgmont": 1,
    "wootton-broadmead-level-crossing": 1,
    "stewartby-brickworks": 1,
-   "princes-bridge": 2,
-   "mill-road-liss": 2,
-   "liss": 2,
+   "princes-bridge": 3,
+   "mill-road-liss": 3,
+   "liss": 3,
    "cleghorn-level-crossing": 5,
    "petersfield": 2,
    "thorpe-lane": 2,
-   "chesterton-junction": 11,
+   "chesterton-junction": 14,
    "havant": 3,
    "brockenhurst": 1,
-   "bare-lane": 3,
-   "bolton-le-sands-level-crossing": 3,
+   "bare-lane": 4,
+   "bolton-le-sands-level-crossing": 4,
    "tal-y-cafn-level-crossing": 1,
    "aspley-guise": 1,
    "lime-kiln": 2,
@@ -57,7 +57,8 @@
    "doddington-road": 1,
    "sincil-bank": 1,
    "hykeham": 1,
-   "newham": 1
+   "newham": 1,
+   "grove-road-2": 1
   },
   "feedback": {
    "onibury": 1,
@@ -66,8 +67,9 @@
    "pooley-green": 4,
    "cosham": 1,
    "bedhampton": 3,
-   "chesterton-junction": 7,
-   "hest-bank-level-crossing": 1
+   "chesterton-junction": 9,
+   "hest-bank-level-crossing": 1,
+   "foxton": 2
   }
  },
  "2026-09-22": {

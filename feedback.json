@@ -5958,5 +5958,125 @@
   ],
   "dataAge": 9002,
   "live": true
+ },
+ {
+  "at": "2026-09-23T16:37:24.701Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 220,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790182211434,
+  "closeAt": 1790182211434,
+  "openAt": 1790182577424,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KLN@16:41>KGX",
+    "basis": "CMS→RYS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 824,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T16:38:02.368Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 220,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790182211434,
+  "closeAt": 1790182211434,
+  "openAt": 1790182577424,
+  "trains": [
+   {
+    "id": "KGX@16:54>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KLN@16:41>KGX",
+    "basis": "CMS→RYS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 8059,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T16:55:58.857Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": 1790182370000,
+  "predictedAt": 1790182740000,
+  "closeAt": 1790182740000,
+  "openAt": 1790183071280,
+  "trains": [
+   {
+    "id": "KLN@17:11>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "SSD@17:24>BHM",
+    "basis": "CBG→ELY",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2279,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T16:56:50.665Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": 1790182370000,
+  "predictedAt": 1790182740000,
+  "closeAt": 1790182740000,
+  "openAt": 1790183071280,
+  "trains": [
+   {
+    "id": "KLN@17:11>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "SSD@17:24>BHM",
+    "basis": "CBG→ELY",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2923,
+  "live": true
  }
 ]
