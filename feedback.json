@@ -6078,5 +6078,49 @@
   ],
   "dataAge": 2923,
   "live": true
+ },
+ {
+  "at": "2026-09-23T17:38:14.149Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 220,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790185337424,
+  "closeAt": 1790184640000,
+  "openAt": 1790185337424,
+  "trains": [
+   {
+    "id": "CBG@18:24>KGX",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@16:14>CBG",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KGX@17:24>CBG",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KGX@17:48>KLN",
+    "basis": "RYS→CMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 4832,
+  "live": true
  }
 ]
