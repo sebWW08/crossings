@@ -1,3 +1,7 @@
 {
- "_": "Per-crossing corrections merged over the generated entry at load, so they survive a regeneration; station fields merge one level deeper. Lead times are now calibrated automatically from 'was this right?' taps (src/calibrate.mjs) — put a closeBeforeSec here only to force one, and say why."
+ "_": "Per-crossing corrections merged over the generated entry at load, so they survive a regeneration; station fields merge one level deeper. Lead times are now calibrated automatically from 'was this right?' taps (src/calibrate.mjs) — put a closeBeforeSec here only to force one, and say why.",
+ "cressing": {
+  "station": { "stopsClear": true },
+  "seen": "23 Sep 2026, from a user: the platform takes 7 coaches; a 10-car to Liverpool Street opens only its rear 7 and its front 3 stand beyond the platform, so no train ever stands on the crossing."
+ }
 }
