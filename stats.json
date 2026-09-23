@@ -1,15 +1,15 @@
 {
  "2026-09-23": {
-  "visitors": 49,
-  "newDevices": 21,
-  "polls": 259,
+  "visitors": 56,
+  "newDevices": 25,
+  "polls": 294,
   "landings": {
-   "crossing": 42,
-   "home": 15
+   "crossing": 47,
+   "home": 17
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 5,
+   "l.facebook.com": 6,
    "lm.facebook.com": 5,
    "facebook.com": 3
   },
@@ -23,13 +23,13 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 2,
+   "bedhampton": 3,
    "hest-bank-level-crossing": 3,
-   "east-boldon": 11,
-   "warblington": 5,
+   "east-boldon": 13,
+   "warblington": 6,
    "egham": 7,
-   "kempston-hardwick": 2,
-   "foxton": 6,
+   "kempston-hardwick": 3,
+   "foxton": 7,
    "cosham": 4,
    "rusham": 1,
    "pooley-green": 4,
@@ -39,16 +39,16 @@
    "princes-bridge": 1,
    "mill-road-liss": 1,
    "liss": 1,
-   "cleghorn-level-crossing": 4,
+   "cleghorn-level-crossing": 5,
    "petersfield": 1,
    "thorpe-lane": 1,
-   "chesterton-junction": 1,
-   "havant": 1
+   "chesterton-junction": 2,
+   "havant": 2
   },
   "feedback": {
    "onibury": 1,
    "warblington": 2,
-   "east-boldon": 2,
+   "east-boldon": 3,
    "pooley-green": 3,
    "cosham": 1,
    "bedhampton": 2

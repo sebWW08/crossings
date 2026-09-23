@@ -5512,5 +5512,35 @@
   ],
   "dataAge": 3958,
   "live": true
+ },
+ {
+  "at": "2026-09-23T09:24:29.352Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 140,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790155530000,
+  "closeAt": 1790155080000,
+  "openAt": 1790155530000,
+  "trains": [
+   {
+    "id": "SHZ@10:02>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "APN@09:38>SHZ",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 29327,
+  "live": true
  }
 ]
