@@ -1,17 +1,17 @@
 {
  "2026-09-23": {
-  "visitors": 81,
-  "newDevices": 33,
-  "polls": 441,
+  "visitors": 93,
+  "newDevices": 36,
+  "polls": 531,
   "landings": {
-   "crossing": 65,
-   "home": 22
+   "crossing": 75,
+   "home": 26
   },
   "referrers": {
    "m.facebook.com": 1,
    "l.facebook.com": 10,
-   "lm.facebook.com": 6,
-   "facebook.com": 7
+   "lm.facebook.com": 7,
+   "facebook.com": 17
   },
   "crossings": {
    "abermule-old-station": 1,
@@ -23,10 +23,10 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 9,
-   "hest-bank-level-crossing": 6,
-   "east-boldon": 13,
-   "warblington": 10,
+   "bedhampton": 10,
+   "hest-bank-level-crossing": 9,
+   "east-boldon": 14,
+   "warblington": 11,
    "egham": 10,
    "kempston-hardwick": 3,
    "foxton": 7,
@@ -40,24 +40,34 @@
    "mill-road-liss": 2,
    "liss": 2,
    "cleghorn-level-crossing": 5,
-   "petersfield": 1,
+   "petersfield": 2,
    "thorpe-lane": 2,
-   "chesterton-junction": 9,
-   "havant": 2,
+   "chesterton-junction": 11,
+   "havant": 3,
    "brockenhurst": 1,
-   "bare-lane": 1,
-   "bolton-le-sands-level-crossing": 1,
+   "bare-lane": 3,
+   "bolton-le-sands-level-crossing": 3,
    "tal-y-cafn-level-crossing": 1,
-   "aspley-guise": 1
+   "aspley-guise": 1,
+   "lime-kiln": 2,
+   "chathill": 2,
+   "lincoln": 1,
+   "brayford": 1,
+   "boultham": 1,
+   "doddington-road": 1,
+   "sincil-bank": 1,
+   "hykeham": 1,
+   "newham": 1
   },
   "feedback": {
    "onibury": 1,
    "warblington": 3,
-   "east-boldon": 3,
+   "east-boldon": 4,
    "pooley-green": 4,
    "cosham": 1,
    "bedhampton": 3,
-   "chesterton-junction": 5
+   "chesterton-junction": 7,
+   "hest-bank-level-crossing": 1
   }
  },
  "2026-09-22": {
