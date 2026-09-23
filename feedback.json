@@ -5706,5 +5706,109 @@
   ],
   "dataAge": 5999,
   "live": true
+ },
+ {
+  "at": "2026-09-23T14:33:25.946Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790174728262,
+  "closeAt": 1790173514174,
+  "openAt": 1790174728262,
+  "trains": [
+   {
+    "id": "SSD@14:46>NRW",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "KLN@14:41>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "NRW@14:27>SSD",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "CMB@15:44>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 16591,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T14:35:15.851Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": 1790174071280,
+  "predictedAt": 1790174160000,
+  "closeAt": 1790174160000,
+  "openAt": 1790174728262,
+  "trains": [
+   {
+    "id": "NRW@14:27>SSD",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "CMB@15:44>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 4412,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T14:36:19.359Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790174728262,
+  "closeAt": 1790174160000,
+  "openAt": 1790174728262,
+  "trains": [
+   {
+    "id": "NRW@14:27>SSD",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "CMB@15:44>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 7007,
+  "live": true
  }
 ]

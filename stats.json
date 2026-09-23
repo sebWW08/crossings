@@ -1,15 +1,15 @@
 {
  "2026-09-23": {
-  "visitors": 76,
-  "newDevices": 31,
-  "polls": 416,
+  "visitors": 81,
+  "newDevices": 33,
+  "polls": 441,
   "landings": {
-   "crossing": 61,
+   "crossing": 65,
    "home": 22
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 9,
+   "l.facebook.com": 10,
    "lm.facebook.com": 6,
    "facebook.com": 7
   },
@@ -24,10 +24,10 @@
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
    "bedhampton": 9,
-   "hest-bank-level-crossing": 5,
+   "hest-bank-level-crossing": 6,
    "east-boldon": 13,
    "warblington": 10,
-   "egham": 8,
+   "egham": 10,
    "kempston-hardwick": 3,
    "foxton": 7,
    "cosham": 4,
@@ -42,7 +42,7 @@
    "cleghorn-level-crossing": 5,
    "petersfield": 1,
    "thorpe-lane": 2,
-   "chesterton-junction": 7,
+   "chesterton-junction": 9,
    "havant": 2,
    "brockenhurst": 1,
    "bare-lane": 1,
@@ -57,7 +57,7 @@
    "pooley-green": 4,
    "cosham": 1,
    "bedhampton": 3,
-   "chesterton-junction": 2
+   "chesterton-junction": 5
   }
  },
  "2026-09-22": {
