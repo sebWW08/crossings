@@ -1,15 +1,15 @@
 {
  "2026-09-23": {
-  "visitors": 118,
-  "newDevices": 45,
-  "polls": 616,
+  "visitors": 120,
+  "newDevices": 47,
+  "polls": 666,
   "landings": {
-   "crossing": 92,
+   "crossing": 97,
    "home": 32
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 12,
+   "l.facebook.com": 14,
    "lm.facebook.com": 8,
    "facebook.com": 25
   },
@@ -24,7 +24,7 @@
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
    "bedhampton": 13,
-   "hest-bank-level-crossing": 11,
+   "hest-bank-level-crossing": 12,
    "east-boldon": 17,
    "warblington": 12,
    "egham": 12,
@@ -42,11 +42,11 @@
    "cleghorn-level-crossing": 5,
    "petersfield": 2,
    "thorpe-lane": 2,
-   "chesterton-junction": 14,
+   "chesterton-junction": 15,
    "havant": 4,
    "brockenhurst": 1,
    "bare-lane": 4,
-   "bolton-le-sands-level-crossing": 5,
+   "bolton-le-sands-level-crossing": 6,
    "tal-y-cafn-level-crossing": 1,
    "aspley-guise": 1,
    "lime-kiln": 2,
