@@ -1,17 +1,17 @@
 {
  "2026-09-23": {
-  "visitors": 63,
-  "newDevices": 27,
-  "polls": 339,
+  "visitors": 67,
+  "newDevices": 29,
+  "polls": 381,
   "landings": {
-   "crossing": 52,
+   "crossing": 56,
    "home": 18
   },
   "referrers": {
    "m.facebook.com": 1,
    "l.facebook.com": 7,
    "lm.facebook.com": 5,
-   "facebook.com": 3
+   "facebook.com": 6
   },
   "crossings": {
    "abermule-old-station": 1,
@@ -23,10 +23,10 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 7,
+   "bedhampton": 8,
    "hest-bank-level-crossing": 3,
    "east-boldon": 13,
-   "warblington": 7,
+   "warblington": 8,
    "egham": 7,
    "kempston-hardwick": 3,
    "foxton": 7,
@@ -36,14 +36,15 @@
    "ridgmont": 1,
    "wootton-broadmead-level-crossing": 1,
    "stewartby-brickworks": 1,
-   "princes-bridge": 1,
-   "mill-road-liss": 1,
-   "liss": 1,
+   "princes-bridge": 2,
+   "mill-road-liss": 2,
+   "liss": 2,
    "cleghorn-level-crossing": 5,
    "petersfield": 1,
    "thorpe-lane": 1,
-   "chesterton-junction": 4,
-   "havant": 2
+   "chesterton-junction": 5,
+   "havant": 2,
+   "brockenhurst": 1
   },
   "feedback": {
    "onibury": 1,
