@@ -5212,5 +5212,28 @@
   ],
   "dataAge": 28750,
   "live": true
+ },
+ {
+  "at": "2026-09-23T04:38:46.846Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790138351077,
+  "closeAt": 1790138171077,
+  "openAt": 1790138351077,
+  "trains": [
+   {
+    "id": "BAA@05:21>PMH",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2752,
+  "live": true
  }
 ]
