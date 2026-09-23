@@ -5436,5 +5436,81 @@
   ],
   "dataAge": 6901,
   "live": true
+ },
+ {
+  "at": "2026-09-23T07:44:52.572Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 140,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790149830000,
+  "closeAt": 1790149320000,
+  "openAt": 1790149830000,
+  "trains": [
+   {
+    "id": "SHZ@08:26>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "APN@08:02>SHZ",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 2987,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T07:53:12.742Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 190,
+  "openAfter": 30,
+  "prevOpenAt": 1790149980000,
+  "predictedAt": 1790150030000,
+  "closeAt": 1790150030000,
+  "openAt": 1790150250000,
+  "trains": [
+   {
+    "id": "SOU@08:20>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3847,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T07:53:43.418Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 190,
+  "openAfter": 30,
+  "prevOpenAt": 1790149980000,
+  "predictedAt": 1790150030000,
+  "closeAt": 1790150030000,
+  "openAt": 1790150250000,
+  "trains": [
+   {
+    "id": "SOU@08:20>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3958,
+  "live": true
  }
 ]
