@@ -1,15 +1,15 @@
 {
  "2026-09-23": {
-  "visitors": 56,
-  "newDevices": 25,
-  "polls": 294,
+  "visitors": 63,
+  "newDevices": 27,
+  "polls": 339,
   "landings": {
-   "crossing": 47,
-   "home": 17
+   "crossing": 52,
+   "home": 18
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 6,
+   "l.facebook.com": 7,
    "lm.facebook.com": 5,
    "facebook.com": 3
   },
@@ -23,10 +23,10 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 3,
+   "bedhampton": 7,
    "hest-bank-level-crossing": 3,
    "east-boldon": 13,
-   "warblington": 6,
+   "warblington": 7,
    "egham": 7,
    "kempston-hardwick": 3,
    "foxton": 7,
@@ -42,7 +42,7 @@
    "cleghorn-level-crossing": 5,
    "petersfield": 1,
    "thorpe-lane": 1,
-   "chesterton-junction": 2,
+   "chesterton-junction": 4,
    "havant": 2
   },
   "feedback": {
@@ -51,7 +51,8 @@
    "east-boldon": 3,
    "pooley-green": 3,
    "cosham": 1,
-   "bedhampton": 2
+   "bedhampton": 3,
+   "chesterton-junction": 2
   }
  },
  "2026-09-22": {

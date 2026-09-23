@@ -5542,5 +5542,123 @@
   ],
   "dataAge": 29327,
   "live": true
+ },
+ {
+  "at": "2026-09-23T09:43:17.924Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790157208262,
+  "closeAt": 1790155754174,
+  "openAt": 1790157208262,
+  "trains": [
+   {
+    "id": "SSD@09:50>NRW",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "BHM@07:22>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KLN@09:41>KGX",
+    "basis": "CMB departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "NRW@09:27>SSD",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 29230,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T09:50:57.469Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 200,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790157208262,
+  "closeAt": 1790156774174,
+  "openAt": 1790157208262,
+  "trains": [
+   {
+    "id": "KGX@09:54>KLN",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "CMB@10:52>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 27998,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T10:22:18.130Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 40,
+  "prevOpenAt": null,
+  "predictedAt": 1790159560000,
+  "closeAt": 1790158820000,
+  "openAt": 1790159560000,
+  "trains": [
+   {
+    "id": "BTN@10:13>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@10:50>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@11:15>WAT",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@10:00>PMH",
+    "basis": "BDH departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 24405,
+  "live": true
  }
 ]
