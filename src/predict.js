@@ -155,8 +155,14 @@ export function stationWindow(crossing, dir, stopCall, now, svc = null) {
     // Crosses the road while braking, then stops with its front E beyond it.
     const roadAt = E != null ? arr - secsToCover(E) * 1000 : arr;
     closeAt = roadAt - closeBefore;
-    const overhang = E != null && L != null ? L - (E - CLEAR_M) : null;
-    if (st.holdDuringDwell || overhang > 0) {
+    // `stopsClear`: a train too long for the platform draws forward past it
+    // and opens only the doors that fit (selective door opening), so its
+    // rear still stops clear of the road (Cressing, seen by a user).
+    const overhang = E != null && L != null ? (st.stopsClear ? Math.min(0, L - (E - CLEAR_M)) : L - (E - CLEAR_M)) : null;
+    // `holdDuringDwell` doesn't apply here: once the train is past the road
+    // nothing needs the barriers, signaller or not (Fen Road: northbound
+    // stoppers at Cambridge North were reported up the moment they'd passed).
+    if (overhang > 0) {
       // Longer than the room beyond the road: its rear stands on the crossing
       // for the whole stop, and the barriers stay down until it has pulled clear.
       openAt = dep + (overhang > 0 ? secsToCover(overhang) * 1000 : 0) + openAfter;

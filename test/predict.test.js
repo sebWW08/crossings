@@ -173,6 +173,26 @@ test('with no assumption the train is taken to fill the platform', () => {
   assert.equal(tight.held, true); // platform starts at the road: the rear sits on it
 });
 
+test('a signaller hold does not keep the barriers down for a train already past the road', () => {
+  // Fen Road / Cambridge North: platforms 266–525 m beyond, CCTV, holdDuringDwell.
+  const fen = { ...milford, closeBeforeSec: 200, station: { ...milford.station, platformStartM: 266, platformEndM: 525, assumeCoaches: undefined, holdDuringDwell: true } };
+  const through = stationWindow(fen, north, call(8), now, { length: 8 });
+  assert.equal(through.held, false);
+  assert.equal(through.basis, 'MLF arrival');
+  assert.ok(through.openAt < arr, 'lifts before the train has even stopped');
+  // Stopping first, then crossing: the hold still applies.
+  const before = stationWindow(fen, south, call(8), now, { length: 8 });
+  assert.equal(before.held, true);
+  assert.equal(before.closeAt, arr - 200_000);
+});
+
+test('stopsClear: a train too long for the platform draws forward rather than stand on the road', () => {
+  const clear = { ...milford, station: { ...milford.station, stopsClear: true } };
+  const w = stationWindow(clear, north, call(12), now, { length: 12 });
+  assert.equal(w.held, false);
+  assert.equal(w.openAt, arr + 15_000); // rear clears the road as it stops
+});
+
 test('stopping then crossing: the rear clears after the gap plus its own length', () => {
   const w = stationWindow(milford, south, call(8), now, { length: 8 });
   assert.equal(w.held, false);

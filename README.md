@@ -139,7 +139,11 @@ board read, two boards per crossing, cached 30 s.
   "signaller"`) goes down when the signaller needs the protecting signal
   clear: about 150 s ahead of a train passing through, and *before* a
   stopping train reaches the platform, staying down until it has left
-  (`holdDuringDwell` is true for these). An automatic one (AHB, ABCL, AOCL
+  (`holdDuringDwell` is true for these). That hold is only for a train that
+  stops *before* the road: one that has already crossed lets the barriers
+  up once its rear is clear, as at an automatic crossing (Fen Road taps,
+  2026-09-21–23: northbound stoppers at Cambridge North reported up
+  straight after passing, while the page said closed until they left). An automatic one (AHB, ABCL, AOCL
   — `control: "automatic"`) is struck in by the train itself ~40 s out and
   lifts as soon as it has cleared. This came straight from the first day of
   "was this right?" taps: East Boldon (CCTV) down 3+ min before a non-stop
@@ -270,6 +274,10 @@ recurring ones:
   between a train that clears the road while it stands and one that doesn't.
 - `holdDuringDwell` — whether the signaller keeps the barriers down while a
   train stands in the platform before crossing.
+- `stopsClear` — a train too long for the platform draws forward past it
+  and opens only the doors that fit, so it never stands on the road. Set
+  per station in data/overrides.json from what people report (Cressing:
+  7-coach platform, a 10-car opens its rear 7). Milford is the opposite.
 - Barrier type at Sheet, Princes Bridge and Mill Road after Network Rail's
   autumn-2025 upgrades (this sets `closeBeforeSec`: ~150 s for signaller-
   controlled full barriers, ~40 s for automatic half barriers).
