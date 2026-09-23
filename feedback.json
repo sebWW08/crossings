@@ -5660,5 +5660,51 @@
   ],
   "dataAge": 24405,
   "live": true
+ },
+ {
+  "at": "2026-09-23T13:32:50.176Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790170335231,
+  "predictedAt": 1790170419130,
+  "closeAt": 1790170419130,
+  "openAt": 1790170619130,
+  "trains": [
+   {
+    "id": "BTN@13:28>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 26038,
+  "live": true
+ },
+ {
+  "at": "2026-09-23T14:18:20.294Z",
+  "crossing": "pooley-green",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790173221468,
+  "closeAt": 1790173061468,
+  "openAt": 1790173221468,
+  "trains": [
+   {
+    "id": "WAT@14:22>WYB",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 5999,
+  "live": true
  }
 ]

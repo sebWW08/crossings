@@ -1,15 +1,15 @@
 {
  "2026-09-23": {
-  "visitors": 71,
+  "visitors": 76,
   "newDevices": 31,
-  "polls": 402,
+  "polls": 416,
   "landings": {
-   "crossing": 57,
+   "crossing": 61,
    "home": 22
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 7,
+   "l.facebook.com": 9,
    "lm.facebook.com": 6,
    "facebook.com": 7
   },
@@ -23,16 +23,16 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 8,
+   "bedhampton": 9,
    "hest-bank-level-crossing": 5,
    "east-boldon": 13,
-   "warblington": 8,
+   "warblington": 10,
    "egham": 8,
    "kempston-hardwick": 3,
    "foxton": 7,
    "cosham": 4,
    "rusham": 1,
-   "pooley-green": 5,
+   "pooley-green": 6,
    "ridgmont": 1,
    "wootton-broadmead-level-crossing": 1,
    "stewartby-brickworks": 1,
@@ -42,7 +42,7 @@
    "cleghorn-level-crossing": 5,
    "petersfield": 1,
    "thorpe-lane": 2,
-   "chesterton-junction": 6,
+   "chesterton-junction": 7,
    "havant": 2,
    "brockenhurst": 1,
    "bare-lane": 1,
@@ -52,9 +52,9 @@
   },
   "feedback": {
    "onibury": 1,
-   "warblington": 2,
+   "warblington": 3,
    "east-boldon": 3,
-   "pooley-green": 3,
+   "pooley-green": 4,
    "cosham": 1,
    "bedhampton": 3,
    "chesterton-junction": 2
