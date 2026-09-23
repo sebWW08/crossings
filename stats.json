@@ -1,11 +1,11 @@
 {
  "2026-09-23": {
-  "visitors": 108,
-  "newDevices": 41,
-  "polls": 599,
+  "visitors": 112,
+  "newDevices": 42,
+  "polls": 607,
   "landings": {
-   "crossing": 86,
-   "home": 28
+   "crossing": 88,
+   "home": 31
   },
   "referrers": {
    "m.facebook.com": 1,
@@ -23,11 +23,11 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 12,
-   "hest-bank-level-crossing": 10,
+   "bedhampton": 13,
+   "hest-bank-level-crossing": 11,
    "east-boldon": 14,
    "warblington": 11,
-   "egham": 10,
+   "egham": 11,
    "kempston-hardwick": 3,
    "foxton": 11,
    "cosham": 5,
@@ -36,9 +36,9 @@
    "ridgmont": 1,
    "wootton-broadmead-level-crossing": 1,
    "stewartby-brickworks": 1,
-   "princes-bridge": 3,
-   "mill-road-liss": 3,
-   "liss": 3,
+   "princes-bridge": 4,
+   "mill-road-liss": 4,
+   "liss": 4,
    "cleghorn-level-crossing": 5,
    "petersfield": 2,
    "thorpe-lane": 2,
