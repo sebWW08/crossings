@@ -1,17 +1,17 @@
 {
  "2026-09-23": {
-  "visitors": 106,
-  "newDevices": 39,
-  "polls": 588,
+  "visitors": 108,
+  "newDevices": 41,
+  "polls": 599,
   "landings": {
-   "crossing": 81,
+   "crossing": 86,
    "home": 28
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 11,
+   "l.facebook.com": 12,
    "lm.facebook.com": 8,
-   "facebook.com": 20
+   "facebook.com": 24
   },
   "crossings": {
    "abermule-old-station": 1,
@@ -23,14 +23,14 @@
    "llanidloes-road": 1,
    "charlton-lane-level-crossing": 1,
    "berthddu": 1,
-   "bedhampton": 11,
+   "bedhampton": 12,
    "hest-bank-level-crossing": 10,
    "east-boldon": 14,
    "warblington": 11,
    "egham": 10,
    "kempston-hardwick": 3,
    "foxton": 11,
-   "cosham": 4,
+   "cosham": 5,
    "rusham": 1,
    "pooley-green": 7,
    "ridgmont": 1,
@@ -43,10 +43,10 @@
    "petersfield": 2,
    "thorpe-lane": 2,
    "chesterton-junction": 14,
-   "havant": 3,
+   "havant": 4,
    "brockenhurst": 1,
    "bare-lane": 4,
-   "bolton-le-sands-level-crossing": 4,
+   "bolton-le-sands-level-crossing": 5,
    "tal-y-cafn-level-crossing": 1,
    "aspley-guise": 1,
    "lime-kiln": 2,
@@ -61,7 +61,8 @@
    "grove-road-2": 1,
    "roydon": 1,
    "marsh-lane-level-crossing": 1,
-   "bruern": 1
+   "bruern": 1,
+   "chichester": 1
   },
   "feedback": {
    "onibury": 1,
@@ -70,7 +71,7 @@
    "pooley-green": 4,
    "cosham": 1,
    "bedhampton": 3,
-   "chesterton-junction": 9,
+   "chesterton-junction": 10,
    "hest-bank-level-crossing": 1,
    "foxton": 3
   }

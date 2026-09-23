@@ -6122,5 +6122,49 @@
   ],
   "dataAge": 4832,
   "live": true
+ },
+ {
+  "at": "2026-09-23T18:36:58.319Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790188955826,
+  "closeAt": 1790187784174,
+  "openAt": 1790188955826,
+  "trains": [
+   {
+    "id": "CBG@19:24>NRW",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "KGX@18:18>KLN",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KLN@18:45>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "LST@18:08>ELY",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 20884,
+  "live": true
  }
 ]
