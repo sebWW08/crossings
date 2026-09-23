@@ -1,17 +1,17 @@
 {
  "2026-09-23": {
-  "visitors": 25,
-  "newDevices": 11,
-  "polls": 118,
+  "visitors": 41,
+  "newDevices": 17,
+  "polls": 200,
   "landings": {
-   "crossing": 18,
-   "home": 10
+   "crossing": 32,
+   "home": 11
   },
   "referrers": {
    "m.facebook.com": 1,
-   "l.facebook.com": 3,
-   "lm.facebook.com": 4,
-   "facebook.com": 1
+   "l.facebook.com": 4,
+   "lm.facebook.com": 5,
+   "facebook.com": 2
   },
   "crossings": {
    "abermule-old-station": 1,
@@ -25,26 +25,31 @@
    "berthddu": 1,
    "bedhampton": 1,
    "hest-bank-level-crossing": 2,
-   "east-boldon": 7,
-   "warblington": 2,
-   "egham": 4,
+   "east-boldon": 9,
+   "warblington": 4,
+   "egham": 5,
    "kempston-hardwick": 2,
-   "foxton": 2,
-   "cosham": 2,
+   "foxton": 5,
+   "cosham": 4,
    "rusham": 1,
-   "pooley-green": 1,
+   "pooley-green": 3,
    "ridgmont": 1,
    "wootton-broadmead-level-crossing": 1,
    "stewartby-brickworks": 1,
    "princes-bridge": 1,
    "mill-road-liss": 1,
    "liss": 1,
-   "cleghorn-level-crossing": 1
+   "cleghorn-level-crossing": 4,
+   "petersfield": 1,
+   "thorpe-lane": 1,
+   "chesterton-junction": 1
   },
   "feedback": {
    "onibury": 1,
-   "warblington": 1,
-   "east-boldon": 1
+   "warblington": 2,
+   "east-boldon": 1,
+   "pooley-green": 3,
+   "cosham": 1
   }
  },
  "2026-09-22": {
