@@ -1,11 +1,11 @@
 {
  "2026-09-24": {
-  "visitors": 37,
-  "newDevices": 11,
-  "polls": 181,
+  "visitors": 41,
+  "newDevices": 13,
+  "polls": 238,
   "landings": {
-   "crossing": 24,
-   "home": 15
+   "crossing": 27,
+   "home": 17
   },
   "referrers": {
    "216.24.57.16": 2,
@@ -22,15 +22,24 @@
    "elsenham": 1,
    "bedhampton": 7,
    "pooley-green": 5,
-   "cosham": 5,
+   "cosham": 6,
    "havant": 5,
-   "egham": 1,
+   "egham": 2,
    "foxton": 1,
    "petersfield": 1,
    "kempston-hardwick": 1,
    "stewartby-brickworks": 1,
    "wootton-broadmead-level-crossing": 1,
-   "millbrook": 1
+   "millbrook": 1,
+   "a146-beccles": 1,
+   "abererch": 1,
+   "aberleri": 1,
+   "sincil-bank": 1,
+   "lincoln": 1,
+   "brayford": 1,
+   "boultham": 1,
+   "doddington-road": 1,
+   "hykeham": 1
   },
   "feedback": {
    "elsenham": 1,
