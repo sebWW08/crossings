@@ -1,30 +1,32 @@
 {
  "2026-09-24": {
-  "visitors": 138,
-  "newDevices": 67,
-  "polls": 1164,
+  "visitors": 146,
+  "newDevices": 74,
+  "polls": 1706,
   "landings": {
-   "crossing": 152,
-   "home": 31
+   "crossing": 168,
+   "home": 33,
+   "map": 1
   },
   "referrers": {
    "216.24.57.16": 2,
    "lm.facebook.com": 12,
    "l.facebook.com": 7,
-   "facebook.com": 24,
-   "m.facebook.com": 14
+   "facebook.com": 31,
+   "m.facebook.com": 14,
+   "l.instagram.com": 1
   },
   "crossings": {
    "hest-bank-level-crossing": 14,
    "bolton-le-sands-level-crossing": 6,
    "chesterton-junction": 7,
-   "east-boldon": 12,
+   "east-boldon": 13,
    "green-lane": 1,
    "elsenham": 1,
-   "bedhampton": 15,
+   "bedhampton": 17,
    "pooley-green": 12,
-   "cosham": 9,
-   "havant": 41,
+   "cosham": 10,
+   "havant": 48,
    "egham": 4,
    "foxton": 1,
    "petersfield": 2,
@@ -41,7 +43,7 @@
    "boultham": 2,
    "doddington-road": 2,
    "hykeham": 2,
-   "warblington": 19,
+   "warblington": 25,
    "drayton": 2,
    "whyke-road": 2,
    "chichester-2": 2,
