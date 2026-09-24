@@ -1,18 +1,18 @@
 {
  "2026-09-24": {
-  "visitors": 146,
-  "newDevices": 74,
-  "polls": 1706,
+  "visitors": 151,
+  "newDevices": 77,
+  "polls": 1728,
   "landings": {
-   "crossing": 168,
-   "home": 33,
+   "crossing": 174,
+   "home": 34,
    "map": 1
   },
   "referrers": {
    "216.24.57.16": 2,
-   "lm.facebook.com": 12,
+   "lm.facebook.com": 14,
    "l.facebook.com": 7,
-   "facebook.com": 31,
+   "facebook.com": 33,
    "m.facebook.com": 14,
    "l.instagram.com": 1
   },
@@ -23,10 +23,10 @@
    "east-boldon": 13,
    "green-lane": 1,
    "elsenham": 1,
-   "bedhampton": 17,
+   "bedhampton": 19,
    "pooley-green": 12,
    "cosham": 10,
-   "havant": 48,
+   "havant": 50,
    "egham": 4,
    "foxton": 1,
    "petersfield": 2,
@@ -51,7 +51,8 @@
    "liss": 2,
    "mill-road-liss": 2,
    "vine-road-barnes": 1,
-   "blakedown-station": 1
+   "blakedown-station": 1,
+   "welton-lc": 1
   },
   "feedback": {
    "elsenham": 1,
