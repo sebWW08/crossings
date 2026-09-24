@@ -1,30 +1,30 @@
 {
  "2026-09-24": {
-  "visitors": 67,
-  "newDevices": 26,
-  "polls": 397,
+  "visitors": 75,
+  "newDevices": 29,
+  "polls": 537,
   "landings": {
-   "crossing": 52,
+   "crossing": 59,
    "home": 22
   },
   "referrers": {
    "216.24.57.16": 2,
    "lm.facebook.com": 2,
    "l.facebook.com": 6,
-   "facebook.com": 8,
+   "facebook.com": 9,
    "m.facebook.com": 7
   },
   "crossings": {
-   "hest-bank-level-crossing": 9,
+   "hest-bank-level-crossing": 12,
    "bolton-le-sands-level-crossing": 4,
    "chesterton-junction": 5,
    "east-boldon": 8,
    "green-lane": 1,
    "elsenham": 1,
-   "bedhampton": 8,
-   "pooley-green": 5,
+   "bedhampton": 11,
+   "pooley-green": 6,
    "cosham": 7,
-   "havant": 5,
+   "havant": 7,
    "egham": 2,
    "foxton": 1,
    "petersfield": 1,
@@ -41,17 +41,18 @@
    "boultham": 2,
    "doddington-road": 2,
    "hykeham": 2,
-   "warblington": 9,
+   "warblington": 10,
    "drayton": 1,
    "whyke-road": 1,
    "chichester-2": 1,
    "princes-bridge": 1,
    "liss": 1,
-   "mill-road-liss": 1
+   "mill-road-liss": 1,
+   "vine-road-barnes": 1
   },
   "feedback": {
    "elsenham": 1,
-   "hest-bank-level-crossing": 1,
+   "hest-bank-level-crossing": 2,
    "bedhampton": 3,
    "havant": 4,
    "cosham": 5,

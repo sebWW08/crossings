@@ -6658,5 +6658,28 @@
   ],
   "dataAge": 20416,
   "live": true
+ },
+ {
+  "at": "2026-09-24T14:58:44.090Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790262000502,
+  "closeAt": 1790261820502,
+  "openAt": 1790262000502,
+  "trains": [
+   {
+    "id": "EUS@13:30>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 10375,
+  "live": true
  }
 ]
