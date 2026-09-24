@@ -6166,5 +6166,58 @@
   ],
   "dataAge": 20884,
   "live": true
+ },
+ {
+  "at": "2026-09-24T05:55:38.680Z",
+  "crossing": "elsenham",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 120,
+  "openAfter": 30,
+  "prevOpenAt": 1790229279165,
+  "predictedAt": 1790229343407,
+  "closeAt": 1790229343407,
+  "openAt": 1790229493407,
+  "trains": [
+   {
+    "id": "CBG@06:35>SSD",
+    "basis": "CMS→SSD",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 12931,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T06:28:10.383Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790230993043,
+  "predictedAt": 1790231674415,
+  "closeAt": 1790231674415,
+  "openAt": 1790231930513,
+  "trains": [
+   {
+    "id": "GLC@05:33>EUS",
+    "basis": "OXN→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "LAN@07:33>BIF",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 4528,
+  "live": true
  }
 ]
