@@ -6307,5 +6307,312 @@
   ],
   "dataAge": 10241,
   "live": true
+ },
+ {
+  "at": "2026-09-24T07:31:33.324Z",
+  "crossing": "havant",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790235370000,
+  "closeAt": 1790235007105,
+  "openAt": 1790235370000,
+  "trains": [
+   {
+    "id": "BTN@07:15>PMH",
+    "basis": "HAV arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@07:50>BTN",
+    "basis": "HAV departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@07:28>PMS",
+    "basis": "HAV arrival",
+    "coaches": 3,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 13302,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:32:07.823Z",
+  "crossing": "havant",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790235370000,
+  "closeAt": 1790235007105,
+  "openAt": 1790235370000,
+  "trains": [
+   {
+    "id": "BTN@07:15>PMH",
+    "basis": "HAV arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@07:50>BTN",
+    "basis": "HAV departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@07:28>PMS",
+    "basis": "HAV arrival",
+    "coaches": 3,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6403,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:34:05.267Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 160,
+  "openAfter": 30,
+  "prevOpenAt": 1790234907022,
+  "predictedAt": 1790235340000,
+  "closeAt": 1790235340000,
+  "openAt": 1790235588111,
+  "trains": [
+   {
+    "id": "PMH@08:23>CDF",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 7413,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:34:57.758Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790234907022,
+  "predictedAt": 1790235330000,
+  "closeAt": 1790235330000,
+  "openAt": 1790235588111,
+  "trains": [
+   {
+    "id": "PMH@08:23>CDF",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 29472,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:35:35.609Z",
+  "crossing": "cosham",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790235588111,
+  "closeAt": 1790235330000,
+  "openAt": 1790235588111,
+  "trains": [
+   {
+    "id": "PMH@08:23>CDF",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 6470,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:36:06.210Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790235588111,
+  "closeAt": 1790235330000,
+  "openAt": 1790235588111,
+  "trains": [
+   {
+    "id": "PMH@08:23>CDF",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 6676,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:39:38.178Z",
+  "crossing": "cosham",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790235588111,
+  "closeAt": 1790235330000,
+  "openAt": 1790235588111,
+  "trains": [
+   {
+    "id": "PMH@08:23>CDF",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 3708,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:55:00.855Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 45,
+  "prevOpenAt": null,
+  "predictedAt": 1790236665000,
+  "closeAt": 1790235970000,
+  "openAt": 1790236665000,
+  "trains": [
+   {
+    "id": "PMH@08:31>WAT",
+    "basis": "BDH departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@07:39>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@07:30>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@08:20>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 13682,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:57:16.043Z",
+  "crossing": "havant",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": 1790236509395,
+  "predictedAt": 1790236647105,
+  "closeAt": 1790236647105,
+  "openAt": 1790237051013,
+  "trains": [
+   {
+    "id": "WAT@07:15>SOU",
+    "basis": "HAV arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@08:20>BTN",
+    "basis": "HAV departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@07:45>PMH",
+    "basis": "HAV arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3398,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T07:58:19.132Z",
+  "crossing": "havant",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790237051013,
+  "closeAt": 1790236647105,
+  "openAt": 1790237051013,
+  "trains": [
+   {
+    "id": "WAT@07:15>SOU",
+    "basis": "HAV arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@08:20>BTN",
+    "basis": "HAV departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@07:45>PMH",
+    "basis": "HAV arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 11169,
+  "live": true
  }
 ]
