@@ -6942,5 +6942,130 @@
   ],
   "dataAge": 986,
   "live": true
+ },
+ {
+  "at": "2026-09-24T17:29:33.690Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790271307391,
+  "closeAt": 1790270931077,
+  "openAt": 1790271307391,
+  "trains": [
+   {
+    "id": "VIC@16:35>PMH",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@17:50>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@17:26>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 4679,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T18:24:25.622Z",
+  "crossing": "pooley-green",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790274518532,
+  "closeAt": 1790274118532,
+  "openAt": 1790274518532,
+  "trains": [
+   {
+    "id": "RDG@18:39>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@18:13>AHT",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@18:48>RDG",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@18:18>RDG",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2890,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T18:31:23.720Z",
+  "crossing": "pooley-green",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790274815174,
+  "closeAt": 1790274235174,
+  "openAt": 1790274815174,
+  "trains": [
+   {
+    "id": "WAT@18:48>RDG",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@18:13>AHT",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WYB@19:10>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@18:18>RDG",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6117,
+  "live": true
  }
 ]

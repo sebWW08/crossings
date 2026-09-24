@@ -1,31 +1,31 @@
 {
  "2026-09-24": {
-  "visitors": 113,
-  "newDevices": 47,
-  "polls": 842,
+  "visitors": 125,
+  "newDevices": 55,
+  "polls": 899,
   "landings": {
-   "crossing": 104,
-   "home": 27
+   "crossing": 121,
+   "home": 30
   },
   "referrers": {
    "216.24.57.16": 2,
-   "lm.facebook.com": 3,
+   "lm.facebook.com": 7,
    "l.facebook.com": 6,
-   "facebook.com": 15,
-   "m.facebook.com": 12
+   "facebook.com": 19,
+   "m.facebook.com": 14
   },
   "crossings": {
    "hest-bank-level-crossing": 14,
    "bolton-le-sands-level-crossing": 6,
    "chesterton-junction": 7,
-   "east-boldon": 11,
+   "east-boldon": 12,
    "green-lane": 1,
    "elsenham": 1,
    "bedhampton": 15,
    "pooley-green": 12,
    "cosham": 9,
-   "havant": 23,
-   "egham": 2,
+   "havant": 30,
+   "egham": 3,
    "foxton": 1,
    "petersfield": 2,
    "kempston-hardwick": 1,
@@ -41,14 +41,15 @@
    "boultham": 2,
    "doddington-road": 2,
    "hykeham": 2,
-   "warblington": 13,
+   "warblington": 15,
    "drayton": 2,
    "whyke-road": 2,
    "chichester-2": 2,
    "princes-bridge": 2,
    "liss": 2,
    "mill-road-liss": 2,
-   "vine-road-barnes": 1
+   "vine-road-barnes": 1,
+   "blakedown-station": 1
   },
   "feedback": {
    "elsenham": 1,
@@ -57,8 +58,9 @@
    "havant": 4,
    "cosham": 6,
    "chesterton-junction": 2,
-   "pooley-green": 3,
-   "liss": 1
+   "pooley-green": 5,
+   "liss": 1,
+   "warblington": 1
   }
  },
  "2026-09-23": {
