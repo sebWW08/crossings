@@ -6681,5 +6681,176 @@
   ],
   "dataAge": 10375,
   "live": true
+ },
+ {
+  "at": "2026-09-24T15:45:59.256Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 210,
+  "openAfter": 50,
+  "prevOpenAt": 1790264555826,
+  "predictedAt": 1790264870000,
+  "closeAt": 1790264870000,
+  "openAt": 1790265391790,
+  "trains": [
+   {
+    "id": "CMB@16:52>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "KGX@15:54>KLN",
+    "basis": "CMB arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2500,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T16:07:53.647Z",
+  "crossing": "pooley-green",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": 1790265615688,
+  "predictedAt": 1790266661468,
+  "closeAt": 1790266661468,
+  "openAt": 1790266821468,
+  "trains": [
+   {
+    "id": "WAT@16:22>WYB",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2499,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T16:15:53.732Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 190,
+  "openAfter": 45,
+  "prevOpenAt": 1790266515000,
+  "predictedAt": 1790266570000,
+  "closeAt": 1790266570000,
+  "openAt": 1790267595000,
+  "trains": [
+   {
+    "id": "PMS@17:07>WAT",
+    "basis": "BDH departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@16:13>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@16:00>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@16:50>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 5948,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T16:16:52.248Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790267600000,
+  "closeAt": 1790266570000,
+  "openAt": 1790267600000,
+  "trains": [
+   {
+    "id": "PMS@17:07>WAT",
+    "basis": "BDH departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BTN@16:13>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@16:00>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@16:50>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 12933,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T16:22:29.215Z",
+  "crossing": "liss",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790266720954,
+  "predictedAt": 1790267490000,
+  "closeAt": 1790267490000,
+  "openAt": 1790267700000,
+  "trains": [
+   {
+    "id": "WAT@16:30>PMH",
+    "basis": "HSL +8 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "FRM@16:57>WAT",
+    "basis": "PTR +3.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 23206,
+  "live": true
  }
 ]

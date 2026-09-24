@@ -1,33 +1,33 @@
 {
  "2026-09-24": {
-  "visitors": 75,
-  "newDevices": 29,
-  "polls": 537,
+  "visitors": 92,
+  "newDevices": 33,
+  "polls": 739,
   "landings": {
-   "crossing": 59,
-   "home": 22
+   "crossing": 72,
+   "home": 27
   },
   "referrers": {
    "216.24.57.16": 2,
    "lm.facebook.com": 2,
    "l.facebook.com": 6,
-   "facebook.com": 9,
-   "m.facebook.com": 7
+   "facebook.com": 12,
+   "m.facebook.com": 9
   },
   "crossings": {
-   "hest-bank-level-crossing": 12,
-   "bolton-le-sands-level-crossing": 4,
-   "chesterton-junction": 5,
+   "hest-bank-level-crossing": 14,
+   "bolton-le-sands-level-crossing": 6,
+   "chesterton-junction": 7,
    "east-boldon": 8,
    "green-lane": 1,
    "elsenham": 1,
-   "bedhampton": 11,
-   "pooley-green": 6,
+   "bedhampton": 15,
+   "pooley-green": 8,
    "cosham": 7,
-   "havant": 7,
+   "havant": 10,
    "egham": 2,
    "foxton": 1,
-   "petersfield": 1,
+   "petersfield": 2,
    "kempston-hardwick": 1,
    "stewartby-brickworks": 1,
    "wootton-broadmead-level-crossing": 1,
@@ -41,22 +41,24 @@
    "boultham": 2,
    "doddington-road": 2,
    "hykeham": 2,
-   "warblington": 10,
-   "drayton": 1,
-   "whyke-road": 1,
-   "chichester-2": 1,
-   "princes-bridge": 1,
-   "liss": 1,
-   "mill-road-liss": 1,
+   "warblington": 12,
+   "drayton": 2,
+   "whyke-road": 2,
+   "chichester-2": 2,
+   "princes-bridge": 2,
+   "liss": 2,
+   "mill-road-liss": 2,
    "vine-road-barnes": 1
   },
   "feedback": {
    "elsenham": 1,
    "hest-bank-level-crossing": 2,
-   "bedhampton": 3,
+   "bedhampton": 5,
    "havant": 4,
    "cosham": 5,
-   "chesterton-junction": 1
+   "chesterton-junction": 2,
+   "pooley-green": 1,
+   "liss": 1
   }
  },
  "2026-09-23": {
