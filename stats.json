@@ -1,13 +1,20 @@
 {
  "2026-09-24": {
-  "visitors": 1,
-  "newDevices": 0,
-  "polls": 27,
-  "landings": {},
-  "referrers": {},
+  "visitors": 2,
+  "newDevices": 1,
+  "polls": 29,
+  "landings": {
+   "crossing": 1,
+   "home": 8
+  },
+  "referrers": {
+   "216.24.57.16": 2,
+   "lm.facebook.com": 1
+  },
   "crossings": {
    "hest-bank-level-crossing": 1,
-   "bolton-le-sands-level-crossing": 1
+   "bolton-le-sands-level-crossing": 1,
+   "chesterton-junction": 1
   },
   "feedback": {}
  },
