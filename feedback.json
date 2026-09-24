@@ -6852,5 +6852,95 @@
   ],
   "dataAge": 23206,
   "live": true
+ },
+ {
+  "at": "2026-09-24T16:41:39.688Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790267435578,
+  "predictedAt": 1790268600880,
+  "closeAt": 1790268600880,
+  "openAt": 1790269250199,
+  "trains": [
+   {
+    "id": "SOU@17:20>BTN",
+    "basis": "CSA arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@16:43>SOU",
+    "basis": "CSA departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "WAT@16:09>PMH",
+    "basis": "CSA arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMS@17:46>SOU",
+    "basis": "CSA departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 14132,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T16:48:03.544Z",
+  "crossing": "pooley-green",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790268621468,
+  "closeAt": 1790268461468,
+  "openAt": 1790268621468,
+  "trains": [
+   {
+    "id": "WAT@16:52>WYB",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 1128,
+  "live": true
+ },
+ {
+  "at": "2026-09-24T16:48:54.074Z",
+  "crossing": "pooley-green",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790268621468,
+  "closeAt": 1790268461468,
+  "openAt": 1790268621468,
+  "trains": [
+   {
+    "id": "WAT@16:52>WYB",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 986,
+  "live": true
  }
 ]
