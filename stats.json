@@ -1,8 +1,21 @@
 {
+ "2026-09-25": {
+  "visitors": 2,
+  "newDevices": 0,
+  "polls": 61,
+  "landings": {},
+  "referrers": {},
+  "crossings": {
+   "bolton-le-sands-level-crossing": 1,
+   "hest-bank-level-crossing": 1,
+   "warblington": 1
+  },
+  "feedback": {}
+ },
  "2026-09-24": {
   "visitors": 161,
   "newDevices": 84,
-  "polls": 1925,
+  "polls": 2044,
   "landings": {
    "crossing": 189,
    "home": 36,
