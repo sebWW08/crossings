@@ -1,41 +1,42 @@
 {
  "2026-09-25": {
-  "visitors": 72,
-  "newDevices": 33,
-  "polls": 488,
+  "visitors": 84,
+  "newDevices": 39,
+  "polls": 541,
   "landings": {
-   "home": 25,
-   "crossing": 72
+   "home": 27,
+   "crossing": 83
   },
   "referrers": {
-   "facebook.com": 11,
+   "facebook.com": 12,
    "m.facebook.com": 6,
    "l.facebook.com": 7
   },
   "crossings": {
    "bolton-le-sands-level-crossing": 4,
    "hest-bank-level-crossing": 8,
-   "warblington": 21,
+   "warblington": 28,
    "petersfield": 3,
-   "havant": 14,
-   "chathill": 1,
+   "havant": 15,
+   "chathill": 2,
    "east-boldon": 4,
    "a146-beccles": 1,
    "abererch": 1,
    "aberleri": 1,
-   "bedhampton": 7,
+   "bedhampton": 8,
    "chesterton-junction": 4,
    "pooley-green": 3,
    "foxton": 1,
-   "cosham": 3,
+   "cosham": 5,
    "bare-lane": 2,
-   "gobowen-north-level-crossing": 5,
-   "pulford": 1,
-   "broad-oak-2": 1,
-   "croes-newydd": 1,
-   "whittington": 1,
-   "weston-rhyn-level-crossing": 1,
-   "southbourne": 4
+   "gobowen-north-level-crossing": 6,
+   "pulford": 2,
+   "broad-oak-2": 2,
+   "croes-newydd": 3,
+   "whittington": 2,
+   "weston-rhyn-level-crossing": 2,
+   "southbourne": 4,
+   "spittal-level-crossing": 1
   },
   "feedback": {
    "east-boldon": 3,
@@ -45,7 +46,8 @@
    "warblington": 3,
    "hest-bank-level-crossing": 1,
    "gobowen-north-level-crossing": 1,
-   "southbourne": 4
+   "southbourne": 4,
+   "cosham": 1
   }
  },
  "2026-09-24": {

@@ -7824,5 +7824,35 @@
   ],
   "dataAge": 1304,
   "live": true
+ },
+ {
+  "at": "2026-09-25T15:25:56.891Z",
+  "crossing": "cosham",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790349387022,
+  "predictedAt": 1790350470000,
+  "closeAt": 1790350470000,
+  "openAt": 1790350848111,
+  "trains": [
+   {
+    "id": "BTN@15:13>SOU",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "PMH@16:24>CDF",
+    "basis": "CSA departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 159109,
+  "live": true
  }
 ]
