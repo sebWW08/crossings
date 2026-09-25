@@ -7997,5 +7997,28 @@
   ],
   "dataAge": 6939,
   "live": true
+ },
+ {
+  "at": "2026-09-25T17:42:58.542Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 55,
+  "prevOpenAt": null,
+  "predictedAt": 1790358276280,
+  "closeAt": 1790357930000,
+  "openAt": 1790358276280,
+  "trains": [
+   {
+    "id": "KLN@17:41>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 7694,
+  "live": true
  }
 ]
