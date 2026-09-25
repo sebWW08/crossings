@@ -7937,5 +7937,65 @@
   ],
   "dataAge": 31031,
   "live": true
+ },
+ {
+  "at": "2026-09-25T16:49:08.871Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790354914508,
+  "predictedAt": 1790355988923,
+  "closeAt": 1790355988923,
+  "openAt": 1790356188923,
+  "trains": [
+   {
+    "id": "SOU@17:20>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 7070,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T17:24:04.698Z",
+  "crossing": "havant",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": 1790356751013,
+  "predictedAt": 1790357127105,
+  "closeAt": 1790357127105,
+  "openAt": 1790357360335,
+  "trains": [
+   {
+    "id": "WAT@17:00>PMH",
+    "basis": "HAV arrival",
+    "coaches": 10,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@16:45>PMS",
+    "basis": "HAV arrival",
+    "coaches": 12,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "VIC@16:35>PMH",
+    "basis": "HAV arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6939,
+  "live": true
  }
 ]
