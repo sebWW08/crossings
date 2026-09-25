@@ -1,42 +1,49 @@
 {
  "2026-09-25": {
-  "visitors": 35,
-  "newDevices": 15,
-  "polls": 323,
+  "visitors": 42,
+  "newDevices": 16,
+  "polls": 347,
   "landings": {
-   "home": 21,
-   "crossing": 26
+   "home": 23,
+   "crossing": 31
   },
   "referrers": {
-   "facebook.com": 6,
+   "facebook.com": 7,
    "m.facebook.com": 4,
    "l.facebook.com": 4
   },
   "crossings": {
    "bolton-le-sands-level-crossing": 2,
    "hest-bank-level-crossing": 4,
-   "warblington": 10,
+   "warblington": 11,
    "petersfield": 2,
-   "havant": 7,
+   "havant": 8,
    "chathill": 1,
    "east-boldon": 2,
    "a146-beccles": 1,
    "abererch": 1,
    "aberleri": 1,
    "bedhampton": 3,
-   "chesterton-junction": 2,
+   "chesterton-junction": 4,
    "pooley-green": 2,
    "foxton": 1,
    "cosham": 3,
-   "bare-lane": 1
+   "bare-lane": 1,
+   "gobowen-north-level-crossing": 4,
+   "pulford": 1,
+   "broad-oak-2": 1,
+   "croes-newydd": 1,
+   "whittington": 1,
+   "weston-rhyn-level-crossing": 1
   },
   "feedback": {
    "east-boldon": 1,
    "bedhampton": 1,
-   "chesterton-junction": 2,
+   "chesterton-junction": 4,
    "foxton": 2,
    "warblington": 2,
-   "hest-bank-level-crossing": 1
+   "hest-bank-level-crossing": 1,
+   "gobowen-north-level-crossing": 1
   }
  },
  "2026-09-24": {

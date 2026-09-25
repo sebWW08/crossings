@@ -7455,5 +7455,74 @@
   ],
   "dataAge": 4833,
   "live": true
+ },
+ {
+  "at": "2026-09-25T09:57:16.578Z",
+  "crossing": "gobowen-north-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790330307109,
+  "closeAt": 1790330122359,
+  "openAt": 1790330307109,
+  "trains": [
+   {
+    "id": "HHD@08:25>CDF",
+    "basis": "GOB arrival",
+    "coaches": 3,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6656,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T10:21:07.977Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 210,
+  "openAfter": 50,
+  "prevOpenAt": 1790331631790,
+  "predictedAt": 1790332130000,
+  "closeAt": 1790332130000,
+  "openAt": 1790332471280,
+  "trains": [
+   {
+    "id": "KLN@10:41>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1830,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T10:26:57.455Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 210,
+  "openAfter": 55,
+  "prevOpenAt": 1790331636790,
+  "predictedAt": 1790332130000,
+  "closeAt": 1790332130000,
+  "openAt": 1790332476280,
+  "trains": [
+   {
+    "id": "KLN@10:41>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1622,
+  "live": true
  }
 ]
