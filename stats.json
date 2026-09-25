@@ -1,21 +1,28 @@
 {
  "2026-09-25": {
-  "visitors": 6,
-  "newDevices": 1,
-  "polls": 70,
+  "visitors": 13,
+  "newDevices": 4,
+  "polls": 162,
   "landings": {
-   "home": 7,
-   "crossing": 1
+   "home": 13,
+   "crossing": 10
   },
   "referrers": {
-   "facebook.com": 1
+   "facebook.com": 1,
+   "m.facebook.com": 3,
+   "l.facebook.com": 1
   },
   "crossings": {
    "bolton-le-sands-level-crossing": 1,
    "hest-bank-level-crossing": 2,
-   "warblington": 2,
-   "petersfield": 1,
-   "havant": 1
+   "warblington": 5,
+   "petersfield": 2,
+   "havant": 2,
+   "chathill": 1,
+   "east-boldon": 1,
+   "a146-beccles": 1,
+   "abererch": 1,
+   "aberleri": 1
   },
   "feedback": {}
  },
