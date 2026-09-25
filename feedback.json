@@ -7732,5 +7732,97 @@
   ],
   "dataAge": 13544,
   "live": true
+ },
+ {
+  "at": "2026-09-25T14:07:49.888Z",
+  "crossing": "southbourne",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790344848330,
+  "predictedAt": 1790345390000,
+  "closeAt": 1790345390000,
+  "openAt": 1790345628330,
+  "trains": [
+   {
+    "id": "BTN@14:13>SOU",
+    "basis": "SOB departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 2844,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T14:08:26.964Z",
+  "crossing": "southbourne",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790344848330,
+  "predictedAt": 1790345390000,
+  "closeAt": 1790345390000,
+  "openAt": 1790345628330,
+  "trains": [
+   {
+    "id": "BTN@14:13>SOU",
+    "basis": "SOB departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 8697,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T14:09:24.180Z",
+  "crossing": "southbourne",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790345568330,
+  "closeAt": 1790345330000,
+  "openAt": 1790345568330,
+  "trains": [
+   {
+    "id": "BTN@14:13>SOU",
+    "basis": "SOB departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 8275,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T14:10:23.325Z",
+  "crossing": "southbourne",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 180,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790345568330,
+  "closeAt": 1790345300000,
+  "openAt": 1790345568330,
+  "trains": [
+   {
+    "id": "BTN@14:13>SOU",
+    "basis": "SOB departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1304,
+  "live": true
  }
 ]
