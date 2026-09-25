@@ -7524,5 +7524,146 @@
   ],
   "dataAge": 1622,
   "live": true
+ },
+ {
+  "at": "2026-09-25T11:13:21.854Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790334289698,
+  "predictedAt": 1790335071077,
+  "closeAt": 1790335071077,
+  "openAt": 1790335515231,
+  "trains": [
+   {
+    "id": "VIC@10:35>PMH",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@11:13>SOU",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@12:04>VIC",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 16657,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T11:15:03.184Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790334797089,
+  "predictedAt": 1790335070000,
+  "closeAt": 1790335070000,
+  "openAt": 1790335477671,
+  "trains": [
+   {
+    "id": "SHZ@12:02>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "APN@11:38>SHZ",
+    "basis": "EBL arrival",
+    "coaches": null,
+    "assumed": true,
+    "held": false
+   }
+  ],
+  "dataAge": 7067,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T11:15:48.146Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 45,
+  "prevOpenAt": 1790334837532,
+  "predictedAt": 1790335070000,
+  "closeAt": 1790335070000,
+  "openAt": 1790335492671,
+  "trains": [
+   {
+    "id": "SHZ@12:02>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "APN@11:38>SHZ",
+    "basis": "EBL arrival",
+    "coaches": null,
+    "assumed": true,
+    "held": false
+   }
+  ],
+  "dataAge": 1373,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T11:20:57.499Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 190,
+  "openAfter": 50,
+  "prevOpenAt": 1790335220000,
+  "predictedAt": 1790335280000,
+  "closeAt": 1790335280000,
+  "openAt": 1790335922789,
+  "trains": [
+   {
+    "id": "BTN@11:13>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@11:50>BTN",
+    "basis": "CSA +3 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@12:15>WAT",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@11:00>PMH",
+    "basis": "BDH arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 4546,
+  "live": true
  }
 ]
