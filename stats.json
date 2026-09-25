@@ -1,10 +1,10 @@
 {
  "2026-09-25": {
-  "visitors": 123,
+  "visitors": 128,
   "newDevices": 52,
-  "polls": 1519,
+  "polls": 1768,
   "landings": {
-   "home": 40,
+   "home": 41,
    "crossing": 108
   },
   "referrers": {
@@ -14,21 +14,21 @@
    "lm.facebook.com": 3
   },
   "crossings": {
-   "bolton-le-sands-level-crossing": 5,
-   "hest-bank-level-crossing": 11,
+   "bolton-le-sands-level-crossing": 6,
+   "hest-bank-level-crossing": 12,
    "warblington": 39,
    "petersfield": 3,
-   "havant": 20,
+   "havant": 23,
    "chathill": 2,
    "east-boldon": 5,
    "a146-beccles": 1,
    "abererch": 1,
    "aberleri": 1,
-   "bedhampton": 11,
+   "bedhampton": 12,
    "chesterton-junction": 9,
    "pooley-green": 6,
    "foxton": 2,
-   "cosham": 5,
+   "cosham": 7,
    "bare-lane": 2,
    "gobowen-north-level-crossing": 6,
    "pulford": 2,
