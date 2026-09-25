@@ -1,21 +1,22 @@
 {
  "2026-09-25": {
-  "visitors": 84,
-  "newDevices": 39,
-  "polls": 541,
+  "visitors": 95,
+  "newDevices": 43,
+  "polls": 596,
   "landings": {
-   "home": 27,
-   "crossing": 83
+   "home": 32,
+   "crossing": 90
   },
   "referrers": {
-   "facebook.com": 12,
+   "facebook.com": 13,
    "m.facebook.com": 6,
-   "l.facebook.com": 7
+   "l.facebook.com": 7,
+   "lm.facebook.com": 2
   },
   "crossings": {
    "bolton-le-sands-level-crossing": 4,
-   "hest-bank-level-crossing": 8,
-   "warblington": 28,
+   "hest-bank-level-crossing": 10,
+   "warblington": 29,
    "petersfield": 3,
    "havant": 15,
    "chathill": 2,
@@ -23,10 +24,10 @@
    "a146-beccles": 1,
    "abererch": 1,
    "aberleri": 1,
-   "bedhampton": 8,
+   "bedhampton": 9,
    "chesterton-junction": 4,
-   "pooley-green": 3,
-   "foxton": 1,
+   "pooley-green": 4,
+   "foxton": 2,
    "cosham": 5,
    "bare-lane": 2,
    "gobowen-north-level-crossing": 6,
@@ -36,7 +37,14 @@
    "whittington": 2,
    "weston-rhyn-level-crossing": 2,
    "southbourne": 4,
-   "spittal-level-crossing": 1
+   "spittal-level-crossing": 1,
+   "brough-east-lc": 3,
+   "brooke-road": 1,
+   "liss": 1,
+   "princes-bridge": 1,
+   "mill-road-liss": 1,
+   "egham": 1,
+   "thorpe-lane": 1
   },
   "feedback": {
    "east-boldon": 3,
@@ -44,10 +52,11 @@
    "chesterton-junction": 4,
    "foxton": 2,
    "warblington": 3,
-   "hest-bank-level-crossing": 1,
+   "hest-bank-level-crossing": 2,
    "gobowen-north-level-crossing": 1,
    "southbourne": 4,
-   "cosham": 1
+   "cosham": 1,
+   "brough-east-lc": 2
   }
  },
  "2026-09-24": {

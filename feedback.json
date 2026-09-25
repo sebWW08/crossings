@@ -7854,5 +7854,88 @@
   ],
   "dataAge": 159109,
   "live": true
+ },
+ {
+  "at": "2026-09-25T15:49:35.334Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 160,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790351546538,
+  "closeAt": 1790351371538,
+  "openAt": 1790351546538,
+  "trains": [
+   {
+    "id": "BIF@15:50>LAN",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 7385,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T16:00:24.342Z",
+  "crossing": "brough-east-lc",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790352180199,
+  "closeAt": 1790351750000,
+  "openAt": 1790352180199,
+  "trains": [
+   {
+    "id": "HFX@15:16>HUL",
+    "basis": "BUH departure",
+    "coaches": 2,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "BDT@16:00>YRK",
+    "basis": "BUH arrival",
+    "coaches": 2,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SHF@15:57>SCA",
+    "basis": "BUH departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 23955,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T16:03:04.834Z",
+  "crossing": "brough-east-lc",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790351700199,
+  "predictedAt": 1790352372158,
+  "closeAt": 1790352372158,
+  "openAt": 1790352554335,
+  "trains": [
+   {
+    "id": "HUL@16:53>DON",
+    "basis": "BUH arrival",
+    "coaches": 2,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 31031,
+  "live": true
  }
 ]
