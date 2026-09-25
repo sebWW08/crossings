@@ -1,14 +1,17 @@
 {
  "2026-09-25": {
-  "visitors": 2,
+  "visitors": 4,
   "newDevices": 0,
-  "polls": 61,
-  "landings": {},
+  "polls": 63,
+  "landings": {
+   "home": 1
+  },
   "referrers": {},
   "crossings": {
    "bolton-le-sands-level-crossing": 1,
    "hest-bank-level-crossing": 1,
-   "warblington": 1
+   "warblington": 2,
+   "petersfield": 1
   },
   "feedback": {}
  },
