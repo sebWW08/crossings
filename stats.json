@@ -1,22 +1,22 @@
 {
  "2026-09-25": {
-  "visitors": 115,
+  "visitors": 116,
   "newDevices": 49,
-  "polls": 835,
+  "polls": 1017,
   "landings": {
    "home": 36,
-   "crossing": 99
+   "crossing": 102
   },
   "referrers": {
    "facebook.com": 15,
-   "m.facebook.com": 7,
-   "l.facebook.com": 8,
+   "m.facebook.com": 8,
+   "l.facebook.com": 9,
    "lm.facebook.com": 3
   },
   "crossings": {
-   "bolton-le-sands-level-crossing": 4,
+   "bolton-le-sands-level-crossing": 5,
    "hest-bank-level-crossing": 11,
-   "warblington": 37,
+   "warblington": 38,
    "petersfield": 3,
    "havant": 17,
    "chathill": 2,
