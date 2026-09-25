@@ -1,11 +1,11 @@
 {
  "2026-09-25": {
-  "visitors": 116,
+  "visitors": 117,
   "newDevices": 49,
-  "polls": 1017,
+  "polls": 1264,
   "landings": {
-   "home": 36,
-   "crossing": 102
+   "home": 37,
+   "crossing": 103
   },
   "referrers": {
    "facebook.com": 15,
@@ -26,7 +26,7 @@
    "aberleri": 1,
    "bedhampton": 10,
    "chesterton-junction": 9,
-   "pooley-green": 5,
+   "pooley-green": 6,
    "foxton": 2,
    "cosham": 5,
    "bare-lane": 2,
