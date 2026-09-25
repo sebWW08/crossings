@@ -1,10 +1,22 @@
 {
+ "2026-09-26": {
+  "visitors": 2,
+  "newDevices": 0,
+  "polls": 4,
+  "landings": {},
+  "referrers": {},
+  "crossings": {
+   "havant": 1,
+   "petersfield": 1
+  },
+  "feedback": {}
+ },
  "2026-09-25": {
-  "visitors": 128,
+  "visitors": 129,
   "newDevices": 52,
-  "polls": 1768,
+  "polls": 1811,
   "landings": {
-   "home": 41,
+   "home": 43,
    "crossing": 108
   },
   "referrers": {
@@ -46,7 +58,8 @@
    "egham": 2,
    "thorpe-lane": 1,
    "welton-lc": 2,
-   "melton-lane-level-crossing": 2
+   "melton-lane-level-crossing": 2,
+   "lime-kiln": 1
   },
   "feedback": {
    "east-boldon": 3,
