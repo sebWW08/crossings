@@ -7238,5 +7238,222 @@
   ],
   "dataAge": 4624,
   "live": true
+ },
+ {
+  "at": "2026-09-25T07:33:01.282Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790322511790,
+  "closeAt": 1790321284174,
+  "openAt": 1790322511790,
+  "trains": [
+   {
+    "id": "KGX@07:24>KLN",
+    "basis": "CMB arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KLN@07:41>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "CMB@08:40>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "LWT@06:34>CBG",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 1105,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T07:35:39.893Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790322511790,
+  "closeAt": 1790321344174,
+  "openAt": 1790322511790,
+  "trains": [
+   {
+    "id": "KGX@07:24>KLN",
+    "basis": "CMB arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "KLN@07:41>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "CMB@08:40>LST",
+    "basis": "CMB departure",
+    "coaches": 5,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "LWT@06:34>CBG",
+    "basis": "CMB departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 7893,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T07:36:40.340Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 220,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790321980000,
+  "closeAt": 1790321980000,
+  "openAt": 1790322296077,
+  "trains": [
+   {
+    "id": "CBG@08:25>KGX",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 21184,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T07:37:33.959Z",
+  "crossing": "foxton",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 220,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790321920000,
+  "closeAt": 1790321920000,
+  "openAt": 1790322236077,
+  "trains": [
+   {
+    "id": "CBG@08:25>KGX",
+    "basis": "FXN departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 13881,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T07:49:04.170Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790322611077,
+  "closeAt": 1790322306336,
+  "openAt": 1790322611077,
+  "trains": [
+   {
+    "id": "PMH@08:28>VIC",
+    "basis": "WBL arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@07:39>SOU",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 20814,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T07:50:05.228Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790322611077,
+  "closeAt": 1790322306336,
+  "openAt": 1790322611077,
+  "trains": [
+   {
+    "id": "PMH@08:28>VIC",
+    "basis": "WBL arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@07:39>SOU",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 21002,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T08:12:45.392Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 150,
+  "openAfter": 15,
+  "prevOpenAt": 1790323034145,
+  "predictedAt": 1790324053043,
+  "closeAt": 1790324053043,
+  "openAt": 1790324218043,
+  "trains": [
+   {
+    "id": "LIV@08:13>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 4833,
+  "live": true
  }
 ]

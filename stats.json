@@ -1,36 +1,42 @@
 {
  "2026-09-25": {
-  "visitors": 21,
-  "newDevices": 11,
-  "polls": 178,
+  "visitors": 35,
+  "newDevices": 15,
+  "polls": 323,
   "landings": {
-   "home": 15,
-   "crossing": 18
+   "home": 21,
+   "crossing": 26
   },
   "referrers": {
-   "facebook.com": 2,
-   "m.facebook.com": 3,
-   "l.facebook.com": 2
+   "facebook.com": 6,
+   "m.facebook.com": 4,
+   "l.facebook.com": 4
   },
   "crossings": {
-   "bolton-le-sands-level-crossing": 1,
-   "hest-bank-level-crossing": 2,
-   "warblington": 6,
+   "bolton-le-sands-level-crossing": 2,
+   "hest-bank-level-crossing": 4,
+   "warblington": 10,
    "petersfield": 2,
-   "havant": 2,
+   "havant": 7,
    "chathill": 1,
    "east-boldon": 2,
    "a146-beccles": 1,
    "abererch": 1,
    "aberleri": 1,
    "bedhampton": 3,
-   "chesterton-junction": 1,
-   "pooley-green": 1,
-   "foxton": 1
+   "chesterton-junction": 2,
+   "pooley-green": 2,
+   "foxton": 1,
+   "cosham": 3,
+   "bare-lane": 1
   },
   "feedback": {
    "east-boldon": 1,
-   "bedhampton": 1
+   "bedhampton": 1,
+   "chesterton-junction": 2,
+   "foxton": 2,
+   "warblington": 2,
+   "hest-bank-level-crossing": 1
   }
  },
  "2026-09-24": {
