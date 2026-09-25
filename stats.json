@@ -1,14 +1,14 @@
 {
  "2026-09-25": {
-  "visitors": 117,
-  "newDevices": 49,
-  "polls": 1264,
+  "visitors": 123,
+  "newDevices": 52,
+  "polls": 1519,
   "landings": {
-   "home": 37,
-   "crossing": 103
+   "home": 40,
+   "crossing": 108
   },
   "referrers": {
-   "facebook.com": 15,
+   "facebook.com": 16,
    "m.facebook.com": 8,
    "l.facebook.com": 9,
    "lm.facebook.com": 3
@@ -16,15 +16,15 @@
   "crossings": {
    "bolton-le-sands-level-crossing": 5,
    "hest-bank-level-crossing": 11,
-   "warblington": 38,
+   "warblington": 39,
    "petersfield": 3,
-   "havant": 17,
+   "havant": 20,
    "chathill": 2,
-   "east-boldon": 4,
+   "east-boldon": 5,
    "a146-beccles": 1,
    "abererch": 1,
    "aberleri": 1,
-   "bedhampton": 10,
+   "bedhampton": 11,
    "chesterton-junction": 9,
    "pooley-green": 6,
    "foxton": 2,
@@ -38,7 +38,7 @@
    "weston-rhyn-level-crossing": 2,
    "southbourne": 4,
    "spittal-level-crossing": 1,
-   "brough-east-lc": 7,
+   "brough-east-lc": 8,
    "brooke-road": 1,
    "liss": 1,
    "princes-bridge": 1,
@@ -59,7 +59,7 @@
    "southbourne": 4,
    "cosham": 1,
    "brough-east-lc": 2,
-   "havant": 1
+   "havant": 3
   }
  },
  "2026-09-24": {

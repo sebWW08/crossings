@@ -8020,5 +8020,93 @@
   ],
   "dataAge": 7694,
   "live": true
+ },
+ {
+  "at": "2026-09-25T20:56:46.766Z",
+  "crossing": "havant",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 140,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790369951013,
+  "closeAt": 1790369280000,
+  "openAt": 1790369951013,
+  "trains": [
+   {
+    "id": "PMH@21:29>LIT",
+    "basis": "HAV departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "WAT@20:30>PMH",
+    "basis": "HAV arrival",
+    "coaches": 12,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@21:32>WAT",
+    "basis": "HAV departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "VIC@20:05>PMH",
+    "basis": "HAV arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2290,
+  "live": true
+ },
+ {
+  "at": "2026-09-25T21:00:08.078Z",
+  "crossing": "havant",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 140,
+  "openAfter": 30,
+  "prevOpenAt": 1790369951013,
+  "predictedAt": 1790371217105,
+  "closeAt": 1790371217105,
+  "openAt": 1790371862741,
+  "trains": [
+   {
+    "id": "VIC@20:35>PMH",
+    "basis": "HAV arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@22:05>GTW",
+    "basis": "HAV departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "WAT@21:00>PMH",
+    "basis": "HAV arrival",
+    "coaches": 5,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMS@21:50>BTN",
+    "basis": "HAV departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 20843,
+  "live": true
  }
 ]
