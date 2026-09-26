@@ -1,11 +1,11 @@
 {
  "2026-09-26": {
-  "visitors": 58,
-  "newDevices": 11,
-  "polls": 318,
+  "visitors": 60,
+  "newDevices": 12,
+  "polls": 326,
   "landings": {
    "home": 14,
-   "crossing": 43
+   "crossing": 45
   },
   "referrers": {
    "facebook.com": 5,
@@ -14,7 +14,7 @@
   "crossings": {
    "havant": 8,
    "petersfield": 3,
-   "warblington": 18,
+   "warblington": 20,
    "egham": 2,
    "pooley-green": 3,
    "thorpe-lane": 1,
@@ -42,7 +42,7 @@
    "petersfield": 4,
    "bedhampton": 1,
    "brough-east-lc": 1,
-   "warblington": 9,
+   "warblington": 10,
    "bolton-le-sands-level-crossing": 1,
    "chesterton-junction": 1,
    "navigation-road": 1,
