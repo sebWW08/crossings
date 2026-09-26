@@ -1,13 +1,15 @@
 {
  "2026-09-26": {
-  "visitors": 17,
-  "newDevices": 1,
-  "polls": 56,
+  "visitors": 18,
+  "newDevices": 2,
+  "polls": 59,
   "landings": {
    "home": 4,
-   "crossing": 5
+   "crossing": 6
   },
-  "referrers": {},
+  "referrers": {
+   "facebook.com": 1
+  },
   "crossings": {
    "havant": 2,
    "petersfield": 3,
@@ -21,7 +23,8 @@
    "brough-east-lc": 2,
    "mill-road-liss": 1,
    "liss": 1,
-   "princes-bridge": 1
+   "princes-bridge": 1,
+   "bolton-le-sands-level-crossing": 1
   },
   "feedback": {
    "petersfield": 4,
