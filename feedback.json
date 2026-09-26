@@ -8302,5 +8302,88 @@
   ],
   "dataAge": 6913,
   "live": true
+ },
+ {
+  "at": "2026-09-26T10:32:33.770Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 40,
+  "prevOpenAt": null,
+  "predictedAt": 1790418917391,
+  "closeAt": 1790418688923,
+  "openAt": 1790418917391,
+  "trains": [
+   {
+    "id": "SOU@10:50>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@10:28>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6184,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T10:35:11.503Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 40,
+  "prevOpenAt": null,
+  "predictedAt": 1790418917391,
+  "closeAt": 1790418688923,
+  "openAt": 1790418917391,
+  "trains": [
+   {
+    "id": "SOU@10:50>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@10:28>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 24600,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T10:45:30.053Z",
+  "crossing": "bolton-le-sands-level-crossing",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790419524261,
+  "predictedAt": 1790419787980,
+  "closeAt": 1790419787980,
+  "openAt": 1790419967980,
+  "trains": [
+   {
+    "id": "GLC@09:42>EUS",
+    "basis": "OXN→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 5002,
+  "live": true
  }
 ]
