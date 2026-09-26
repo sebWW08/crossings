@@ -8221,5 +8221,86 @@
   ],
   "dataAge": 1830,
   "live": true
+ },
+ {
+  "at": "2026-09-26T08:16:03.921Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 190,
+  "openAfter": 50,
+  "prevOpenAt": null,
+  "predictedAt": 1790411000000,
+  "closeAt": 1790410520000,
+  "openAt": 1790411000000,
+  "trains": [
+   {
+    "id": "BTN@08:13>SOU",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@09:04>VIC",
+    "basis": "HLS +3.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@08:00>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 1789,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T08:18:43.499Z",
+  "crossing": "brough-east-lc",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790410260199,
+  "predictedAt": 1790411990000,
+  "closeAt": 1790411990000,
+  "openAt": 1790412778844,
+  "trains": [
+   {
+    "id": "KGX@07:18>HUL",
+    "basis": "BUH departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   },
+   {
+    "id": "YRK@08:44>HUL",
+    "basis": "BUH departure",
+    "coaches": 3,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "HFX@08:15>HUL",
+    "basis": "BUH departure",
+    "coaches": 2,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "DON@09:05>HUL",
+    "basis": "BUH departure",
+    "coaches": 2,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 6913,
+  "live": true
  }
 ]
