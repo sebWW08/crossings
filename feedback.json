@@ -8533,5 +8533,28 @@
   ],
   "dataAge": 23034,
   "live": true
+ },
+ {
+  "at": "2026-09-26T15:05:08.001Z",
+  "crossing": "navigation-road",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1790434953387,
+  "predictedAt": 1790436650000,
+  "closeAt": 1790436650000,
+  "openAt": 1790436884832,
+  "trains": [
+   {
+    "id": "MAN@16:10>CTR",
+    "basis": "NVR departure",
+    "coaches": 2,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 7908,
+  "live": true
  }
 ]
