@@ -8429,5 +8429,49 @@
   ],
   "dataAge": 2742,
   "live": true
+ },
+ {
+  "at": "2026-09-26T12:37:01.851Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 35,
+  "prevOpenAt": null,
+  "predictedAt": 1790426292391,
+  "closeAt": 1790425824769,
+  "openAt": 1790426292391,
+  "trains": [
+   {
+    "id": "VIC@11:35>PMH",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@12:50>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@12:13>SOU",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@12:28>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 3793,
+  "live": true
  }
 ]
