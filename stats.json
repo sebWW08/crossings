@@ -1,19 +1,22 @@
 {
  "2026-09-26": {
-  "visitors": 7,
+  "visitors": 11,
   "newDevices": 1,
-  "polls": 30,
+  "polls": 34,
   "landings": {
-   "home": 2
+   "home": 2,
+   "crossing": 1
   },
   "referrers": {},
   "crossings": {
    "havant": 1,
    "petersfield": 3,
-   "warblington": 1,
+   "warblington": 2,
    "egham": 2,
-   "pooley-green": 1,
-   "thorpe-lane": 1
+   "pooley-green": 2,
+   "thorpe-lane": 1,
+   "east-boldon": 1,
+   "chesterton-junction": 1
   },
   "feedback": {
    "petersfield": 4
