@@ -8556,5 +8556,127 @@
   ],
   "dataAge": 7908,
   "live": true
+ },
+ {
+  "at": "2026-09-26T15:53:36.965Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 160,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790438097040,
+  "closeAt": 1790437922040,
+  "openAt": 1790438097040,
+  "trains": [
+   {
+    "id": "EDB@14:52>EUS",
+    "basis": "OXN→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 6185,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T15:56:51.053Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 160,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790438338590,
+  "closeAt": 1790438163590,
+  "openAt": 1790438338590,
+  "trains": [
+   {
+    "id": "SKI@14:18>LAN",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 14327,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T15:59:05.197Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 160,
+  "openAfter": 15,
+  "prevOpenAt": 1790438097040,
+  "predictedAt": 1790438468462,
+  "closeAt": 1790438468462,
+  "openAt": 1790438643462,
+  "trains": [
+   {
+    "id": "MIA@15:29>BIF",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 26706,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T15:59:35.627Z",
+  "crossing": "hest-bank-level-crossing",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 160,
+  "openAfter": 15,
+  "prevOpenAt": 1790438338590,
+  "predictedAt": 1790438468462,
+  "closeAt": 1790438468462,
+  "openAt": 1790438643462,
+  "trains": [
+   {
+    "id": "MIA@15:29>BIF",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 26561,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T16:29:59.391Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790439897692,
+  "predictedAt": 1790440202615,
+  "closeAt": 1790440202615,
+  "openAt": 1790440610870,
+  "trains": [
+   {
+    "id": "SOU@16:50>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@16:28>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2855,
+  "live": true
  }
 ]

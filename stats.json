@@ -1,31 +1,31 @@
 {
  "2026-09-26": {
-  "visitors": 42,
-  "newDevices": 3,
-  "polls": 184,
+  "visitors": 49,
+  "newDevices": 6,
+  "polls": 291,
   "landings": {
-   "home": 9,
-   "crossing": 13
+   "home": 12,
+   "crossing": 30
   },
   "referrers": {
-   "facebook.com": 2,
+   "facebook.com": 5,
    "l.facebook.com": 2
   },
   "crossings": {
-   "havant": 4,
+   "havant": 8,
    "petersfield": 3,
-   "warblington": 12,
+   "warblington": 15,
    "egham": 2,
    "pooley-green": 3,
    "thorpe-lane": 1,
    "east-boldon": 1,
    "chesterton-junction": 3,
-   "bedhampton": 4,
+   "bedhampton": 6,
    "brough-east-lc": 2,
    "mill-road-liss": 2,
    "liss": 2,
    "princes-bridge": 2,
-   "bolton-le-sands-level-crossing": 6,
+   "bolton-le-sands-level-crossing": 7,
    "cosham": 2,
    "kempston-hardwick": 1,
    "abererch": 1,
@@ -34,16 +34,19 @@
    "pulford": 1,
    "croes-newydd": 1,
    "willaston-crossing": 1,
-   "meaford-level-crossing": 1
+   "meaford-level-crossing": 1,
+   "hest-bank-level-crossing": 2,
+   "bare-lane": 1
   },
   "feedback": {
    "petersfield": 4,
    "bedhampton": 1,
    "brough-east-lc": 1,
-   "warblington": 5,
+   "warblington": 6,
    "bolton-le-sands-level-crossing": 1,
    "chesterton-junction": 1,
-   "navigation-road": 1
+   "navigation-road": 1,
+   "hest-bank-level-crossing": 4
   }
  },
  "2026-09-25": {
