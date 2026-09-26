@@ -1,18 +1,23 @@
 {
  "2026-09-26": {
-  "visitors": 3,
-  "newDevices": 0,
-  "polls": 5,
+  "visitors": 7,
+  "newDevices": 1,
+  "polls": 30,
   "landings": {
-   "home": 1
+   "home": 2
   },
   "referrers": {},
   "crossings": {
    "havant": 1,
-   "petersfield": 1,
-   "warblington": 1
+   "petersfield": 3,
+   "warblington": 1,
+   "egham": 2,
+   "pooley-green": 1,
+   "thorpe-lane": 1
   },
-  "feedback": {}
+  "feedback": {
+   "petersfield": 4
+  }
  },
  "2026-09-25": {
   "visitors": 129,

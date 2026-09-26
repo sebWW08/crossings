@@ -8108,5 +8108,118 @@
   ],
   "dataAge": 20843,
   "live": true
+ },
+ {
+  "at": "2026-09-26T06:07:29.692Z",
+  "crossing": "petersfield",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790403295846,
+  "closeAt": 1790402835244,
+  "openAt": 1790403295846,
+  "trains": [
+   {
+    "id": "WAT@05:45>PMH",
+    "basis": "PTR arrival",
+    "coaches": 5,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@06:12>WAT",
+    "basis": "PTR departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 7578,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T06:08:07.840Z",
+  "crossing": "petersfield",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790403295846,
+  "closeAt": 1790402835244,
+  "openAt": 1790403295846,
+  "trains": [
+   {
+    "id": "WAT@05:45>PMH",
+    "basis": "PTR arrival",
+    "coaches": 5,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@06:12>WAT",
+    "basis": "PTR departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 15269,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T06:10:59.993Z",
+  "crossing": "petersfield",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790403295846,
+  "closeAt": 1790402835244,
+  "openAt": 1790403295846,
+  "trains": [
+   {
+    "id": "WAT@05:45>PMH",
+    "basis": "PTR arrival",
+    "coaches": 5,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "SOU@06:12>WAT",
+    "basis": "PTR departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 30422,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T06:14:47.038Z",
+  "crossing": "petersfield",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790403415846,
+  "closeAt": 1790403190000,
+  "openAt": 1790403415846,
+  "trains": [
+   {
+    "id": "SOU@06:12>WAT",
+    "basis": "PTR departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 1830,
+  "live": true
  }
 ]
