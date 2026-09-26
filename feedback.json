@@ -8473,5 +8473,65 @@
   ],
   "dataAge": 3793,
   "live": true
+ },
+ {
+  "at": "2026-09-26T13:33:47.460Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 35,
+  "prevOpenAt": null,
+  "predictedAt": 1790429772391,
+  "closeAt": 1790429488923,
+  "openAt": 1790429772391,
+  "trains": [
+   {
+    "id": "SOU@13:50>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@13:28>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 949,
+  "live": true
+ },
+ {
+  "at": "2026-09-26T13:35:10.635Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 170,
+  "openAfter": 35,
+  "prevOpenAt": null,
+  "predictedAt": 1790429772391,
+  "closeAt": 1790429515231,
+  "openAt": 1790429772391,
+  "trains": [
+   {
+    "id": "SOU@13:50>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@13:28>PMS",
+    "basis": "CCH→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 23034,
+  "live": true
  }
 ]
