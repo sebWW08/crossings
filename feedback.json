@@ -8385,5 +8385,49 @@
   ],
   "dataAge": 5002,
   "live": true
+ },
+ {
+  "at": "2026-09-26T12:05:38.018Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 210,
+  "openAfter": 55,
+  "prevOpenAt": null,
+  "predictedAt": 1790424816280,
+  "closeAt": 1790423947658,
+  "openAt": 1790424816280,
+  "trains": [
+   {
+    "id": "SSD@12:25>PBO",
+    "basis": "CBG→ELY",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PBO@12:13>SSD",
+    "basis": "ELY→CBG",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "CMB@13:10>LST",
+    "basis": "CMB departure",
+    "coaches": 10,
+    "assumed": false,
+    "held": true
+   },
+   {
+    "id": "ELY@12:51>KGX",
+    "basis": "CMB departure",
+    "coaches": 8,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 2742,
+  "live": true
  }
 ]

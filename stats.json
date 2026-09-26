@@ -1,38 +1,41 @@
 {
  "2026-09-26": {
-  "visitors": 26,
+  "visitors": 30,
   "newDevices": 3,
-  "polls": 88,
+  "polls": 99,
   "landings": {
-   "home": 4,
-   "crossing": 9
+   "home": 5,
+   "crossing": 12
   },
   "referrers": {
-   "facebook.com": 2
+   "facebook.com": 2,
+   "l.facebook.com": 1
   },
   "crossings": {
    "havant": 3,
    "petersfield": 3,
-   "warblington": 5,
+   "warblington": 6,
    "egham": 2,
    "pooley-green": 2,
    "thorpe-lane": 1,
    "east-boldon": 1,
-   "chesterton-junction": 1,
+   "chesterton-junction": 2,
    "bedhampton": 3,
    "brough-east-lc": 2,
    "mill-road-liss": 1,
    "liss": 1,
    "princes-bridge": 1,
    "bolton-le-sands-level-crossing": 5,
-   "cosham": 1
+   "cosham": 2,
+   "kempston-hardwick": 1
   },
   "feedback": {
    "petersfield": 4,
    "bedhampton": 1,
    "brough-east-lc": 1,
    "warblington": 2,
-   "bolton-le-sands-level-crossing": 1
+   "bolton-le-sands-level-crossing": 1,
+   "chesterton-junction": 1
   }
  },
  "2026-09-25": {
