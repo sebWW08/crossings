@@ -9093,5 +9093,65 @@
   ],
   "dataAge": 9729,
   "live": true
+ },
+ {
+  "at": "2026-09-27T18:54:03.416Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 40,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790535490880,
+  "closeAt": 1790535490880,
+  "openAt": 1790535600000,
+  "trains": [
+   {
+    "id": "PMH@18:48>WAT",
+    "basis": "MLF arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@18:30>FTN",
+    "basis": "GOD +2.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 10482,
+  "live": true
+ },
+ {
+  "at": "2026-09-27T18:54:55.862Z",
+  "crossing": "milford",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 40,
+  "openAfter": 30,
+  "prevOpenAt": 1790535240000,
+  "predictedAt": 1790535470000,
+  "closeAt": 1790535470000,
+  "openAt": 1790535575578,
+  "trains": [
+   {
+    "id": "WAT@18:30>FTN",
+    "basis": "GOD +2.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "PMH@18:48>WAT",
+    "basis": "MLF arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 576,
+  "live": true
  }
 ]

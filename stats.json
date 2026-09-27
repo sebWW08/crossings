@@ -1,14 +1,14 @@
 {
  "2026-09-27": {
-  "visitors": 41,
-  "newDevices": 15,
-  "polls": 293,
+  "visitors": 44,
+  "newDevices": 16,
+  "polls": 304,
   "landings": {
-   "crossing": 36,
+   "crossing": 40,
    "home": 8
   },
   "referrers": {
-   "facebook.com": 8,
+   "facebook.com": 9,
    "com.google.android.gm": 1
   },
   "crossings": {
@@ -19,7 +19,7 @@
    "lime-kiln": 2,
    "bedhampton": 7,
    "east-boldon": 5,
-   "hest-bank-level-crossing": 1,
+   "hest-bank-level-crossing": 2,
    "mill-road-liss": 2,
    "princes-bridge": 2,
    "liss": 2,
@@ -30,7 +30,7 @@
    "lincoln": 1,
    "doddington-road": 1,
    "havant": 4,
-   "milford": 2,
+   "milford": 4,
    "bourne-road": 1,
    "farncombe": 1,
    "southbourne": 1
@@ -38,7 +38,7 @@
   "feedback": {
    "chesterton-junction": 2,
    "east-boldon": 5,
-   "milford": 2,
+   "milford": 4,
    "warblington": 1,
    "bedhampton": 2
   }
