@@ -8980,5 +8980,65 @@
   ],
   "dataAge": 1617,
   "live": true
+ },
+ {
+  "at": "2026-09-27T15:38:40.440Z",
+  "crossing": "east-boldon",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 160,
+  "openAfter": 60,
+  "prevOpenAt": null,
+  "predictedAt": 1790523742804,
+  "closeAt": 1790523257196,
+  "openAt": 1790523742804,
+  "trains": [
+   {
+    "id": "APN@15:52>SHZ",
+    "basis": "EBL arrival",
+    "coaches": null,
+    "assumed": true,
+    "held": false
+   },
+   {
+    "id": "SHZ@16:22>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 2334,
+  "live": true
+ },
+ {
+  "at": "2026-09-27T15:39:16.535Z",
+  "crossing": "east-boldon",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 160,
+  "openAfter": 60,
+  "prevOpenAt": null,
+  "predictedAt": 1790523742804,
+  "closeAt": 1790523257196,
+  "openAt": 1790523742804,
+  "trains": [
+   {
+    "id": "APN@15:52>SHZ",
+    "basis": "EBL arrival",
+    "coaches": null,
+    "assumed": true,
+    "held": false
+   },
+   {
+    "id": "SHZ@16:22>APN",
+    "basis": "EBL departure",
+    "coaches": null,
+    "assumed": true,
+    "held": true
+   }
+  ],
+  "dataAge": 2150,
+  "live": true
  }
 ]
