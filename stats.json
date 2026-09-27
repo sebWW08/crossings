@@ -1,4 +1,21 @@
 {
+ "2026-09-27": {
+  "visitors": 1,
+  "newDevices": 1,
+  "polls": 5,
+  "landings": {
+   "crossing": 2
+  },
+  "referrers": {
+   "facebook.com": 2
+  },
+  "crossings": {
+   "chesterton-junction": 1
+  },
+  "feedback": {
+   "chesterton-junction": 2
+  }
+ },
  "2026-09-26": {
   "visitors": 60,
   "newDevices": 12,

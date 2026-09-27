@@ -8784,5 +8784,35 @@
   ],
   "dataAge": 13569,
   "live": true
+ },
+ {
+  "at": "2026-09-27T05:26:01.635Z",
+  "crossing": "chesterton-junction",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 210,
+  "openAfter": 55,
+  "prevOpenAt": null,
+  "predictedAt": null,
+  "closeAt": null,
+  "openAt": null,
+  "trains": [],
+  "dataAge": 3248,
+  "live": true
+ },
+ {
+  "at": "2026-09-27T05:27:09.457Z",
+  "crossing": "chesterton-junction",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 210,
+  "openAfter": 55,
+  "prevOpenAt": null,
+  "predictedAt": null,
+  "closeAt": null,
+  "openAt": null,
+  "trains": [],
+  "dataAge": 7169,
+  "live": true
  }
 ]
