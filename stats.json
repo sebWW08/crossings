@@ -1,19 +1,22 @@
 {
  "2026-09-27": {
-  "visitors": 8,
-  "newDevices": 3,
-  "polls": 16,
+  "visitors": 12,
+  "newDevices": 5,
+  "polls": 25,
   "landings": {
-   "crossing": 10,
+   "crossing": 14,
    "home": 1
   },
   "referrers": {
-   "facebook.com": 2
+   "facebook.com": 2,
+   "com.google.android.gm": 1
   },
   "crossings": {
    "chesterton-junction": 2,
    "pooley-green": 1,
-   "warblington": 5
+   "warblington": 6,
+   "portslade": 2,
+   "lime-kiln": 1
   },
   "feedback": {
    "chesterton-junction": 2
