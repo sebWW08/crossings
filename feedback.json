@@ -8911,5 +8911,74 @@
   ],
   "dataAge": 230958,
   "live": true
+ },
+ {
+  "at": "2026-09-27T14:52:02.070Z",
+  "crossing": "milford",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 40,
+  "openAfter": 15,
+  "prevOpenAt": null,
+  "predictedAt": 1790520740578,
+  "closeAt": 1790520670880,
+  "openAt": 1790520740578,
+  "trains": [
+   {
+    "id": "PMH@14:48>WAT",
+    "basis": "MLF arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 11444,
+  "live": true
+ },
+ {
+  "at": "2026-09-27T14:52:32.929Z",
+  "crossing": "milford",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 40,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790520755578,
+  "closeAt": 1790520670880,
+  "openAt": 1790520755578,
+  "trains": [
+   {
+    "id": "PMH@14:48>WAT",
+    "basis": "MLF arrival",
+    "coaches": 8,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 11931,
+  "live": true
+ },
+ {
+  "at": "2026-09-27T15:04:57.205Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790522188923,
+  "closeAt": 1790522188923,
+  "openAt": 1790522388923,
+  "trains": [
+   {
+    "id": "PMH@16:01>BOG",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 1617,
+  "live": true
  }
 ]
