@@ -1,23 +1,23 @@
 {
  "2026-09-27": {
-  "visitors": 25,
-  "newDevices": 11,
-  "polls": 229,
+  "visitors": 30,
+  "newDevices": 13,
+  "polls": 241,
   "landings": {
-   "crossing": 24,
+   "crossing": 28,
    "home": 3
   },
   "referrers": {
-   "facebook.com": 4,
+   "facebook.com": 5,
    "com.google.android.gm": 1
   },
   "crossings": {
    "chesterton-junction": 2,
    "pooley-green": 2,
-   "warblington": 10,
+   "warblington": 13,
    "portslade": 2,
    "lime-kiln": 2,
-   "bedhampton": 3,
+   "bedhampton": 5,
    "east-boldon": 3,
    "hest-bank-level-crossing": 1,
    "mill-road-liss": 1,
@@ -29,7 +29,7 @@
    "hykeham": 1,
    "lincoln": 1,
    "doddington-road": 1,
-   "havant": 1
+   "havant": 3
   },
   "feedback": {
    "chesterton-junction": 2,
