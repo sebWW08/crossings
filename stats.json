@@ -1,28 +1,35 @@
 {
  "2026-09-27": {
-  "visitors": 20,
-  "newDevices": 9,
-  "polls": 48,
+  "visitors": 25,
+  "newDevices": 11,
+  "polls": 229,
   "landings": {
-   "crossing": 21,
-   "home": 1
+   "crossing": 24,
+   "home": 3
   },
   "referrers": {
-   "facebook.com": 3,
+   "facebook.com": 4,
    "com.google.android.gm": 1
   },
   "crossings": {
    "chesterton-junction": 2,
-   "pooley-green": 1,
-   "warblington": 8,
+   "pooley-green": 2,
+   "warblington": 10,
    "portslade": 2,
    "lime-kiln": 2,
-   "bedhampton": 2,
-   "east-boldon": 2,
+   "bedhampton": 3,
+   "east-boldon": 3,
    "hest-bank-level-crossing": 1,
    "mill-road-liss": 1,
    "princes-bridge": 1,
-   "liss": 1
+   "liss": 1,
+   "boultham": 1,
+   "sincil-bank": 1,
+   "brayford": 1,
+   "hykeham": 1,
+   "lincoln": 1,
+   "doddington-road": 1,
+   "havant": 1
   },
   "feedback": {
    "chesterton-junction": 2,
