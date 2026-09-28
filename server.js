@@ -2,8 +2,9 @@ import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { allCrossings, getCrossing, summarise } from './src/registry.js';
-import { boardsFor, live } from './src/darwin.js';
+import { allCrossings, getCrossing, summarise, surveyStations } from './src/registry.js';
+import { boardsFor, live, startSweep } from './src/darwin.js';
+import { legsSnapshot, seedLegs } from './src/legs.mjs';
 import { predict } from './src/predict.js';
 import { cleanReport, tooSoon, record, recent as recentFeedback, load as loadFeedback } from './src/feedback.mjs';
 import * as stats from './src/stats.mjs';
@@ -52,6 +53,7 @@ async function api(url, req, res) {
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, live, crossings: allCrossings().length });
   if (url.pathname === '/api/stats') return json(res, 200, stats.snapshot());
   if (url.pathname === '/api/feedback' && req.method === 'GET') return json(res, 200, recentFeedback());
+  if (url.pathname === '/api/legs') return json(res, 200, legsSnapshot());
   if (url.pathname === '/api/feedback' && req.method === 'POST') {
     let body;
     try { body = await readJson(req); } catch (e) { return json(res, e.status ?? 400, { error: e.message }); }
@@ -205,7 +207,8 @@ http
     return serveStatic(url, req, res).catch((e) => { console.error(e); res.writeHead(500).end(); });
   })
   .listen(PORT, async () => {
-    await Promise.all([stats.load(), loadFeedback()]);
+    await Promise.all([stats.load(), loadFeedback(), seedLegs()]);
     stats.start();
+    startSweep(surveyStations());
     console.log(`crossings: http://localhost:${PORT}  (${live ? 'live Darwin data' : 'DEMO data — set DARWIN_API_KEY for live'})`);
   });

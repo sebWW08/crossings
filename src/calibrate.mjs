@@ -45,32 +45,66 @@ const OPEN_BOUNDS = [10, 120];
 // closure that was really two trains, or one we couldn't see.
 const OPEN_MAX_ERR_SEC = 120;
 
+/**
+ * The window a tap is about. Reports carry each train's own window (since
+ * 28 Sep 2026), so a tap inside a closure of several trains is judged
+ * against the train it fell on, not the whole block — the barriers lifting
+ * between two trains the page had merged is no longer mistaken for either
+ * edge being wrong. Older reports only have the whole closure, flagged
+ * when it is too long to be one train.
+ */
+export function windowOf(r, at) {
+  const own = (r.trains ?? []).filter((t) => t?.closeAt != null && t?.openAt != null);
+  if (!own.length) return r.closeAt == null || r.openAt == null ? null : { closeAt: r.closeAt, openAt: r.openAt, single: !merged(r) };
+  const off = (t) => (at < t.closeAt ? t.closeAt - at : at >= t.openAt ? at - t.openAt : 0);
+  const t = own.reduce((a, b) => (off(b) < off(a) ? b : a));
+  return { closeAt: t.closeAt, openAt: t.openAt, single: true };
+}
+
+/**
+ * Which end of a closure a tap bears on — the start (the lead) or the end
+ * (the reopen delay) — and never both. During a closure it is whichever
+ * half the tap fell in; between closures, whichever edge is nearer. (Taken
+ * both ways, the down taps at Milford on 22 Sep that were the next train
+ * closing early also counted as the last one reopening late, and walked
+ * its reopen delay from 15 s to 35.)
+ */
+function edge(r, at) {
+  if (r.predicted === 'closed') {
+    const w = windowOf(r, at);
+    return w && { kind: at <= (w.closeAt + w.openAt) / 2 ? 'lead' : 'open', w };
+  }
+  const toNext = r.closeAt != null && r.closeAt > at ? (r.closeAt - at) / 1000 : Infinity;
+  const sincePrev = r.prevOpenAt != null && r.prevOpenAt <= at ? (at - r.prevOpenAt) / 1000 : Infinity;
+  if (toNext === Infinity && sincePrev === Infinity) return null;
+  return sincePrev < toNext ? { kind: 'open', since: sincePrev } : { kind: 'lead', until: toNext };
+}
+
 /** Seconds by which the lead should have been longer (+) or shorter (−), or null if the tap says nothing about it. */
 export function leadError(r, control = 'unknown', lead = r.lead) {
   const at = Date.parse(r.at);
   if (!Number.isFinite(at) || r.closeAt == null || r.openAt == null) return null;
-  const agreed = (r.observed === 'down') === (r.predicted === 'closed');
-  if (agreed) return 0;
+  const e = edge(r, at);
+  if (e?.kind !== 'lead') return null;
   // An error that would put the lead outside what this kind of crossing can
   // do isn't the lead: it's a train the boards can't see.
   const [lo, hi] = BOUNDS[control] ?? BOUNDS.unknown;
   const base = lead ?? (lo + hi) / 2;
-  if (r.observed === 'down') {
-    // Down before the page expected the next closure to start.
-    const early = (r.closeAt - at) / 1000;
-    return early > 0 && early <= Math.min(MAX_ERR_SEC, hi - base) ? early : null;
+  const early = (s) => (s <= Math.min(MAX_ERR_SEC, hi - base) ? s : null);
+  if (!e.w) {
+    // The page said open, the next closure `until` s off. A tap far from
+    // any closure says nothing about when the barriers drop, even if right.
+    if (e.until > MAX_ERR_SEC) return null;
+    return r.observed === 'up' ? 0 : early(e.until); // down before the page expected: lead too short
   }
-  // Up during a predicted closure: only the first half says "not closed yet"
-  // (the second half would mean it reopened early — a different knob). This
-  // counts inside a long merged window too: the barriers rising between
-  // trains is precisely the evidence that the window is too wide, and
-  // narrowing the lead is what stops consecutive trains merging at all.
-  if (at > (r.closeAt + r.openAt) / 2) return null;
-  const late = (at - r.closeAt) / 1000;
-  if (late < 0 || late > MAX_ERR_SEC) return null;
-  // Still up well into a closure means the window is far too wide. Unlike
-  // the other direction there is nothing else it could be, so it is kept
-  // and merely held to the shortest lead this kind of crossing can have.
+  const late = (at - e.w.closeAt) / 1000;
+  if (late < 0) return r.observed === 'up' ? 0 : early(-late); // before this train's window, between merged trains
+  if (late > MAX_ERR_SEC) return null;
+  if (r.observed === 'down') return 0;
+  // Up in the first half of a predicted closure: it hadn't closed yet. Still
+  // up well into one means the window is far too wide; unlike the other
+  // direction there is nothing else it could be, so it is kept and merely
+  // held to the shortest lead this kind of crossing can have.
   return -Math.min(late, base - lo);
 }
 
@@ -84,20 +118,17 @@ export function leadError(r, control = 'unknown', lead = r.lead) {
 export function openError(r) {
   const at = Date.parse(r.at);
   if (!Number.isFinite(at)) return null;
-  if (r.predicted === 'closed' && r.closeAt != null && r.openAt != null) {
-    if (merged(r)) return null;                        // several trains: the merge's business
-    if (at <= (r.closeAt + r.openAt) / 2) return null; // the lead's business
-    const early = (r.openAt - at) / 1000;
-    if (r.observed === 'up') return early <= OPEN_MAX_ERR_SEC ? -early || 0 : null;
+  const e = edge(r, at);
+  if (e?.kind !== 'open') return null;
+  if (e.w) {
+    if (!e.w.single) return null;                  // several trains and no per-train times: the merge's business
+    if (at >= e.w.openAt) return r.observed === 'up' ? 0 : null; // between merged trains: up as expected, or the next one
+    const early = (e.w.openAt - at) / 1000;
+    if (r.observed === 'up') return early <= OPEN_MAX_ERR_SEC ? -early : null;
     return 0; // still down, as predicted
   }
-  if (r.prevOpenAt != null) {
-    const since = (at - r.prevOpenAt) / 1000;
-    if (since < 0 || since > OPEN_MAX_ERR_SEC) return null;
-    if (r.observed === 'down') return since;           // predicted open, still down
-    return since <= 180 ? 0 : null;                     // up soon after: it did reopen
-  }
-  return null;
+  if (e.since > OPEN_MAX_ERR_SEC) return null;
+  return r.observed === 'down' ? e.since : 0;     // still down after the page's reopening, or up as it said
 }
 
 /** The reopen delay the reports point to, or null if there aren't enough usable ones. */

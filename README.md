@@ -153,8 +153,17 @@ board read, two boards per crossing, cached 30 s.
 - A station whose platforms start within 400 m of the road (Cambridge
   North, 300 m from Fen Road) counts as being at the crossing, so a train
   standing there is a stop with the barriers down, not a train in transit.
-- Windows within 45 s of each other merge into one closure.
+- Windows within 90 s of each other merge into one closure at a
+  signaller-controlled crossing — a signaller doesn't lift the barriers for
+  a minute and drop them again (predicted gaps of 50–60 s were found down
+  six times out of seven) — and within 45 s at an automatic one.
 - `et: "Delayed"` marks the closure *uncertain* in the UI; cancelled trains are dropped.
+  A "Delayed" train whose booked time at the road has already gone isn't
+  drawn at all: it hasn't come and nobody knows when it will, so the page
+  lists it as running late with no estimate instead (Milford, 27 Sep: the
+  14:48 from Portsmouth Harbour, 72 min late, was shown closing the road at
+  15:52 while people there saw the barriers up). An actual time given as
+  "On time" is an actual at the booked minute.
 
 ### Generated entries
 
@@ -182,8 +191,47 @@ split allows for the train pulling away from one call and braking into the
 next (~75 s each at 0.4 m/s², covering what ~37 s at speed would), so a
 crossing just outside a station is reached later than a straight split
 says. A leg in `bypass`, or one scheduled far quicker than the run via the
-crossing, means the train came round another way. Hand-written entries (no
-`beyond`) use the `references` rule above.
+crossing, means the train came round another way. The ten hand-written
+entries carry the same `times`, `via` and `beyond`, grafted from the
+generator's own walk (`build-registry.mjs --raw-out` lists entries before a
+hand-written one suppresses them), so they follow the same rule; their
+`references` are only the last-resort fallback.
+
+### Which boards: learnt from the trains
+
+A direction can only see a train that calls at one of the boards it reads,
+and the generator can only guess those: the next few stations out. A fast
+train whose first stop after the road is further than that brings the
+barriers down unseen — at Warblington every Portsmouth & Southsea–Brighton
+runs Havant to Chichester, past the three stations eastbound read, and was
+down on a "was this right?" tap while the page said open (25 Sep, 12:13;
+Realtime Trains has it passing at 12:13). The Stansted Expresses at
+Brimsdown, the LNER fasts at Holme, the Havant–Guildford non-stops at Liss
+were the same.
+
+Darwin can't say which trains pass a place, only where they call, so
+`src/legs.mjs` learns it: every board read is mined for *legs* — consecutive
+calls X then Y with their scheduled minutes — and a leg from the near side
+of a crossing to beyond it (passing the same checks the predictor applies to
+a train: not a `bypass`, not scheduled far quicker than the run via the
+road) is a train that went over it, so Y is added to that direction's
+boards. Legs come from three places: `data/legs.json`, seeded by
+
+```
+node --env-file=.env tools/survey-legs.mjs      # reads ~2,100 stations' boards in ~2.5 min
+```
+
+(which on a Sunday evening already added a board to 311 directions at 269
+crossings — 17 % more trains in view at those); every board the server
+reads for a page; and a background sweep that reads one station's full
+board every 8 s, round every station near a crossing, so a lap takes about
+four and a half hours and drifts through the day — that is what picks up
+patterns that only run at the peaks or on weekdays. The server's legs are
+served at `/api/legs` and kept on the `stats` branch by the hourly Action,
+like the feedback; a leg not seen for 60 days (a diversion, a withdrawn
+pattern) stops adding its board. Entries flagged `parallel` get none: a
+train on the other line would look as if it came this way. Boards are read
+40 rows deep, since a learnt one can be a busy station twenty minutes out.
 
 ## Crossings covered
 
@@ -282,8 +330,11 @@ recurring ones:
   autumn-2025 upgrades (this sets `closeBeforeSec`: ~150 s for signaller-
   controlled full barriers, ~40 s for automatic half barriers).
 - Freight and empty-stock trains are not on passenger boards, so a closure
-  for one is invisible here (Fen Road at midnight). Nothing to do about it
-  without a different data feed.
+  for one is invisible here (Fen Road at midnight; aggregates to Chichester
+  through Warblington). Up to one tap in fourteen has been one of these. The fix
+  is Network Rail's train describer (TD) feed, which has every train by
+  signal berth, freight included — free, but it needs an account on
+  Network Rail's open data feeds or the Rail Data Marketplace.
 - `minutesToCrossing` for non-stopping trains: distance ÷ ~110 km/h plus half
   a minute; trim to what the fasts actually do.
 
@@ -325,7 +376,15 @@ The generator above is the plan; what's left:
    far end of the window: up in the second half of a predicted closure
    means it lifted early, down shortly after the page's last closure ended
    (the page sends when that was) means it hadn't; errors over two minutes
-   are a closure that was really two trains, and are ignored. A tap that
+   are a closure that was really two trains, and are ignored. A tap is
+   about one edge only — during a closure, whichever half it fell in;
+   between two, whichever is nearer — and one that agrees with the page
+   only counts when it is within six minutes of the edge (a tap far from
+   any train says nothing about when the barriers drop). Counted both ways,
+   the down taps at Milford on 22 Sep that were the next train closing early
+   also counted as the last one reopening late. Since 28 Sep each report
+   also carries every train's own window, so a tap inside a closure of
+   several trains is judged against the train it fell on. A tap that
    would put the lead outside what that kind of crossing can do (five
    minutes early at an AHB that closes 40 s ahead) is a train the boards
    cannot see, not a lead error — taking those literally had inflated

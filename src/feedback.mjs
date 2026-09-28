@@ -73,6 +73,7 @@ export function cleanReport(body, crossing, now = Date.now()) {
       ? body.trains.slice(0, 4).map((t) => ({
         id: String(t?.id ?? '').slice(0, 40), basis: String(t?.basis ?? '').slice(0, 40),
         coaches: num(t?.coaches), assumed: !!t?.assumed, held: !!t?.held,
+        closeAt: num(t?.closeAt), openAt: num(t?.openAt), // this train's own window (src/calibrate.mjs windowOf)
       }))
       : [],
     dataAge: num(body.dataAge),           // ms since the page last refreshed

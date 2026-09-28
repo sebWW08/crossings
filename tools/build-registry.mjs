@@ -3,6 +3,8 @@
 //
 //   node tools/build-registry.mjs --extract data/cache/osm-uk.json [--bbox S,W,N,E] [--dry-run] [--only id]
 //   node tools/build-registry.mjs --bbox S,W,N,E [--margin 25] [--tile 0.5,1] [--dry-run] [--only id]
+//   node tools/build-registry.mjs --extract … --bbox … --raw-out file.json   (every entry built, before merging —
+//                                                   including those a hand-written entry suppresses)
 //
 // Crossings come from OpenStreetMap; the surrounding track is walked to find
 // the stations either side. The whole-country way is --extract: a JSON file
@@ -46,6 +48,7 @@ function args() {
     tile: tile ? tile.split(',').map(Number) : null,
     dryRun: a.includes('--dry-run'),
     only: get('--only'),
+    rawOut: get('--raw-out'),
   };
 }
 
@@ -167,7 +170,7 @@ function buildTile(graph, index, crossings, box, nr, platforms = platformIndex([
 }
 
 /** Whole-country run from a tools/extract-osm.mjs file: one graph, one pass. */
-async function fromExtract({ extract, bbox, dryRun, only }) {
+async function fromExtract({ extract, bbox, dryRun, only, rawOut }) {
   const data = JSON.parse(await readFile(extract, 'utf8'));
   const nr = JSON.parse(await readFile(NR, 'utf8').catch(() => '[]'));
   console.error(`${data.source} extracted ${data.extracted.slice(0, 10)}: ${data.ways.length} rail ways, ${data.nodes.length} nodes, ${data.stations.length} stations, ${data.crossings.nodes.length} crossing nodes`);
@@ -183,6 +186,7 @@ async function fromExtract({ extract, bbox, dryRun, only }) {
   const platforms = platformIndex(data.platforms ?? []);
   if (!data.platforms) console.error('extract has no platforms (re-run tools/extract-osm.mjs): platformsSide will be guessed from station nodes');
   const generated = buildTile(graph, index, data.crossings, bbox, nr, platforms);
+  if (rawOut) await writeFile(rawOut, JSON.stringify(generated, null, 1) + '\n');
   // A whole-country run is authoritative: anything generated earlier that it
   // did not produce again has gone (retagged in OSM, or NR now calls it a
   // footpath). A --bbox run only touches its box, like the Overpass path.
@@ -192,8 +196,8 @@ async function fromExtract({ extract, bbox, dryRun, only }) {
 }
 
 async function main() {
-  const { extract, bbox, margin, tile, dryRun, only } = args();
-  if (extract) return finish(await fromExtract({ extract, bbox, dryRun, only }), { dryRun, only });
+  const { extract, bbox, margin, tile, dryRun, only, rawOut } = args();
+  if (extract) return finish(await fromExtract({ extract, bbox, dryRun, only, rawOut }), { dryRun, only });
   // Stations and crossings are small lists: one query for the whole region.
   // Track is the bulk, so it goes tile by tile (each with its own margin).
   const stations = await fetchStations(grow(bbox, margin));

@@ -4,7 +4,9 @@
 # branch — never master, which would trigger a deploy — and the server
 # reads that file back when it starts, so a deploy costs nothing. The same
 # goes for feedback.json: every "was this right?" tap, which is what each
-# crossing's lead time is calibrated from.
+# crossing's lead time is calibrated from — and legs.json: the consecutive
+# calls the server has seen trains make, which decide which boards each
+# crossing reads (src/legs.mjs).
 name: keep stats
 on:
   schedule:
@@ -48,6 +50,6 @@ jobs:
         run: |
           git config user.name "crossings-stats"
           git config user.email "stats@crossings.invalid"
-          git add stats.json feedback.json
+          git add stats.json feedback.json legs.json
           git diff --cached --quiet || git commit -qm "stats $(date -u +%Y-%m-%dT%H:%MZ)"
           git push

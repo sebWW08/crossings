@@ -4,8 +4,12 @@
 import { resolveCall, parseClock } from './time.js';
 
 /** Two closures closer together than this are shown as one — the barriers
- *  would not realistically come up in between. */
-const MERGE_GAP_SEC = 45;
+ *  would not realistically come up in between. A signaller doesn't lift
+ *  them for a minute and lower them again: in predicted gaps of 50–60 s at
+ *  Bedhampton, Fen Road and Elsenham people found them down six times out
+ *  of seven, while gaps of 90 s or more were mostly up. An automatic
+ *  crossing rises as soon as it can. */
+const MERGE_GAP_SEC = { signaller: 90, default: 45 };
 
 /** Darwin nests calling points in groups (one per portion of a train that
  *  joined/split). Flatten to one list in travel order. */
@@ -101,6 +105,7 @@ function describe(dir, svc, prev, stops) {
     towards: dir.towards,
     operator: svc.operator ?? null,
     origin: svc.origin?.[0]?.locationName ?? null,
+    originTime: prev[0]?.st ?? null,
     destination: svc.destination?.[0]?.locationName ?? null,
     stops,
   };
@@ -244,12 +249,12 @@ function timeMovement(crossing, dir, svc, prev, now) {
 }
 
 /** Overlapping / near-touching windows become one closure with several trains. */
-export function mergeClosures(movements) {
+export function mergeClosures(movements, gapSec = MERGE_GAP_SEC.default) {
   const sorted = [...movements].sort((a, b) => a.closeAt - b.closeAt);
   const out = [];
   for (const m of sorted) {
     const last = out.at(-1);
-    if (last && m.closeAt <= last.openAt + MERGE_GAP_SEC * 1000) {
+    if (last && m.closeAt <= last.openAt + gapSec * 1000) {
       last.openAt = Math.max(last.openAt, m.openAt);
       last.trains.push(m);
       last.uncertain ||= m.uncertain;
@@ -273,12 +278,27 @@ export function dedupe(movements) {
   return [...best.values()];
 }
 
+/**
+ * A train Darwin marks "Delayed" with no estimate, whose booked time at the
+ * road has already gone: it hasn't come, and nobody can say when it will.
+ * Drawn at its booked time it is a closure that isn't happening — Milford,
+ * 27 Sep: the 14:48 from Portsmouth Harbour, 72 min late, shown "closed" at
+ * 15:52 while people at the barrier saw them up — so it is set aside and
+ * listed as late instead.
+ */
+const unplaceable = (m, t) => m.uncertain && !m.actual && m.openAt < t;
+
 export function predict(crossing, boards, now = new Date()) {
-  const movements = dedupe(crossing.directions.flatMap((dir) =>
+  const t = now.getTime();
+  const seen = dedupe(crossing.directions.flatMap((dir) =>
     movementsForDirection(crossing, dir, boards[dir.board.crs], now),
   ));
-  const closures = mergeClosures(movements);
-  const t = now.getTime();
+  const movements = seen.filter((m) => !unplaceable(m, t));
+  const late = seen.filter((m) => unplaceable(m, t)).map((m) => ({
+    serviceId: m.serviceId, direction: m.direction, towards: m.towards,
+    origin: m.origin, originTime: m.originTime, destination: m.destination, operator: m.operator,
+  }));
+  const closures = mergeClosures(movements, MERGE_GAP_SEC[crossing.control] ?? MERGE_GAP_SEC.default);
   const current = closures.find((c) => c.closeAt <= t && t < c.openAt) ?? null;
   const upcoming = closures.filter((c) => c.closeAt > t);
   const recent = closures.filter((c) => c.openAt <= t).slice(-3);
@@ -295,6 +315,7 @@ export function predict(crossing, boards, now = new Date()) {
     upcoming,
     recent,
     closedSecNextHour: Math.round(closedSecNextHour),
+    late,
     movements,
   };
 }

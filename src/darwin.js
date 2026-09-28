@@ -2,6 +2,7 @@
 // per-station cache, falling back to synthetic data when no key is configured.
 
 import { mockBoard } from './mock.js';
+import { learn } from './legs.mjs';
 
 const TTL_MS = 30_000;
 const KEY = process.env.DARWIN_API_KEY || '';
@@ -28,8 +29,11 @@ const slot = () => new Promise((r) => (inFlight < MAX_IN_FLIGHT ? (inFlight++, r
 const release = () => { const next = waiting.shift(); if (next) next(); else inFlight--; };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function fetchOnce(crs) {
-  const url = `${BASE}/${crs}?numRows=20&timeWindow=120`;
+// Forty rows: a learnt board can be a busy station twenty minutes beyond the
+// road (Guildford, for Liss), and at twenty rows its list could end before
+// the train we want arrives.
+async function fetchOnce(crs, rows = 40) {
+  const url = `${BASE}/${crs}?numRows=${rows}&timeWindow=120`;
   await slot();
   try {
     const res = await fetch(url, { headers: { 'x-apikey': KEY, accept: 'application/json' } });
@@ -62,7 +66,7 @@ export function arrivalsBoard(crossing, dir, now = new Date()) {
   const hit = cache.get(crs);
   if (hit && now.getTime() - hit.at < TTL_MS) return hit.board;
   const board = live ? fetchLive(crs, now.getTime()) : Promise.resolve(mockBoard(crossing, dir, now));
-  board.then((b) => { if (!b.staleSec) last.set(crs, { at: now.getTime(), board: b }); }, () => cache.delete(crs));
+  board.then((b) => { if (!b.staleSec) { last.set(crs, { at: now.getTime(), board: b }); if (live) learn(b); } }, () => cache.delete(crs));
   cache.set(crs, { at: now.getTime(), board });
   return board;
 }
@@ -85,4 +89,25 @@ export async function boardsFor(crossing, now = new Date()) {
   });
   if (!Object.keys(boards).length) throw new Error(errors.join('; '));
   return { boards, errors, staleSec };
+}
+
+/**
+ * Read one station's full board every `everyMs`, round the list, so the
+ * legs trains make (src/legs.mjs) are learnt at every time of day — not
+ * just around the crossings someone happens to be looking at, and not just
+ * whatever ran when tools/survey-legs.mjs was last run. A couple of
+ * thousand stations at one every 8 s is a lap every four and a half hours:
+ * a drifting sample of morning, midday, evening and night.
+ */
+export function startSweep(stations, everyMs = 8000) {
+  if (!live || !stations.length) return () => {};
+  const list = [...stations].sort(() => Math.random() - 0.5);
+  let i = 0, learnt = 0;
+  const timer = setInterval(async () => {
+    const crs = list[i++ % list.length];
+    try { learnt += learn(await fetchOnce(crs, 150)); } catch { /* a busy moment; it comes round again */ }
+    if (i % list.length === 0) { console.log(`legs: sweep lap done, ${learnt} new leg(s)`); learnt = 0; }
+  }, everyMs);
+  timer.unref?.();
+  return () => clearInterval(timer);
 }

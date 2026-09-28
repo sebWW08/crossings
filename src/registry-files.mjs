@@ -32,9 +32,17 @@ export function readRegistry({ raw = false } = {}) {
   return [...readList(HAND), ...readList(GENERATED)].map((c) => applyOverride(c, overrides[c.id]));
 }
 
+/** Pretty-printed for editing, but with lists of station codes and the
+ *  run-time table on one line each: they are long and nobody edits them. */
+export function prettyHand(hand) {
+  return JSON.stringify(hand, null, 1)
+    .replace(/\[\n\s*(?:"[^"\n]*"|-?[\d.]+)(?:,\n\s*(?:"[^"\n]*"|-?[\d.]+))*\n\s*\]/g, (m) => JSON.stringify(JSON.parse(m)))
+    .replace(/\{\n\s*(?:"[A-Z]{3}": (?:-?[\d.]+|\[[^\]\n]*\]))(?:,\n\s*"[A-Z]{3}": (?:-?[\d.]+|\[[^\]\n]*\]))*\n\s*\}/g, (m) => JSON.stringify(JSON.parse(m)));
+}
+
 export function writeRegistry(list) {
   const hand = list.filter((c) => !c.generated);
   const generated = list.filter((c) => c.generated);
-  writeFileSync(HAND, JSON.stringify(hand, null, 1) + '\n');
+  writeFileSync(HAND, prettyHand(hand) + '\n');
   writeFileSync(GENERATED, `[\n${generated.map((c) => JSON.stringify(c)).join(',\n')}\n]\n`);
 }

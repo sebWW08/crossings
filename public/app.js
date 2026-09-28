@@ -165,11 +165,13 @@ function statusOf(data, now) {
   const live = cur ?? data.upcoming.find((c) => c.closeAt <= now && now < c.openAt) ?? null;
   if (live) return { kind: 'closed', state: 'Closed', count: `reopens in ${human(live.openAt - now)}`, sub: live.uncertain ? 'a train is running late — timing is uncertain' : `expected up at ${hhmm(live.openAt)}`, at: live.openAt };
   const next = data.upcoming.find((c) => c.closeAt > now) ?? null;
+  // A late train with no estimate could turn up at any moment.
+  const late = data.late?.length ? ` · ${data.late.length === 1 ? 'a delayed train' : `${data.late.length} delayed trains`} could come at any time` : '';
   if (next) {
     const until = next.closeAt - now;
-    return { kind: until < 120_000 ? 'soon' : 'open', state: 'Open', count: `closes in ${human(until)}`, sub: `${hhmm(next.closeAt)} for ${human(next.openAt - next.closeAt, { about: true })}${next.uncertain ? ' · uncertain' : ''}`, at: next.closeAt };
+    return { kind: until < 120_000 ? 'soon' : 'open', state: 'Open', count: `closes in ${human(until)}`, sub: `${hhmm(next.closeAt)} for ${human(next.openAt - next.closeAt, { about: true })}${next.uncertain ? ' · uncertain' : ''}${late}`, at: next.closeAt };
   }
-  return { kind: 'open', state: 'Open', count: '', sub: 'no trains due in the next two hours', at: null };
+  return { kind: 'open', state: 'Open', count: '', sub: late ? late.slice(3) : 'no trains due in the next two hours', at: null };
 }
 
 async function renderList() {
@@ -423,6 +425,7 @@ async function loadCrossing(id) {
     ${data.partial ? `<p class="unc small">Some trains may be missing: could not read ${data.partial.length} of the boards this crossing depends on.</p>` : ''}
     ${data.staleSec ? `<p class="unc small">The live train service is not answering just now; this is from data ${human(data.staleSec * 1000, { about: true })} old.</p>` : ''}
     <h2>Coming up</h2>
+    ${data.late?.length ? `<p class="unc small">Running late with no estimate from National Rail: ${data.late.map((t) => `the ${t.originTime ? `${esc(t.originTime)} ` : ''}${esc(t.origin ?? '')} to ${esc(t.destination ?? t.towards ?? '')}`).join(', ')}. The barriers could come down for ${data.late.length === 1 ? 'it' : 'them'} at any time.</p>` : ''}
     <div class="card">${data.upcoming.length ? data.upcoming.map(closureBlock).join('') : '<p class="muted">Nothing in the next two hours.</p>'}</div>
     ${data.recent.length ? `<h2>Recent</h2><div class="card">${data.recent.map(closureBlock).join('')}</div>` : ''}
     <p class="muted small">Directions: ${data.directions.map((d) => `${ARROWS[d.key] ?? '·'} ${esc(d.label)} towards ${esc(d.towards)}`).join(' · ')}</p>
@@ -447,7 +450,8 @@ function bindVerify(id) {
         closeAt: next?.closeAt ?? null, openAt: next?.openAt ?? null,
         prevOpenAt: cur ? null : (state.recent.at(-1)?.openAt ?? null), // when the last closure ended, if the page says it's open
         // …and the trains behind it, so a wrong length assumption can be told from a wrong run time.
-        trains: (next?.trains ?? []).slice(0, 4).map((t) => ({ id: t.serviceId, basis: t.basis, coaches: t.coaches, assumed: t.coachesAssumed, held: t.held })),
+        // Each train's own window too, so a tap inside a closure of several trains can be judged against the one it fell on.
+        trains: (next?.trains ?? []).slice(0, 4).map((t) => ({ id: t.serviceId, basis: t.basis, coaches: t.coaches, assumed: t.coachesAssumed, held: t.held, closeAt: t.closeAt, openAt: t.openAt })),
         dataAge: Date.now() + skew - state.now, live: state.live, ua: navigator.userAgent,
       };
       box.querySelectorAll('button').forEach((x) => { x.disabled = true; });

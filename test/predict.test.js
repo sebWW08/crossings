@@ -23,9 +23,35 @@ test('resolveCall prefers actual, then estimate, then schedule', () => {
   assert.equal(resolveCall({ st: '12:00', et: '12:04', at: '12:03' }, now).actual, true);
   assert.equal(resolveCall({ st: '12:00', et: 'Delayed' }, now).uncertain, true);
   assert.equal(resolveCall({ st: '12:00', et: 'Cancelled' }, now), null);
+  // An actual in the booked minute comes as "On time": still an actual.
+  assert.deepEqual(resolveCall({ st: '12:00', at: 'On time' }, now), { time: now, uncertain: false, actual: true });
 });
 
-test('non-stop northbound train: Petersfield departure + run time', () => {
+test('a "Delayed" train whose booked time has gone is listed as late, not drawn as a closure', () => {
+  const svc = (id, mins) => ({
+    serviceID: id, sta: at(mins + 12), eta: 'Delayed',
+    origin: [{ locationName: 'Portsmouth Harbour', crs: 'PMH' }],
+    destination: [{ locationName: 'London Waterloo', crs: 'WAT' }],
+    previousCallingPoints: [{ callingPoint: [
+      { crs: 'HAV', st: at(mins - 10) },
+      { crs: 'PTR', st: at(mins), et: 'Delayed' },
+    ] }],
+  });
+  // Booked past Liss eight minutes ago, no estimate: it hasn't come.
+  const p = predict(liss, { HSL: { trainServices: [svc('gone', -8)] }, PTR: { trainServices: [] } }, now);
+  assert.equal(p.movements.length, 0);
+  assert.equal(p.state, 'open');
+  assert.equal(p.late.length, 1);
+  assert.equal(p.late[0].origin, 'Portsmouth Harbour');
+  assert.equal(p.late[0].originTime, at(-18));
+  // Booked in the future: shown at that time, marked uncertain.
+  const q = predict(liss, { HSL: { trainServices: [svc('due', 5)] }, PTR: { trainServices: [] } }, now);
+  assert.equal(q.late.length, 0);
+  assert.equal(q.upcoming.length, 1);
+  assert.equal(q.upcoming[0].uncertain, true);
+});
+
+test('non-stop northbound train: placed along its Petersfield→Haslemere leg', () => {
   const boards = {
     HSL: { trainServices: [{
       serviceID: 'a', sta: at(13), eta: 'On time', operator: 'SWR',
@@ -42,10 +68,14 @@ test('non-stop northbound train: Petersfield departure + run time', () => {
   assert.equal(p.movements.length, 1);
   const m = p.movements[0];
   assert.equal(m.stops, false);
-  assert.equal(m.basis, 'PTR +3.5 min');
-  // crosses at 12:04:30; a CCTV crossing closes 150 s before, opens 30 s after
-  assert.equal(m.closeAt, now.getTime() + 4.5 * 60_000 - 150_000);
-  assert.equal(m.openAt, now.getTime() + 4.5 * 60_000 + 30_000);
+  assert.equal(m.basis, 'PTR→HSL');
+  // Leaves Petersfield at 12:01, due Haslemere 12:13: Liss is ~3.7 min of
+  // that 12 (it was a hand-set PTR +3.5 min before the entry had run times).
+  const crosses = now.getTime() + (1 + 12 * legFraction(liss.times.PTR, liss.times.HSL)) * 60_000;
+  assert.ok(Math.abs(crosses - (now.getTime() + 4.7 * 60_000)) < 10_000);
+  // a CCTV crossing closes 150 s before, opens 30 s after
+  assert.equal(m.closeAt, crosses - 150_000);
+  assert.equal(m.openAt, crosses + 30_000);
   assert.equal(p.state, 'open');
   assert.equal(p.next.closeAt, m.closeAt);
 });
@@ -223,7 +253,7 @@ test('the same train on two boards for one direction is counted once', () => {
   };
   const p = predict(bdh, { HAV: { trainServices: [] }, FTN: { trainServices: [svc] }, CSA: { trainServices: [svc] } }, now);
   assert.equal(p.movements.length, 1);
-  assert.equal(p.movements[0].basis, 'HAV +1.5 min');
+  assert.match(p.movements[0].basis, /^HAV→/);
 });
 
 test('every registry entry is well-formed', async () => {
@@ -269,6 +299,10 @@ test('two close trains merge into one closure', () => {
   assert.equal(closures[0].trains.length, 2);
   assert.equal(closures[0].openAt, 240_000);
   assert.equal(closures[0].uncertain, true);
+  // A signaller holds the barriers across a gap a minute and a half long.
+  const held = mergeClosures([{ closeAt: 0, openAt: 120_000 }, { closeAt: 200_000, openAt: 300_000 }], 90);
+  assert.equal(held.length, 1);
+  assert.equal(mergeClosures([{ closeAt: 0, openAt: 120_000 }, { closeAt: 200_000, openAt: 300_000 }]).length, 2);
 });
 
 test('mock boards run through the same predictor and give a sane picture', () => {

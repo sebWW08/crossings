@@ -3,14 +3,16 @@ import assert from 'node:assert/strict';
 import { leadError, leadFromReports } from '../src/calibrate.mjs';
 
 // Monday 21 Sep 2026 at Fen Road and East Boldon, as tapped (BST shown as UTC+1).
-const T = (hhmm) => Date.parse(`2026-09-21T${hhmm}:00+01:00`);
+const T = (hhmm) => Date.parse(`2026-09-21T${hhmm.length === 5 ? `${hhmm}:00` : hhmm}+01:00`);
 const rep = (at, crossing, observed, predicted, close, open, lead = 150) => ({ at: new Date(T(at)).toISOString(), crossing, observed, predicted, closeAt: T(close), openAt: T(open), lead });
 
 test('leadError reads a tap as seconds the lead was short (+) or long (−), or nothing', () => {
   assert.equal(leadError(rep('07:42', 'cmb', 'down', 'open', '07:45', '07:54'), 'signaller'), 180); // down 3 min early
   assert.equal(leadError(rep('08:07', 'ebl', 'up', 'closed', '08:05', '08:09'), 'signaller'), -105); // not closed yet, 2 min in — held to the 45 s floor
-  assert.equal(leadError(rep('07:49', 'cmb', 'down', 'closed', '07:46', '07:51'), 'signaller'), 0); // agreed
-  assert.equal(leadError(rep('08:42', 'fxn', 'up', 'open', '08:51', '08:55')), 0);           // agreed
+  assert.equal(leadError(rep('07:47', 'cmb', 'down', 'closed', '07:46', '07:51'), 'signaller'), 0); // agreed
+  assert.equal(leadError(rep('07:49', 'cmb', 'down', 'closed', '07:46', '07:51'), 'signaller'), null); // late in the closure: the reopening's business
+  assert.equal(leadError(rep('08:48', 'fxn', 'up', 'open', '08:51', '08:55')), 0);           // agreed, three minutes out
+  assert.equal(leadError(rep('08:42', 'fxn', 'up', 'open', '08:51', '08:55')), null);        // nine minutes from any closure: says nothing
   assert.equal(leadError(rep('09:13', 'fxn', 'up', 'closed', '09:09', '09:13')), null);      // second half: reopened early, not a lead thing
   assert.equal(leadError(rep('00:05', 'cmb', 'down', 'open', '00:30', '00:32')), null);      // 25 min early: a train we can't see
   assert.equal(leadError({ at: '2026-09-21T00:00:00Z', crossing: 'x', observed: 'down', predicted: 'open', closeAt: null, openAt: null }), null);
@@ -46,7 +48,7 @@ test('Fen Road: three early sightings and five agreements push the lead up', () 
     rep('10:12', 'cmb', 'down', 'open', '10:17', '10:21'), rep('10:13', 'cmb', 'down', 'open', '10:17', '10:21'),
   ];
   const fit = leadFromReports(reports, 150, 'signaller', now);
-  assert.equal(fit.n, 7);
+  assert.equal(fit.n, 5); // 07:49 and 09:16 are late in their closures: about the reopening, not the lead
   assert.ok(fit.leadSec >= 190 && fit.leadSec <= 240, `got ${fit.leadSec}`);
 });
 
@@ -60,7 +62,7 @@ test('East Boldon: barriers up early in closure after closure pulls the lead dow
     rep('08:36', 'ebl', 'down', 'closed', '08:29', '08:38'), rep('11:01', 'ebl', 'down', 'closed', '10:52', '11:03'),
   ];
   const fit = leadFromReports(reports, 150, 'signaller', now);
-  assert.equal(fit.n, 6);
+  assert.equal(fit.n, 4); // the two down taps are late in their closures: the reopening's business
   assert.ok(fit.leadSec >= 80 && fit.leadSec <= 130, `got ${fit.leadSec}`);
   // Agreement holds a crossing where it is.
   const happy = Array.from({ length: 6 }, (_, i) => rep(`09:0${i}`, 'ebl', 'down', 'closed', '09:00', '09:05'));
@@ -108,4 +110,39 @@ test('openAfterFromReports shrinks toward the entry value and is bounded', async
   early.push({ ...rep('18:57', 'x', 'up', 'closed', '18:44', '19:00'), openAfter: 30 });
   assert.equal(openAfterFromReports(early, 30, now).openAfterSec, 10);
   assert.equal(openAfterFromReports(early.slice(0, 2), 30, now), null);
+});
+
+test('a tap between closures is about the nearer edge, never both', async () => {
+  const { openError } = await import('../src/calibrate.mjs');
+  // Milford, 22 Sep: down 35 s after the page's last closure ended and 4.5
+  // min before the next — that is the last train's barriers still down…
+  const tail = { ...rep('12:07', 'mlf', 'down', 'open', '12:11:30', '12:12:45', 40), prevOpenAt: T('12:07') - 35_000 };
+  assert.equal(openError(tail), 35);
+  assert.equal(leadError(tail, 'automatic'), null);
+  // …but down 25 s before the next and 2 min after the last is the next one closing early.
+  const head = { ...rep('12:07', 'mlf', 'down', 'open', '12:07:25', '12:08:30', 40), prevOpenAt: T('12:07') - 120_000 };
+  assert.equal(leadError(head, 'automatic'), 25);
+  assert.equal(openError(head), null);
+});
+
+test('with per-train windows, a tap inside a merged closure is judged against its own train', async () => {
+  const { openError } = await import('../src/calibrate.mjs');
+  // Warblington, 26 Sep: four trains made one 13:30–13:38 closure; the
+  // barriers were up at 13:37 between the third and fourth.
+  const r = {
+    ...rep('13:37', 'wbl', 'up', 'closed', '13:30', '13:38'), lead: 170,
+    trains: [
+      { id: 'a', closeAt: T('13:30'), openAt: T('13:33') }, { id: 'b', closeAt: T('13:32'), openAt: T('13:35') },
+      { id: 'c', closeAt: T('13:34'), openAt: T('13:36:30') }, { id: 'd', closeAt: T('13:36:45'), openAt: T('13:39') },
+    ],
+  };
+  // Nearest is the fourth train's window, 15 s in: its lead was too long by that much.
+  assert.equal(leadError(r, 'signaller'), -15);
+  assert.equal(openError(r), null);
+  // Up just after the third train's own reopening is the reopening being right.
+  const gap = { ...r, at: new Date(T('13:36:35')).toISOString() };
+  assert.equal(openError(gap), 0);
+  // Without per-train times, the old reading: the whole block, too wide to be one train.
+  const { trains, ...old } = r;
+  assert.equal(openError(old), null);
 });

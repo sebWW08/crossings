@@ -2,6 +2,7 @@ import { statSync } from 'node:fs';
 import { readRegistry, HAND, GENERATED, OVERRIDES } from './registry-files.mjs';
 import { reportsFor, reportsVersion } from './feedback.mjs';
 import { leadFromReports, openAfterFromReports } from './calibrate.mjs';
+import { missingBoards, legsVersion, loadLegsFile } from './legs.mjs';
 
 /**
  * A generated direction lists several `boards` (the next few stations, so
@@ -22,30 +23,59 @@ export function expandBoards(crossing) {
   return { ...crossing, directions };
 }
 
+/**
+ * The boards the trains themselves say this crossing needs (src/legs.mjs):
+ * the first stop after the road of every train seen going over it, where
+ * that isn't a board the entry already reads. Not on a line paralleled by a
+ * faster one — trains on the other line would look as if they came this way.
+ */
+export function withLearntBoards(crossing) {
+  if (crossing.parallel || !crossing.times) return crossing;
+  let changed = false;
+  const directions = crossing.directions.map((dir) => {
+    const add = missingBoards(crossing, dir);
+    if (!add.length) return dir;
+    changed = true;
+    const min = (crs) => Math.round((crossing.times[crs] + 0.5) * 2) / 2;
+    return { ...dir, boards: [...dir.boards, ...add.map((crs) => ({ crs, name: crs, min: min(crs), learnt: true }))] };
+  });
+  return changed ? { ...crossing, directions } : crossing;
+}
+
 // The registry is re-read whenever either file changes, so a generator run
 // (or a hand edit) shows up without restarting the server.
 let loadedAt = '';
 /** @type {Array<import('./types').Crossing>} */
 let list = [];
 let byId = new Map();
+let legsLoaded = false;
 const mtime = (f) => { try { return statSync(f).mtimeMs; } catch { return 0; } };
 function load() {
+  if (!legsLoaded) { loadLegsFile(); legsLoaded = true; }
   const stamp = `${mtime(HAND)}/${mtime(GENERATED)}/${mtime(OVERRIDES)}`;
   if (stamp === loadedAt) return;
-  list = readRegistry().map(expandBoards);
+  list = readRegistry();
   byId = new Map(list.map((c) => [c.id, c]));
   loadedAt = stamp;
 }
 
+// Each entry as the predictor sees it: learnt boards added, one direction
+// per board, then calibrated from the taps. Recomputed when the registry,
+// the legs or the reports change.
+const cooked = new Map(); // id -> { v, entry }
+function cook(c) {
+  if (!c) return null;
+  const v = `${loadedAt}/${legsVersion()}/${reportsVersion()}`;
+  const hit = cooked.get(c.id);
+  if (hit?.v === v) return hit.entry;
+  const entry = withTaps(expandBoards(withLearntBoards(c)));
+  cooked.set(c.id, { v, entry });
+  return entry;
+}
+
 // What people saw at the barrier, applied on top of the entry: once a
 // crossing has a few usable reports, its lead is theirs, not the rule's.
-// Recomputed when the registry or the reports change.
-const calibrated = new Map(); // id -> { version, entry }
 function withTaps(c) {
-  if (!c) return c;
-  const v = `${loadedAt}/${reportsVersion()}`;
-  const hit = calibrated.get(c.id);
-  if (hit && hit.version === v) return hit.entry;
   const reports = reportsFor(c.id);
   const lead = leadFromReports(reports, c.closeBeforeSec, c.control);
   const open = openAfterFromReports(reports, c.openAfterSec);
@@ -61,18 +91,32 @@ function withTaps(c) {
       },
     }
     : c;
-  calibrated.set(c.id, { version: v, entry });
   return entry;
 }
 
 export function allCrossings() {
   load();
-  return list.map(withTaps);
+  return list.map(cook);
 }
 
 export function getCrossing(id) {
   load();
-  return withTaps(byId.get(id) ?? null);
+  return cook(byId.get(id) ?? null);
+}
+
+/** Every station within `depth` calls of a crossing, either side: what the
+ *  background sweep reads to learn legs (src/darwin.js). */
+export function surveyStations(depth = 10) {
+  load();
+  const out = new Set();
+  for (const c of list) {
+    for (const d of c.directions) {
+      for (const b of d.boards ?? [d.board]) out.add(b.crs);
+      for (const s of (d.via ?? []).slice(0, depth)) out.add(s);
+      for (const s of (d.beyond ?? []).slice(0, depth)) out.add(s);
+    }
+  }
+  return [...out];
 }
 
 /** Public summary — what the list/map page needs, nothing operational. */

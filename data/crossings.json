@@ -26,22 +26,15 @@
     "label": "Eastbound",
     "towards": "Havant & London",
     "enters": "west",
-    "board": {
-     "crs": "HAV",
-     "name": "Havant"
-    },
-    "via": [
-     "BDH",
-     "HLS",
-     "FTN",
-     "PMS",
-     "PMH",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU",
-     "SOA"
+    "boards": [
+     {
+      "crs": "HAV",
+      "name": "Havant",
+      "min": 1.5
+     }
     ],
+    "via": ["BDH","HLS","CSA","FTN","PTC","PMS","FRM","PMH","SNW","BOE","BUO","HDE","HME","NTL","WLS","ESL","SOA","SWG","BTE","SDN","SHW","CFR","WIN","SOU","MBK","RDB","ROM","TTN","ANF","DBG","MIC","BEU","DEN","BCU","SWY","BSK"],
+    "beyond": ["HAV","WBL","EMS","RLN","SOB","NUT","BOH","FSB","CCH","PTR","LIS","BAA","FOD","LIP","BOG","LIT","ARU","HSL","ANG","AMY","GBS","WTY","DUR","WWO","MLF","WRH","EWR","PUL","GOD","LAC","FNC","SSE","SFR","GLD","SWK","BIG","FSG","CHL","PLD","LRD"],
     "references": [
      {
       "crs": "HLS",
@@ -62,11 +55,6 @@
       "crs": "FRM",
       "name": "Fareham",
       "minutesToCrossing": 11
-     },
-     {
-      "crs": "HAV",
-      "name": "Havant",
-      "minutesToCrossing": -1.5
      }
     ]
    },
@@ -75,76 +63,25 @@
     "label": "Westbound",
     "towards": "Portsmouth",
     "enters": "east",
-    "board": {
-     "crs": "FTN",
-     "name": "Fratton"
-    },
-    "via": [
-     "BDH",
-     "HAV",
-     "EMS",
-     "WRB",
-     "CCH",
-     "BOG",
-     "BTN",
-     "RLN",
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "GLD",
-     "WOK",
-     "WAT"
-    ],
-    "references": [
-     {
-      "crs": "HAV",
-      "name": "Havant",
-      "minutesToCrossing": 1.5
-     },
+    "boards": [
      {
       "crs": "FTN",
       "name": "Fratton",
-      "minutesToCrossing": -5.5
-     }
-    ]
-   },
-   {
-    "key": "west",
-    "label": "Westbound",
-    "towards": "Fareham",
-    "enters": "east",
-    "board": {
-     "crs": "CSA",
-     "name": "Cosham"
-    },
-    "via": [
-     "BDH",
-     "HAV",
-     "EMS",
-     "WRB",
-     "CCH",
-     "BOG",
-     "BTN",
-     "RLN",
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "GLD",
-     "WOK",
-     "WAT"
-    ],
-    "references": [
-     {
-      "crs": "HAV",
-      "name": "Havant",
-      "minutesToCrossing": 1.5
+      "min": 5.5
      },
      {
       "crs": "CSA",
       "name": "Cosham",
-      "minutesToCrossing": -3
+      "min": 3
+     }
+    ],
+    "via": ["BDH","HAV","WBL","EMS","RLN","SOB","NUT","BOH","FSB","CCH","PTR","LIS","BAA","FOD","LIP","BOG","LIT","ARU","HSL","ANG","AMY","GBS","WTY","DUR","WWO","MLF","WRH","EWR","PUL","GOD","LAC","FNC","SSE","SFR","GLD","SWK","BIG","FSG","CHL","PLD","LRD"],
+    "beyond": ["HLS","CSA","FTN","PTC","PMS","FRM","PMH","SNW","BOE","BUO","HDE","HME","NTL","WLS","ESL","SOA","SWG","BTE","SDN","SHW","CFR","WIN","SOU","MBK","RDB","ROM","TTN","ANF","DBG","MIC","BEU","DEN","BCU","SWY","BSK"],
+    "references": [
+     {
+      "crs": "HAV",
+      "name": "Havant",
+      "minutesToCrossing": 1.5
      }
     ]
    }
@@ -159,7 +96,9 @@
    "miles": 38,
    "chains": 9,
    "distM": 5
-  }
+  },
+  "times": {"BDH":0,"HAV":0.8,"WBL":1.9,"EMS":3.1,"RLN":4.3,"SOB":4.5,"NUT":5.5,"BOH":7.1,"FSB":8.5,"CCH":10.2,"PTR":12.9,"LIS":16,"BAA":16.4,"FOD":19.2,"LIP":20.2,"BOG":21.1,"LIT":22.1,"ARU":22.4,"HSL":23.5,"ANG":24.5,"AMY":26,"GBS":27.1,"WTY":27.5,"DUR":28.1,"WWO":28.9,"MLF":29.5,"WRH":29.7,"EWR":30.8,"PUL":30.9,"GOD":31.5,"LAC":32.3,"FNC":32.7,"SSE":34.7,"SFR":35.7,"GLD":35.9,"SWK":36.4,"BIG":36.4,"FSG":37.3,"CHL":37.6,"PLD":37.9,"LRD":38.7,"AGT":39,"WPL":39.2,"HOV":39.6,"WAN":41.2,"WOK":41.3,"CHH":41.3,"PRP":41.9,"GOM":41.9,"BTN":42.1,"CLA":42.7,"WBY":43.3,"BKO":43.4,"LRB":43.5,"ASH":43.5,"HRH":43.7,"BFN":44.3,"MCB":44.9,"HLS":3.1,"CSA":3.3,"FTN":5.4,"PTC":6.1,"PMS":7.1,"FRM":9.8,"PMH":9.9,"SNW":14.6,"BOE":16.3,"BUO":17,"HDE":18.4,"HME":18.7,"NTL":19.5,"WLS":22.2,"ESL":22.8,"SOA":23.7,"SWG":24.4,"BTE":24.7,"SDN":25.7,"SHW":25.7,"CFR":26,"WIN":28,"SOU":28.7,"MBK":30,"RDB":32,"ROM":32.5,"TTN":32.9,"ANF":35.6,"DBG":35.8,"MIC":36.4,"BEU":37.9,"DEN":39.2,"BCU":41.8,"SWY":44.2,"BSK":44.6},
+  "bypass": {"LIP":["BSK"],"HSL":["BSK"],"WTY":["MIC","BSK"],"MLF":["MIC","BSK"],"GOD":["MIC","BSK"],"FNC":["MIC","BSK"],"SFR":["MIC","BSK"],"GLD":["WIN","MIC","BSK"],"CHL":["MIC","BSK"],"LRD":["MIC","BSK"],"WIN":["GLD"],"MIC":["WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD"],"BSK":["LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD"]}
  },
  {
   "id": "petersfield",
@@ -188,24 +127,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 11
+     }
     ],
+    "via": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","HDE","BOG","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW","CFR"],
+    "beyond": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
     "references": [
      {
       "crs": "RLN",
@@ -216,11 +146,6 @@
       "crs": "HAV",
       "name": "Havant",
       "minutesToCrossing": 10
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -11
      }
     ]
    },
@@ -229,25 +154,15 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "HAV",
-     "name": "Havant"
-    },
-    "via": [
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "HAV",
+      "name": "Havant",
+      "min": 10
+     }
     ],
+    "via": ["PTR","LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
+    "beyond": ["RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","HDE","BOG","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW","CFR"],
     "references": [
      {
       "crs": "LIS",
@@ -263,11 +178,6 @@
       "crs": "HSL",
       "name": "Haslemere",
       "minutesToCrossing": 11
-     },
-     {
-      "crs": "HAV",
-      "name": "Havant",
-      "minutesToCrossing": -10
      }
     ]
    }
@@ -282,7 +192,9 @@
    "miles": 54,
    "chains": 66,
    "distM": 10
-  }
+  },
+  "times": {"PTR":0,"LIS":3,"LIP":7.2,"HSL":10.5,"WTY":14.5,"MLF":16.5,"GOD":18.4,"FNC":19.7,"SFR":22.7,"GLD":22.8,"CHL":24.6,"LRD":25.6,"WPL":26.1,"WAN":28.2,"WOK":28.2,"GOM":28.9,"CLA":29.6,"WBY":30.3,"BKO":30.4,"ASH":30.4,"BFN":31.2,"NCM":32.3,"WYB":32.4,"HSY":32.9,"ASN":33.7,"FNN":33.9,"AHV":33.9,"DKT":34,"WAL":34,"EFF":34.1,"FNB":34.3,"AHT":34.6,"DPD":34.7,"HER":34.9,"CHY":35.3,"BAW":36,"ESH":36.3,"CSD":36.4,"BKA":36.7,"FLE":36.8,"SND":37.4,"BTO":37.5,"HYW":37.9,"OXS":38.2,"THD":38.2,"SUR":38.2,"VIR":38.5,"FML":38.6,"CRN":38.7,"FNH":38.7,"CLG":39,"WNF":39.2,"BRS":39.3,"HMC":39.7,"LHD":40.1,"NEM":40.4,"REI":40.6,"HOK":41.1,"LNG":41.4,"CAM":41.5,"EGH":41.5,"RAY":41.5,"WKM":41.6,"AHD":42.3,"NBT":42.6,"WIM":43,"RDH":43,"BTY":43.1,"SNG":43.3,"BXW":43.4,"KNG":43.6,"MOT":43.7,"ELD":43.8,"WBO":43.9,"WNS":44.1,"DKG":44.3,"HYR":44.3,"SNS":44.4,"HMW":44.6,"EAD":44.6,"MHM":44.7,"EPS":44.8,"SMO":44.8,"WTI":44.9,"WCP":44.9,"RLN":8.4,"HAV":12,"WBL":12.2,"BDH":13,"EMS":13.4,"SOB":14.8,"NUT":15.9,"HLS":16.2,"CSA":16.3,"BOH":17.5,"FTN":18.4,"FSB":18.9,"PTC":19.2,"PMS":20.2,"CCH":20.5,"FRM":22.9,"PMH":23,"BAA":26.7,"SNW":27.6,"BOE":29.4,"FOD":29.6,"BUO":30,"HDE":31.4,"BOG":31.4,"HME":31.7,"LIT":32.4,"NTL":32.6,"ARU":32.7,"ANG":34.8,"WLS":35.2,"ESL":35.8,"AMY":36.3,"SOA":36.7,"GBS":37.5,"SWG":37.5,"BTE":37.8,"DUR":38.4,"SDN":38.7,"SHW":38.8,"CFR":39,"WWO":39.3,"WRH":40.1,"WIN":41.1,"EWR":41.1,"PUL":41.3,"SOU":41.7,"LAC":42.7,"MBK":43.1},
+  "bypass": {"WPL":["SHW"],"WOK":["ESL","SHW"],"WBY":["SHW"],"BKO":["ESL","SOA","SWG","SDN","SHW","CFR"],"BFN":["SHW"],"AHV":["ESL","SHW"],"FNB":["BOE","HDE","ESL","SOA","SWG","BTE","SDN","SHW","CFR"],"AHT":["SHW"],"FLE":["BOE","HDE","WLS","ESL","SOA","SWG","BTE","SDN","SHW","CFR"],"BOE":["FNB","FLE"],"HDE":["FNB","FLE"],"WLS":["FLE"],"ESL":["WOK","BKO","AHV","FNB","FLE"],"AMY":["BKA"],"SOA":["BKO","FNB","FLE"],"SWG":["BKO","FNB","FLE"],"BTE":["FNB","FLE"],"SDN":["BKO","FNB","FLE"],"SHW":["WPL","WOK","WBY","BKO","BFN","AHV","FNB","AHT","FLE"],"CFR":["BKO","FNB","FLE"]}
  },
  {
   "id": "kingsfernsden-lane",
@@ -301,24 +213,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 10
+     }
     ],
+    "via": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
+    "beyond": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
     "references": [
      {
       "crs": "PTR",
@@ -329,11 +232,6 @@
       "crs": "RLN",
       "name": "Rowlands Castle",
       "minutesToCrossing": 8.5
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -10
      }
     ]
    },
@@ -342,25 +240,15 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "PTR",
-     "name": "Petersfield"
-    },
-    "via": [
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "PTR",
+      "name": "Petersfield",
+      "min": 1
+     }
     ],
+    "via": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
+    "beyond": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
     "references": [
      {
       "crs": "LIS",
@@ -371,11 +259,6 @@
       "crs": "LIP",
       "name": "Liphook",
       "minutesToCrossing": 7
-     },
-     {
-      "crs": "PTR",
-      "name": "Petersfield",
-      "minutesToCrossing": -1
      }
     ]
    }
@@ -390,7 +273,9 @@
    "miles": 54,
    "chains": 10,
    "distM": 4
-  }
+  },
+  "times": {"LIS":2.4,"LIP":6.5,"HSL":9.8,"WTY":13.8,"MLF":15.9,"GOD":17.8,"FNC":19,"SFR":22.1,"GLD":22.2,"CHL":24,"LRD":25,"WPL":25.5,"WAN":27.5,"WOK":27.6,"GOM":28.3,"CLA":29,"WBY":29.6,"BKO":29.7,"ASH":29.8,"BFN":30.6,"NCM":31.7,"WYB":31.8,"HSY":32.3,"ASN":33.1,"FNN":33.3,"AHV":33.3,"DKT":33.3,"WAL":33.3,"EFF":33.4,"FNB":33.6,"AHT":34,"DPD":34.1,"HER":34.3,"CHY":34.6,"BAW":35.4,"ESH":35.6,"CSD":35.7,"BKA":36.1,"FLE":36.2,"SND":36.7,"BTO":36.9,"HYW":37.3,"OXS":37.5,"THD":37.5,"SUR":37.6,"VIR":37.9,"FML":37.9,"CRN":38,"FNH":38.1,"CLG":38.4,"WNF":38.6,"BRS":38.7,"HMC":39.1,"LHD":39.4,"NEM":39.7,"REI":40,"HOK":40.4,"LNG":40.8,"CAM":40.8,"EGH":40.9,"RAY":40.9,"WKM":40.9,"AHD":41.6,"NBT":41.9,"WIM":42.3,"RDH":42.4,"BTY":42.5,"SNG":42.6,"BXW":42.7,"KNG":43,"MOT":43.1,"ELD":43.2,"WBO":43.2,"WNS":43.4,"DKG":43.7,"HYR":43.7,"SNS":43.7,"HMW":43.9,"EAD":44,"MHM":44.1,"EPS":44.2,"SMO":44.2,"WTI":44.2,"WCP":44.3,"BSK":44.6,"NUF":44.7,"SAF":44.8,"BAG":44.9,"ACT":45,"MAL":45,"PTR":0.6,"RLN":9.1,"HAV":12.6,"WBL":12.8,"BDH":13.6,"EMS":14,"SOB":15.4,"NUT":16.4,"HLS":16.8,"CSA":17,"BOH":18,"FTN":19.1,"FSB":19.4,"PTC":19.8,"PMS":20.8,"CCH":21.1,"FRM":23.5,"PMH":23.6,"BAA":27.3,"SNW":28.3,"BOE":30,"FOD":30.1,"BUO":30.7,"BOG":32,"HDE":32.1,"HME":32.4,"LIT":33,"NTL":33.2,"ARU":33.3,"ANG":35.4,"WLS":35.9,"ESL":36.4,"AMY":36.9,"SOA":37.4,"GBS":38,"SWG":38.1,"BTE":38.4,"DUR":39,"SDN":39.4,"SHW":39.4,"CFR":39.7,"WWO":39.8,"WRH":40.6,"EWR":41.7,"WIN":41.7,"PUL":41.8,"SOU":42.4,"LAC":43.2,"MBK":43.7},
+  "bypass": {"WPL":["SHW"],"WOK":["ESL","SHW"],"WBY":["SHW"],"BKO":["ESL","SOA","SWG","SDN","SHW"],"BFN":["SHW"],"AHV":["ESL","SHW"],"FNB":["BOE","HDE","ESL","SOA","SWG","BTE","SDN","SHW"],"AHT":["SHW"],"FLE":["BOE","HDE","WLS","ESL","SOA","SWG","BTE","SDN","SHW"],"BOE":["FNB","FLE"],"HDE":["FNB","FLE"],"WLS":["FLE"],"ESL":["WOK","BKO","AHV","FNB","FLE"],"AMY":["BKA"],"SOA":["BKO","FNB","FLE"],"SWG":["BKO","FNB","FLE"],"BTE":["FNB","FLE"],"SDN":["BKO","FNB","FLE"],"SHW":["WPL","WOK","WBY","BKO","BFN","AHV","FNB","AHT","FLE"]}
  },
  {
   "id": "sheet",
@@ -409,24 +294,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 10
+     }
     ],
+    "via": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
+    "beyond": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
     "references": [
      {
       "crs": "PTR",
@@ -437,11 +313,6 @@
       "crs": "RLN",
       "name": "Rowlands Castle",
       "minutesToCrossing": 9
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -10
      }
     ]
    },
@@ -450,25 +321,15 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "PTR",
-     "name": "Petersfield"
-    },
-    "via": [
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "PTR",
+      "name": "Petersfield",
+      "min": 1.5
+     }
     ],
+    "via": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
+    "beyond": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
     "references": [
      {
       "crs": "LIS",
@@ -479,11 +340,6 @@
       "crs": "LIP",
       "name": "Liphook",
       "minutesToCrossing": 6.5
-     },
-     {
-      "crs": "PTR",
-      "name": "Petersfield",
-      "minutesToCrossing": -1.5
      }
     ]
    }
@@ -498,7 +354,9 @@
    "miles": 53,
    "chains": 72,
    "distM": 9
-  }
+  },
+  "times": {"LIS":2.1,"LIP":6.3,"HSL":9.6,"WTY":13.6,"MLF":15.6,"GOD":17.6,"FNC":18.8,"SFR":21.8,"GLD":22,"CHL":23.7,"LRD":24.8,"WPL":25.3,"WAN":27.3,"WOK":27.4,"GOM":28,"CLA":28.8,"WBY":29.4,"BKO":29.5,"ASH":29.6,"BFN":30.4,"NCM":31.5,"WYB":31.6,"HSY":32.1,"ASN":32.9,"FNN":33.1,"AHV":33.1,"DKT":33.1,"WAL":33.1,"EFF":33.2,"FNB":33.4,"AHT":33.8,"DPD":33.9,"HER":34.1,"CHY":34.4,"BAW":35.2,"ESH":35.4,"CSD":35.5,"BKA":35.8,"FLE":35.9,"SND":36.5,"BTO":36.7,"HYW":37.1,"OXS":37.3,"THD":37.3,"SUR":37.4,"VIR":37.7,"FML":37.7,"CRN":37.8,"FNH":37.9,"CLG":38.1,"WNF":38.4,"BRS":38.5,"HMC":38.9,"LHD":39.2,"NEM":39.5,"REI":39.7,"HOK":40.2,"LNG":40.6,"CAM":40.6,"EGH":40.6,"RAY":40.7,"WKM":40.7,"AHD":41.4,"NBT":41.7,"WIM":42.1,"RDH":42.2,"BTY":42.3,"SNG":42.4,"BXW":42.5,"KNG":42.8,"MOT":42.9,"ELD":43,"WBO":43,"WNS":43.2,"DKG":43.4,"HYR":43.5,"SNS":43.5,"HMW":43.7,"EAD":43.7,"MHM":43.9,"EPS":44,"SMO":44,"WTI":44,"WCP":44.1,"BSK":44.4,"NUF":44.5,"SAF":44.5,"BAG":44.7,"ACT":44.8,"MAL":44.8,"BCE":44.9,"PTR":0.8,"RLN":9.3,"HAV":12.8,"WBL":13,"BDH":13.8,"EMS":14.2,"SOB":15.6,"NUT":16.6,"HLS":17,"CSA":17.2,"BOH":18.2,"FTN":19.3,"FSB":19.6,"PTC":20,"PMS":21,"CCH":21.3,"FRM":23.7,"PMH":23.8,"BAA":27.5,"SNW":28.5,"BOE":30.2,"FOD":30.4,"BUO":30.9,"BOG":32.2,"HDE":32.3,"HME":32.6,"LIT":33.2,"NTL":33.4,"ARU":33.5,"ANG":35.6,"WLS":36.1,"ESL":36.7,"AMY":37.1,"SOA":37.6,"GBS":38.2,"SWG":38.4,"BTE":38.6,"DUR":39.2,"SDN":39.6,"SHW":39.6,"CFR":39.9,"WWO":40.1,"WRH":40.8,"EWR":41.9,"WIN":41.9,"PUL":42,"SOU":42.6,"LAC":43.5,"MBK":43.9},
+  "bypass": {"WPL":["SHW"],"WOK":["ESL","SHW"],"WBY":["SHW"],"BKO":["ESL","SOA","SWG","SDN","SHW"],"BFN":["SHW"],"AHV":["ESL","SHW"],"FNB":["BOE","HDE","ESL","SOA","SWG","BTE","SDN","SHW"],"AHT":["SHW"],"FLE":["BOE","HDE","WLS","ESL","SOA","SWG","BTE","SDN","SHW"],"BOE":["FNB","FLE"],"HDE":["FNB","FLE"],"WLS":["FLE"],"ESL":["WOK","BKO","AHV","FNB","FLE"],"AMY":["BKA"],"SOA":["BKO","FNB","FLE"],"SWG":["BKO","FNB","FLE"],"BTE":["FNB","FLE"],"SDN":["BKO","FNB","FLE"],"SHW":["WPL","WOK","WBY","BKO","BFN","AHV","FNB","AHT","FLE"]}
  },
  {
   "id": "princes-bridge",
@@ -517,25 +375,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "LIS",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 8.5
+     }
     ],
+    "via": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
+    "beyond": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
     "references": [
      {
       "crs": "PTR",
@@ -546,11 +394,6 @@
       "crs": "RLN",
       "name": "Rowlands Castle",
       "minutesToCrossing": 10.5
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -8.5
      }
     ]
    },
@@ -559,24 +402,15 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "PTR",
-     "name": "Petersfield"
-    },
-    "via": [
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "PTR",
+      "name": "Petersfield",
+      "min": 3
+     }
     ],
+    "via": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND"],
+    "beyond": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
     "references": [
      {
       "crs": "LIS",
@@ -592,11 +426,6 @@
       "crs": "HSL",
       "name": "Haslemere",
       "minutesToCrossing": 8.5
-     },
-     {
-      "crs": "PTR",
-      "name": "Petersfield",
-      "minutesToCrossing": -3
      }
     ]
    }
@@ -611,7 +440,9 @@
    "miles": 52,
    "chains": 12,
    "distM": 8
-  }
+  },
+  "times": {"LIS":0.6,"LIP":4.8,"HSL":8.1,"WTY":12.1,"MLF":14.1,"GOD":16,"FNC":17.3,"SFR":20.3,"GLD":20.4,"CHL":22.2,"LRD":23.2,"WPL":23.8,"WAN":25.8,"WOK":25.8,"GOM":26.5,"CLA":27.2,"WBY":27.9,"BKO":28,"ASH":28,"BFN":28.8,"NCM":29.9,"WYB":30,"HSY":30.5,"ASN":31.3,"FNN":31.5,"AHV":31.5,"DKT":31.6,"WAL":31.6,"EFF":31.7,"FNB":31.9,"AHT":32.2,"DPD":32.3,"HER":32.5,"CHY":32.9,"BAW":33.6,"ESH":33.9,"CSD":34,"BKA":34.3,"FLE":34.4,"SND":35,"BTO":35.1,"HYW":35.5,"OXS":35.8,"THD":35.8,"SUR":35.9,"VIR":36.1,"FML":36.2,"CRN":36.3,"FNH":36.4,"CLG":36.6,"WNF":36.8,"BRS":37,"HMC":37.3,"LHD":37.7,"NEM":38,"REI":38.2,"HOK":38.7,"LNG":39,"CAM":39.1,"EGH":39.1,"RAY":39.2,"WKM":39.2,"AHD":39.9,"NBT":40.2,"WIM":40.6,"RDH":40.6,"BTY":40.7,"SNG":40.9,"BXW":41,"KNG":41.2,"MOT":41.4,"ELD":41.4,"WBO":41.5,"WNS":41.7,"DKG":41.9,"HYR":41.9,"SNS":42,"HMW":42.2,"EAD":42.2,"MHM":42.3,"EPS":42.4,"SMO":42.4,"WTI":42.5,"WCP":42.5,"BSK":42.8,"NUF":42.9,"SAF":43,"BAG":43.2,"ACT":43.2,"MAL":43.2,"BCE":43.4,"EAR":43.7,"TOO":43.7,"TED":43.7,"MDS":43.7,"CLJ":43.9,"AFS":43.9,"EWW":44,"SNL":44.1,"SIH":44.3,"EWE":44.3,"TOL":44.6,"MAO":44.8,"HOR":44.9,"WRY":45,"PTR":2.4,"RLN":10.8,"HAV":14.4,"WBL":14.5,"BDH":15.4,"EMS":15.7,"SOB":17.1,"NUT":18.2,"HLS":18.5,"CSA":18.7,"BOH":19.8,"FTN":20.8,"FSB":21.2,"PTC":21.6,"PMS":22.6,"CCH":22.8,"FRM":25.3,"PMH":25.4,"BAA":29,"SNW":30,"BOE":31.8,"FOD":31.9,"BUO":32.4,"BOG":33.8,"HDE":33.8,"HME":34.1,"LIT":34.8,"NTL":35,"ARU":35.1,"ANG":37.1,"WLS":37.6,"ESL":38.2,"AMY":38.6,"SOA":39.1,"GBS":39.8,"SWG":39.9,"BTE":40.2,"DUR":40.8,"SDN":41.1,"SHW":41.2,"CFR":41.4,"WWO":41.6,"WRH":42.4,"EWR":43.5,"WIN":43.5,"PUL":43.6,"SOU":44.1,"LAC":45},
+  "bypass": {"WPL":["SHW"],"WOK":["ESL","SHW"],"WBY":["SHW"],"BKO":["ESL","SOA","SWG","SDN","SHW"],"BFN":["SHW"],"AHV":["ESL","SHW"],"FNB":["BOE","HDE","ESL","SOA","SWG","BTE","SDN","SHW"],"AHT":["SHW"],"FLE":["BOE","HDE","WLS","ESL","SOA","SWG","BTE","SDN","SHW"],"BOE":["FNB","FLE"],"HDE":["FNB","FLE"],"WLS":["FLE"],"ESL":["WOK","BKO","AHV","FNB","FLE"],"AMY":["BKA"],"SOA":["BKO","FNB","FLE"],"SWG":["BKO","FNB","FLE"],"BTE":["FNB","FLE"],"SDN":["BKO","FNB","FLE"],"SHW":["WPL","WOK","WBY","BKO","BFN","AHV","FNB","AHT","FLE"]}
  },
  {
   "id": "liss",
@@ -640,25 +471,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "LIS",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 8
+     }
     ],
+    "via": ["LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
+    "beyond": ["LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO"],
     "references": [
      {
       "crs": "PTR",
@@ -669,11 +490,6 @@
       "crs": "RLN",
       "name": "Rowlands Castle",
       "minutesToCrossing": 11
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -8
      }
     ]
    },
@@ -682,24 +498,15 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "PTR",
-     "name": "Petersfield"
-    },
-    "via": [
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "PTR",
+      "name": "Petersfield",
+      "min": 3.5
+     }
     ],
+    "via": ["LIS","LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO"],
+    "beyond": ["PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN","SHW"],
     "references": [
      {
       "crs": "LIP",
@@ -710,11 +517,6 @@
       "crs": "HSL",
       "name": "Haslemere",
       "minutesToCrossing": 8
-     },
-     {
-      "crs": "PTR",
-      "name": "Petersfield",
-      "minutesToCrossing": -3.5
      }
     ]
    }
@@ -729,7 +531,9 @@
    "miles": 51,
    "chains": 40,
    "distM": 11
-  }
+  },
+  "times": {"LIS":0,"LIP":4.2,"HSL":7.5,"WTY":11.5,"MLF":13.5,"GOD":15.4,"FNC":16.7,"SFR":19.7,"GLD":19.8,"CHL":21.6,"LRD":22.6,"WPL":23.1,"WAN":25.2,"WOK":25.2,"GOM":25.9,"CLA":26.6,"WBY":27.3,"BKO":27.4,"ASH":27.4,"BFN":28.2,"NCM":29.3,"WYB":29.4,"HSY":29.9,"ASN":30.7,"FNN":30.9,"AHV":30.9,"DKT":31,"WAL":31,"EFF":31.1,"FNB":31.3,"AHT":31.6,"DPD":31.7,"HER":31.9,"CHY":32.3,"BAW":33,"ESH":33.3,"CSD":33.4,"BKA":33.7,"FLE":33.8,"SND":34.4,"BTO":34.5,"HYW":34.9,"OXS":35.2,"THD":35.2,"SUR":35.2,"VIR":35.5,"FML":35.6,"CRN":35.7,"FNH":35.7,"CLG":36,"WNF":36.2,"BRS":36.3,"HMC":36.7,"LHD":37.1,"NEM":37.4,"REI":37.6,"HOK":38.1,"LNG":38.4,"CAM":38.5,"EGH":38.5,"RAY":38.5,"WKM":38.6,"AHD":39.3,"NBT":39.6,"WIM":40,"RDH":40,"BTY":40.1,"SNG":40.3,"BXW":40.4,"KNG":40.6,"MOT":40.7,"ELD":40.8,"WBO":40.9,"WNS":41.1,"DKG":41.3,"HYR":41.3,"SNS":41.4,"HMW":41.6,"EAD":41.6,"MHM":41.7,"EPS":41.8,"SMO":41.8,"WTI":41.9,"WCP":41.9,"BSK":42.2,"NUF":42.3,"SAF":42.4,"BAG":42.6,"ACT":42.6,"MAL":42.6,"BCE":42.7,"EAR":43.1,"TOO":43.1,"TED":43.1,"MDS":43.1,"CLJ":43.2,"AFS":43.3,"EWW":43.4,"SNL":43.5,"SIH":43.7,"EWE":43.7,"TOL":44,"MAO":44.2,"HOR":44.3,"WRY":44.4,"STW":44.5,"CDS":44.8,"QRB":44.9,"SUC":45,"PTR":3,"RLN":11.4,"HAV":15,"WBL":15.1,"BDH":16,"EMS":16.3,"SOB":17.7,"NUT":18.8,"HLS":19.1,"CSA":19.3,"BOH":20.4,"FTN":21.4,"FSB":21.8,"PTC":22.2,"PMS":23.2,"CCH":23.4,"FRM":25.9,"PMH":26,"BAA":29.7,"SNW":30.6,"BOE":32.4,"FOD":32.5,"BUO":33,"BOG":34.4,"HDE":34.4,"HME":34.7,"LIT":35.4,"NTL":35.6,"ARU":35.7,"ANG":37.7,"WLS":38.2,"ESL":38.8,"AMY":39.2,"SOA":39.7,"GBS":40.4,"SWG":40.5,"BTE":40.8,"DUR":41.4,"SDN":41.7,"SHW":41.8,"CFR":42,"WWO":42.2,"WRH":43,"EWR":44.1,"WIN":44.1,"PUL":44.2,"SOU":44.7},
+  "bypass": {"WPL":["SHW"],"WOK":["ESL","SHW"],"WBY":["SHW"],"BKO":["ESL","SOA","SWG","SDN","SHW"],"BFN":["SHW"],"AHV":["ESL","SHW"],"FNB":["BOE","HDE","ESL","SOA","SWG","BTE","SDN","SHW"],"AHT":["SHW"],"FLE":["BOE","HDE","WLS","ESL","SOA","SWG","BTE","SDN","SHW"],"BTO":["AMY"],"BOE":["FNB","FLE"],"HDE":["FNB","FLE"],"WLS":["FLE"],"ESL":["WOK","BKO","AHV","FNB","FLE"],"AMY":["BKA","BTO"],"SOA":["BKO","FNB","FLE"],"SWG":["BKO","FNB","FLE"],"BTE":["FNB","FLE"],"SDN":["BKO","FNB","FLE"],"SHW":["WPL","WOK","WBY","BKO","BFN","AHV","FNB","AHT","FLE"]}
  },
  {
   "id": "mill-road-liss",
@@ -748,25 +552,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "LIS",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 7.5
+     }
     ],
+    "via": ["LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN"],
+    "beyond": ["LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO"],
     "references": [
      {
       "crs": "LIS",
@@ -777,11 +571,6 @@
       "crs": "PTR",
       "name": "Petersfield",
       "minutesToCrossing": 4.5
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -7.5
      }
     ]
    },
@@ -790,24 +579,15 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "PTR",
-     "name": "Petersfield"
-    },
-    "via": [
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "PTR",
+      "name": "Petersfield",
+      "min": 4
+     }
     ],
+    "via": ["LIP","HSL","WTY","MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO"],
+    "beyond": ["LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW","BOE","FOD","BUO","BOG","HDE","HME","LIT","NTL","ARU","ANG","WLS","ESL","AMY","SOA","GBS","SWG","BTE","DUR","SDN"],
     "references": [
      {
       "crs": "LIP",
@@ -818,11 +598,6 @@
       "crs": "HSL",
       "name": "Haslemere",
       "minutesToCrossing": 7.5
-     },
-     {
-      "crs": "PTR",
-      "name": "Petersfield",
-      "minutesToCrossing": -4
      }
     ]
    }
@@ -837,7 +612,9 @@
    "miles": 50,
    "chains": 75,
    "distM": 1
-  }
+  },
+  "times": {"LIP":3.6,"HSL":6.9,"WTY":10.9,"MLF":13,"GOD":14.9,"FNC":16.1,"SFR":19.2,"GLD":19.3,"CHL":21.1,"LRD":22.1,"WPL":22.6,"WAN":24.6,"WOK":24.7,"GOM":25.4,"CLA":26.1,"WBY":26.7,"BKO":26.8,"ASH":26.9,"BFN":27.7,"NCM":28.8,"WYB":28.9,"HSY":29.4,"ASN":30.2,"FNN":30.4,"AHV":30.4,"DKT":30.4,"WAL":30.4,"EFF":30.5,"FNB":30.7,"AHT":31.1,"DPD":31.2,"HER":31.4,"CHY":31.7,"BAW":32.5,"ESH":32.7,"CSD":32.9,"BKA":33.2,"FLE":33.3,"SND":33.8,"BTO":34,"HYW":34.4,"OXS":34.6,"THD":34.6,"SUR":34.7,"VIR":35,"FML":35,"CRN":35.1,"FNH":35.2,"CLG":35.5,"WNF":35.7,"BRS":35.8,"HMC":36.2,"LHD":36.5,"NEM":36.8,"REI":37.1,"HOK":37.5,"LNG":37.9,"CAM":37.9,"EGH":38,"RAY":38,"WKM":38,"AHD":38.8,"NBT":39,"WIM":39.4,"RDH":39.5,"BTY":39.6,"SNG":39.7,"BXW":39.8,"KNG":40.1,"MOT":40.2,"ELD":40.3,"WBO":40.3,"WNS":40.5,"DKG":40.8,"HYR":40.8,"SNS":40.8,"HMW":41,"EAD":41.1,"MHM":41.2,"EPS":41.3,"SMO":41.3,"WTI":41.3,"WCP":41.4,"BSK":41.7,"NUF":41.8,"SAF":41.9,"BAG":42,"ACT":42.1,"MAL":42.1,"BCE":42.2,"EAR":42.5,"TOO":42.5,"TED":42.6,"MDS":42.6,"CLJ":42.7,"AFS":42.7,"EWW":42.9,"SNL":42.9,"SIH":43.2,"EWE":43.2,"TOL":43.4,"MAO":43.7,"HOR":43.8,"WRY":43.8,"STW":44,"CDS":44.3,"QRB":44.3,"SUC":44.5,"GTW":44.6,"CHE":44.8,"CDN":44.8,"FLW":44.8,"GDN":44.9,"LIS":0.4,"PTR":3.5,"RLN":12,"HAV":15.5,"WBL":15.7,"BDH":16.5,"EMS":16.9,"SOB":18.3,"NUT":19.3,"HLS":19.7,"CSA":19.9,"BOH":20.9,"FTN":22,"FSB":22.3,"PTC":22.7,"PMS":23.7,"CCH":24,"FRM":26.4,"PMH":26.5,"BAA":30.2,"SNW":31.2,"BOE":32.9,"FOD":33,"BUO":33.5,"BOG":34.9,"HDE":35,"HME":35.3,"LIT":35.9,"NTL":36.1,"ARU":36.2,"ANG":38.3,"WLS":38.8,"ESL":39.3,"AMY":39.8,"SOA":40.3,"GBS":40.9,"SWG":41,"BTE":41.3,"DUR":41.9,"SDN":42.3,"SHW":42.3,"CFR":42.6,"WWO":42.7,"WRH":43.5,"EWR":44.6,"WIN":44.6,"PUL":44.7},
+  "bypass": {"WOK":["ESL"],"BKO":["ESL","SOA","SWG","SDN"],"AHV":["ESL"],"FNB":["BOE","HDE","ESL","SOA","SWG","BTE","SDN"],"FLE":["BOE","HDE","WLS","ESL","SOA","SWG","BTE","SDN"],"BTO":["AMY"],"BOE":["FNB","FLE"],"HDE":["FNB","FLE"],"WLS":["FLE"],"ESL":["WOK","BKO","AHV","FNB","FLE"],"AMY":["BKA","BTO"],"SOA":["BKO","FNB","FLE"],"SWG":["BKO","FNB","FLE"],"BTE":["FNB","FLE"],"SDN":["BKO","FNB","FLE"]}
  },
  {
   "id": "milford",
@@ -866,29 +643,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "GLD",
-     "name": "Guildford"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "GLD",
+      "name": "Guildford",
+      "min": 6
+     }
     ],
+    "via": ["MLF","WTY","HSL","LIP","LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW"],
+    "beyond": ["GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO","HYW","OXS","THD","SUR"],
     "references": [
      {
       "crs": "WTY",
@@ -899,11 +662,6 @@
       "crs": "HSL",
       "name": "Haslemere",
       "minutesToCrossing": 5.5
-     },
-     {
-      "crs": "GLD",
-      "name": "Guildford",
-      "minutesToCrossing": -6
      }
     ]
    },
@@ -912,20 +670,15 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "MLF",
-     "GOD",
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 5.5
+     }
     ],
+    "via": ["MLF","GOD","FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO","HYW","OXS","THD","SUR"],
+    "beyond": ["WTY","HSL","LIP","LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH","BAA","SNW"],
     "references": [
      {
       "crs": "GOD",
@@ -941,11 +694,6 @@
       "crs": "GLD",
       "name": "Guildford",
       "minutesToCrossing": 6.5
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -5.5
      }
     ]
    }
@@ -960,7 +708,8 @@
    "miles": 36,
    "chains": 26,
    "distM": 1
-  }
+  },
+  "times": {"MLF":0,"GOD":1.9,"FNC":3.2,"SFR":6.2,"GLD":6.3,"CHL":8.1,"LRD":9.1,"WPL":9.7,"WAN":11.7,"WOK":11.7,"GOM":12.4,"CLA":13.1,"WBY":13.8,"BKO":13.9,"ASH":13.9,"BFN":14.7,"NCM":15.8,"WYB":15.9,"HSY":16.4,"ASN":17.2,"FNN":17.4,"AHV":17.4,"DKT":17.5,"WAL":17.5,"EFF":17.6,"FNB":17.8,"AHT":18.1,"DPD":18.2,"HER":18.4,"CHY":18.8,"BAW":19.5,"ESH":19.8,"CSD":19.9,"BKA":20.2,"FLE":20.3,"SND":20.9,"BTO":21,"HYW":21.4,"OXS":21.7,"THD":21.7,"SUR":21.8,"VIR":22,"FML":22.1,"CRN":22.2,"FNH":22.3,"CLG":22.5,"WNF":22.7,"BRS":22.8,"HMC":23.2,"LHD":23.6,"NEM":23.9,"REI":24.1,"HOK":24.6,"LNG":24.9,"CAM":25,"EGH":25,"RAY":25,"WKM":25.1,"AHD":25.8,"NBT":26.1,"WIM":26.5,"RDH":26.5,"BTY":26.6,"SNG":26.8,"BXW":26.9,"KNG":27.1,"MOT":27.3,"ELD":27.3,"WBO":27.4,"WNS":27.6,"DKG":27.8,"HYR":27.8,"SNS":27.9,"HMW":28.1,"EAD":28.1,"MHM":28.2,"EPS":28.3,"SMO":28.3,"WTI":28.4,"WCP":28.4,"BSK":28.7,"NUF":28.8,"SAF":28.9,"BAG":29.1,"ACT":29.1,"MAL":29.1,"BCE":29.3,"EAR":29.6,"TOO":29.6,"TED":29.6,"MDS":29.6,"CLJ":29.7,"AFS":29.8,"EWW":29.9,"SNL":30,"SIH":30.2,"EWE":30.2,"TOL":30.5,"MAO":30.7,"HOR":30.8,"WRY":30.9,"STW":31,"CDS":31.4,"QRB":31.4,"SUC":31.5,"GTW":31.6,"CHE":31.8,"CDN":31.8,"FLW":31.8,"GDN":32,"CSN":32.1,"AON":32.2,"SNY":32.3,"RHM":32.5,"STE":32.6,"FEL":32.6,"TWI":32.7,"VXH":33,"RDG":33,"CSS":33,"WSU":33,"PUR":33,"MTC":33.1,"SUO":33.2,"WNT":33.2,"SMG":33.4,"SRC":33.5,"WTN":33.5,"HLM":33.6,"WWR":33.7,"PUT":33.7,"PUO":33.8,"BMY":33.8,"HMP":33.8,"TBD":33.9,"DAT":33.9,"IMW":34,"CLP":34.3,"NRB":34.3,"KLY":34.7,"TUH":34.7,"CSB":34.7,"BAL":34.7,"RDW":34.8,"MIJ":34.8,"SCY":34.8,"RMD":34.9,"BAK":34.9,"CSH":35,"BNS":35.1,"TLH":35.3,"WSW":35.3,"CRW":35.4,"VIC":35.5,"WBP":35.5,"SRH":35.6,"TTH":35.7,"NSH":35.7,"OLY":35.7,"WAT":35.7,"BRX":35.7,"WLT":35.8,"OVR":35.8,"BLM":35.9,"TWY":35.9,"ECR":35.9,"HOU":36,"WNW":36.1,"BNI":36.1,"HCB":36.1,"KMP":36.1,"EBR":36.2,"WHY":36.3,"NDL":36.3,"WNR":36.4,"SRS":36.4,"MTL":36.5,"HNH":36.5,"IFI":36.5,"SUU":36.6,"SNR":36.7,"MIC":36.9,"KPA":36.9,"WHS":37,"PAN":37,"LGJ":37.1,"EDW":37.1,"MOR":37.2,"RGP":37.2,"CHK":37.3,"UPH":37.4,"GIP":37.4,"WDU":37.6,"WDO":37.6,"ISL":37.7,"BAB":37.7,"SPB":37.7,"DMK":37.8,"RDD":37.9,"BAD":38,"NWD":38.1,"WME":38.1,"CYP":38.4,"SYH":38.5,"KWB":38.5,"SYL":38.6,"THE":38.8,"PMR":38.8,"FGT":38.8,"PNW":38.9,"WCY":38.9,"GOR":38.9,"WCH":39,"CAT":39.2,"ANZ":39.3,"SHP":39.5,"BFD":39.5,"QRP":39.6,"SYD":39.6,"EPD":39.7,"WGV":39.8,"MAI":40,"UWL":40,"CHP":40.1,"WNH":40.1,"EPH":40.1,"PNE":40.3,"FOH":40.5,"BIK":40.5,"PHR":40.7,"NHD":40.7,"LVN":40.9,"SBM":41,"HHE":41,"KTH":41,"TAP":41,"WIJ":41.1,"SAT":41.1,"CHO":41.2,"SHI":41.2,"AMT":41.4,"HPA":41.4,"WOH":41.9,"BNM":41.9,"HDN":42,"KNL":42.1,"BKJ":42.1,"BFR":42.1,"LIH":42.1,"SQE":42.2,"ACC":42.3,"HRH":42.4,"BCY":42.5,"CTK":42.6,"NXG":42.6,"GUN":42.6,"QPW":42.8,"CFT":42.8,"MDG":42.8,"FZP":43,"KBN":43.4,"WMB":43.4,"WVF":43.4,"SLO":43.5,"NBC":43.6,"SAJ":43.6,"ROE":43.6,"SRT":43.7,"LBG":43.8,"HOT":43.8,"NWB":43.9,"WAE":43.9,"SOH":43.9,"DID":44,"RVB":44.1,"BUG":44.1,"CLK":44.2,"CFB":44.2,"CTF":44.3,"SOK":44.3,"SPL":44.3,"LSY":44.3,"NWX":44.4,"STP":44.4,"KNR":44.5,"WPE":44.5,"KND":44.5,"TON":44.7,"CHH":44.7,"LNY":44.8,"DEP":44.8,"BMS":44.8,"LEW":44.8,"KNT":44.9,"THA":44.9,"ELE":45,"WTY":1.9,"HSL":5.9,"LIP":9.3,"LIS":13.4,"PTR":16.5,"RLN":24.9,"HAV":28.5,"WBL":28.6,"BDH":29.5,"EMS":29.8,"SOB":31.2,"NUT":32.3,"HLS":32.6,"CSA":32.8,"BOH":33.9,"FTN":34.9,"FSB":35.3,"PTC":35.7,"PMS":36.7,"CCH":36.9,"FRM":39.4,"PMH":39.5,"BAA":43.2,"SNW":44.1}
  },
  {
   "id": "farncombe",
@@ -989,31 +738,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "GLD",
-     "name": "Guildford"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "GLD",
+      "name": "Guildford",
+      "min": 4
+     }
     ],
+    "via": ["FNC","GOD","MLF","WTY","HSL","LIP","LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH"],
+    "beyond": ["SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO","HYW","OXS","THD","SUR","VIR","FML"],
     "references": [
      {
       "crs": "GOD",
@@ -1029,11 +762,6 @@
       "crs": "HSL",
       "name": "Haslemere",
       "minutesToCrossing": 8
-     },
-     {
-      "crs": "GLD",
-      "name": "Guildford",
-      "minutesToCrossing": -4
      }
     ]
    },
@@ -1042,28 +770,20 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 8
+     }
     ],
+    "via": ["FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO","HYW","OXS","THD","SUR","VIR","FML"],
+    "beyond": ["GOD","MLF","WTY","HSL","LIP","LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH"],
     "references": [
      {
       "crs": "GLD",
       "name": "Guildford",
       "minutesToCrossing": 3.5
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -8
      }
     ]
    }
@@ -1078,7 +798,8 @@
    "miles": 33,
    "chains": 47,
    "distM": 14
-  }
+  },
+  "times": {"FNC":0,"SFR":3,"GLD":3.2,"CHL":5,"LRD":6,"WPL":6.5,"WAN":8.5,"WOK":8.6,"GOM":9.2,"CLA":10,"WBY":10.6,"BKO":10.7,"ASH":10.8,"BFN":11.6,"NCM":12.7,"WYB":12.8,"HSY":13.3,"ASN":14.1,"FNN":14.3,"AHV":14.3,"DKT":14.3,"WAL":14.3,"EFF":14.4,"FNB":14.6,"AHT":15,"DPD":15.1,"HER":15.3,"CHY":15.6,"BAW":16.4,"ESH":16.6,"CSD":16.7,"BKA":17.1,"FLE":17.2,"SND":17.7,"BTO":17.9,"HYW":18.3,"OXS":18.5,"THD":18.5,"SUR":18.6,"VIR":18.9,"FML":18.9,"CRN":19,"FNH":19.1,"CLG":19.3,"WNF":19.6,"BRS":19.7,"HMC":20.1,"LHD":20.4,"NEM":20.7,"REI":21,"HOK":21.4,"LNG":21.8,"CAM":21.8,"EGH":21.8,"RAY":21.9,"WKM":21.9,"AHD":22.6,"NBT":22.9,"WIM":23.3,"RDH":23.4,"BTY":23.5,"SNG":23.6,"BXW":23.7,"KNG":24,"MOT":24.1,"ELD":24.2,"WBO":24.2,"WNS":24.4,"DKG":24.6,"HYR":24.7,"SNS":24.7,"HMW":24.9,"EAD":24.9,"MHM":25.1,"EPS":25.2,"SMO":25.2,"WTI":25.2,"WCP":25.3,"BSK":25.6,"NUF":25.7,"SAF":25.8,"BAG":25.9,"ACT":26,"MAL":26,"BCE":26.1,"EAR":26.4,"TOO":26.4,"TED":26.4,"MDS":26.5,"CLJ":26.6,"AFS":26.6,"EWW":26.7,"SNL":26.8,"SIH":27,"EWE":27.1,"TOL":27.3,"MAO":27.6,"HOR":27.7,"WRY":27.7,"STW":27.9,"CDS":28.2,"QRB":28.2,"SUC":28.3,"GTW":28.4,"CHE":28.7,"CDN":28.7,"FLW":28.7,"GDN":28.8,"CSN":28.9,"AON":29.1,"SNY":29.1,"RHM":29.4,"STE":29.5,"FEL":29.5,"TWI":29.5,"VXH":29.8,"RDG":29.8,"CSS":29.8,"WSU":29.9,"PUR":29.9,"MTC":30,"SUO":30,"WNT":30,"SMG":30.2,"SRC":30.3,"WTN":30.3,"HLM":30.4,"WWR":30.6,"PUT":30.6,"PUO":30.6,"BMY":30.7,"HMP":30.7,"TBD":30.7,"DAT":30.7,"IMW":30.8,"CLP":31.1,"NRB":31.2,"KLY":31.5,"TUH":31.5,"CSB":31.5,"BAL":31.6,"RDW":31.7,"MIJ":31.7,"SCY":31.7,"RMD":31.7,"BAK":31.8,"CSH":31.8,"BNS":32,"TLH":32.1,"WSW":32.2,"CRW":32.3,"VIC":32.3,"WBP":32.3,"SRH":32.5,"TTH":32.5,"NSH":32.5,"OLY":32.6,"WAT":32.6,"BRX":32.6,"WLT":32.6,"OVR":32.7,"BLM":32.7,"TWY":32.7,"ECR":32.8,"HOU":32.8,"WNW":32.9,"BNI":32.9,"HCB":33,"KMP":33,"EBR":33.1,"WHY":33.2,"NDL":33.2,"WNR":33.3,"SRS":33.3,"MTL":33.4,"HNH":33.4,"IFI":33.4,"SUU":33.5,"SNR":33.6,"MIC":33.7,"KPA":33.7,"WHS":33.8,"PAN":33.9,"LGJ":33.9,"EDW":33.9,"MOR":34.1,"RGP":34.1,"CHK":34.1,"UPH":34.3,"GIP":34.3,"WDU":34.4,"WDO":34.5,"ISL":34.5,"BAB":34.6,"SPB":34.6,"DMK":34.6,"RDD":34.8,"BAD":34.8,"NWD":35,"WME":35,"CYP":35.2,"SYH":35.3,"KWB":35.3,"SYL":35.4,"THE":35.6,"PMR":35.6,"FGT":35.7,"PNW":35.7,"WCY":35.8,"GOR":35.8,"WCH":35.8,"CAT":36.1,"ANZ":36.2,"SHP":36.3,"BFD":36.4,"QRP":36.4,"SYD":36.4,"EPD":36.6,"WGV":36.6,"MAI":36.8,"UWL":36.9,"CHP":36.9,"WNH":36.9,"EPH":36.9,"PNE":37.1,"FOH":37.3,"BIK":37.4,"PHR":37.6,"NHD":37.6,"LVN":37.7,"SBM":37.8,"HHE":37.8,"KTH":37.9,"TAP":37.9,"WIJ":38,"SAT":38,"CHO":38,"SHI":38.1,"AMT":38.2,"HPA":38.2,"WOH":38.7,"BNM":38.8,"HDN":38.8,"KNL":38.9,"BKJ":39,"BFR":39,"LIH":39,"SQE":39,"ACC":39.1,"HRH":39.2,"BCY":39.3,"CTK":39.4,"NXG":39.5,"GUN":39.5,"QPW":39.6,"CFT":39.6,"MDG":39.7,"FZP":39.8,"KBN":40.2,"WMB":40.2,"WVF":40.3,"SLO":40.3,"NBC":40.4,"SAJ":40.5,"ROE":40.5,"SRT":40.6,"LBG":40.7,"HOT":40.7,"NWB":40.7,"WAE":40.7,"SOH":40.8,"DID":40.8,"RVB":40.9,"BUG":40.9,"CLK":41,"CFB":41.1,"CTF":41.1,"SOK":41.1,"SPL":41.1,"LSY":41.2,"NWX":41.2,"STP":41.3,"KNR":41.3,"WPE":41.3,"KND":41.3,"TON":41.6,"CHH":41.6,"LNY":41.6,"DEP":41.6,"BMS":41.6,"LEW":41.6,"KNT":41.7,"THA":41.8,"ELE":41.8,"BEC":41.9,"AML":41.9,"BGM":42.1,"CST":42.1,"KWG":42.1,"ADV":42.1,"WIN":42.2,"SDE":42.2,"GNW":42.3,"BSP":42.3,"OXT":42.3,"COO":42.4,"SBP":42.4,"HRW":42.5,"IVR":42.5,"HSK":42.7,"CHX":42.9,"KTN":43,"BKL":43,"BSY":43.1,"APF":43.1,"CMD":43.3,"HDL":43.3,"EAL":43.3,"LAD":43.3,"WDT":43.4,"BKH":43.5,"EDN":43.5,"HUR":43.6,"HGR":43.6,"HTE":43.7,"HLB":43.8,"NRC":43.8,"KGX":43.9,"WEA":43.9,"WHD":43.9,"TAD":43.9,"CUM":44,"PMP":44,"KTW":44.2,"HAN":44.3,"NBY":44.3,"EUS":44.4,"WWI":44.5,"SHW":44.5,"FNY":44.6,"SDC":44.6,"WNC":44.7,"CPK":44.7,"BNE":44.8,"HAY":44.8,"LEE":44.9,"GOD":1,"MLF":3.1,"WTY":5,"HSL":9,"LIP":12.5,"LIS":16.5,"PTR":19.6,"RLN":28.1,"HAV":31.6,"WBL":31.8,"BDH":32.6,"EMS":33,"SOB":34.4,"NUT":35.4,"HLS":35.8,"CSA":36,"BOH":37,"FTN":38.1,"FSB":38.4,"PTC":38.8,"PMS":39.8,"CCH":40.1,"FRM":42.5,"PMH":42.6}
  },
  {
   "id": "bourne-road",
@@ -1107,31 +828,15 @@
     "label": "Northbound",
     "towards": "London",
     "enters": "south",
-    "board": {
-     "crs": "GLD",
-     "name": "Guildford"
-    },
-    "via": [
-     "PMH",
-     "PMS",
-     "FTN",
-     "HLS",
-     "BDH",
-     "HAV",
-     "RLN",
-     "PTR",
-     "LIS",
-     "LIP",
-     "HSL",
-     "WTY",
-     "MLF",
-     "GOD",
-     "FNC",
-     "CSA",
-     "PTC",
-     "FRM",
-     "SOU"
+    "boards": [
+     {
+      "crs": "GLD",
+      "name": "Guildford",
+      "min": 3.5
+     }
     ],
+    "via": ["FNC","GOD","MLF","WTY","HSL","LIP","LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH"],
+    "beyond": ["SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO","HYW","OXS","THD","SUR","VIR","FML"],
     "references": [
      {
       "crs": "GOD",
@@ -1147,11 +852,6 @@
       "crs": "HSL",
       "name": "Haslemere",
       "minutesToCrossing": 8.5
-     },
-     {
-      "crs": "GLD",
-      "name": "Guildford",
-      "minutesToCrossing": -3.5
      }
     ]
    },
@@ -1160,28 +860,20 @@
     "label": "Southbound",
     "towards": "Portsmouth",
     "enters": "north",
-    "board": {
-     "crs": "HSL",
-     "name": "Haslemere"
-    },
-    "via": [
-     "FNC",
-     "GLD",
-     "WPL",
-     "WOK",
-     "CLJ",
-     "WAT"
+    "boards": [
+     {
+      "crs": "HSL",
+      "name": "Haslemere",
+      "min": 8.5
+     }
     ],
+    "via": ["FNC","SFR","GLD","CHL","LRD","WPL","WAN","WOK","GOM","CLA","WBY","BKO","ASH","BFN","NCM","WYB","HSY","ASN","FNN","AHV","DKT","WAL","EFF","FNB","AHT","DPD","HER","CHY","BAW","ESH","CSD","BKA","FLE","SND","BTO","HYW","OXS","THD","SUR","VIR","FML"],
+    "beyond": ["GOD","MLF","WTY","HSL","LIP","LIS","PTR","RLN","HAV","WBL","BDH","EMS","SOB","NUT","HLS","CSA","BOH","FTN","FSB","PTC","PMS","CCH","FRM","PMH"],
     "references": [
      {
       "crs": "GLD",
       "name": "Guildford",
       "minutesToCrossing": 3
-     },
-     {
-      "crs": "HSL",
-      "name": "Haslemere",
-      "minutesToCrossing": -8.5
      }
     ]
    }
@@ -1196,6 +888,7 @@
    "miles": 33,
    "chains": 29,
    "distM": 13
-  }
+  },
+  "times": {"FNC":0,"SFR":2.8,"GLD":2.9,"CHL":4.7,"LRD":5.7,"WPL":6.3,"WAN":8.3,"WOK":8.3,"GOM":9,"CLA":9.7,"WBY":10.4,"BKO":10.5,"ASH":10.5,"BFN":11.3,"NCM":12.4,"WYB":12.5,"HSY":13,"ASN":13.8,"FNN":14,"AHV":14,"DKT":14.1,"WAL":14.1,"EFF":14.2,"FNB":14.4,"AHT":14.7,"DPD":14.8,"HER":15,"CHY":15.4,"BAW":16.1,"ESH":16.4,"CSD":16.5,"BKA":16.8,"FLE":16.9,"SND":17.5,"BTO":17.6,"HYW":18,"OXS":18.3,"THD":18.3,"SUR":18.3,"VIR":18.6,"FML":18.7,"CRN":18.8,"FNH":18.8,"CLG":19.1,"WNF":19.3,"BRS":19.4,"HMC":19.8,"LHD":20.2,"NEM":20.5,"REI":20.7,"HOK":21.2,"LNG":21.5,"CAM":21.6,"EGH":21.6,"RAY":21.6,"WKM":21.7,"AHD":22.4,"NBT":22.7,"WIM":23.1,"RDH":23.1,"BTY":23.2,"SNG":23.4,"BXW":23.5,"KNG":23.7,"MOT":23.9,"ELD":23.9,"WBO":24,"WNS":24.2,"DKG":24.4,"HYR":24.4,"SNS":24.5,"HMW":24.7,"EAD":24.7,"MHM":24.8,"EPS":24.9,"SMO":24.9,"WTI":25,"WCP":25,"BSK":25.3,"NUF":25.4,"SAF":25.5,"BAG":25.7,"ACT":25.7,"MAL":25.7,"BCE":25.8,"EAR":26.2,"TOO":26.2,"TED":26.2,"MDS":26.2,"CLJ":26.3,"AFS":26.4,"EWW":26.5,"SNL":26.6,"SIH":26.8,"EWE":26.8,"TOL":27.1,"MAO":27.3,"HOR":27.4,"WRY":27.5,"STW":27.6,"CDS":27.9,"QRB":28,"SUC":28.1,"GTW":28.2,"CHE":28.4,"CDN":28.4,"FLW":28.4,"GDN":28.6,"CSN":28.7,"AON":28.8,"SNY":28.9,"RHM":29.1,"STE":29.2,"FEL":29.2,"TWI":29.3,"VXH":29.6,"RDG":29.6,"CSS":29.6,"WSU":29.6,"PUR":29.6,"MTC":29.7,"SUO":29.8,"WNT":29.8,"SMG":30,"SRC":30.1,"WTN":30.1,"HLM":30.2,"WWR":30.3,"PUT":30.3,"PUO":30.4,"BMY":30.4,"HMP":30.4,"TBD":30.5,"DAT":30.5,"IMW":30.6,"CLP":30.9,"NRB":30.9,"KLY":31.2,"TUH":31.3,"CSB":31.3,"BAL":31.3,"RDW":31.4,"MIJ":31.4,"SCY":31.4,"RMD":31.5,"BAK":31.5,"CSH":31.6,"BNS":31.7,"TLH":31.9,"WSW":31.9,"CRW":32,"VIC":32.1,"WBP":32.1,"SRH":32.2,"TTH":32.3,"NSH":32.3,"OLY":32.3,"WAT":32.3,"BRX":32.3,"WLT":32.4,"OVR":32.4,"BLM":32.5,"TWY":32.5,"ECR":32.5,"HOU":32.5,"WNW":32.7,"BNI":32.7,"HCB":32.7,"KMP":32.7,"EBR":32.8,"WHY":32.9,"NDL":32.9,"WNR":33,"SRS":33,"MTL":33.1,"HNH":33.1,"IFI":33.1,"SUU":33.2,"SNR":33.3,"MIC":33.5,"KPA":33.5,"WHS":33.6,"PAN":33.6,"LGJ":33.7,"EDW":33.7,"MOR":33.8,"RGP":33.8,"CHK":33.9,"UPH":34,"GIP":34,"WDU":34.2,"WDO":34.2,"ISL":34.3,"BAB":34.3,"SPB":34.3,"DMK":34.4,"RDD":34.5,"BAD":34.6,"NWD":34.7,"WME":34.7,"CYP":35,"SYH":35.1,"KWB":35.1,"SYL":35.2,"THE":35.4,"PMR":35.4,"FGT":35.4,"PNW":35.4,"WCY":35.5,"GOR":35.5,"WCH":35.6,"CAT":35.8,"ANZ":35.9,"SHP":36.1,"BFD":36.1,"QRP":36.2,"SYD":36.2,"EPD":36.3,"WGV":36.4,"MAI":36.6,"UWL":36.6,"CHP":36.7,"WNH":36.7,"EPH":36.7,"PNE":36.9,"FOH":37.1,"BIK":37.1,"PHR":37.3,"NHD":37.3,"LVN":37.5,"SBM":37.6,"HHE":37.6,"KTH":37.6,"TAP":37.6,"WIJ":37.7,"SAT":37.7,"CHO":37.8,"SHI":37.8,"AMT":38,"HPA":38,"WOH":38.5,"BNM":38.5,"HDN":38.6,"KNL":38.7,"BKJ":38.7,"BFR":38.7,"LIH":38.7,"SQE":38.8,"ACC":38.9,"HRH":39,"BCY":39.1,"CTK":39.2,"NXG":39.2,"GUN":39.2,"QPW":39.4,"CFT":39.4,"MDG":39.4,"FZP":39.6,"KBN":40,"WMB":40,"WVF":40,"SLO":40.1,"NBC":40.2,"SAJ":40.2,"ROE":40.2,"SRT":40.3,"LBG":40.4,"HOT":40.4,"NWB":40.5,"WAE":40.5,"SOH":40.5,"DID":40.6,"RVB":40.7,"BUG":40.7,"CLK":40.8,"CFB":40.8,"CTF":40.9,"SOK":40.9,"SPL":40.9,"LSY":40.9,"NWX":41,"STP":41,"KNR":41.1,"WPE":41.1,"KND":41.1,"TON":41.3,"CHH":41.3,"LNY":41.4,"DEP":41.4,"BMS":41.4,"LEW":41.4,"KNT":41.5,"THA":41.5,"ELE":41.6,"BEC":41.7,"AML":41.7,"BGM":41.8,"CST":41.8,"KWG":41.8,"ADV":41.8,"WIN":41.9,"SDE":42,"GNW":42,"BSP":42.1,"OXT":42.1,"COO":42.1,"SBP":42.1,"HRW":42.2,"IVR":42.2,"HSK":42.4,"CHX":42.7,"KTN":42.7,"BKL":42.8,"BSY":42.8,"APF":42.8,"CMD":43,"HDL":43,"EAL":43,"LAD":43.1,"WDT":43.1,"BKH":43.3,"EDN":43.3,"HUR":43.3,"HGR":43.3,"HTE":43.5,"HLB":43.6,"NRC":43.6,"KGX":43.6,"WEA":43.6,"WHD":43.7,"TAD":43.7,"CUM":43.7,"PMP":43.8,"KTW":43.9,"HAN":44.1,"NBY":44.1,"EUS":44.2,"WWI":44.3,"SHW":44.3,"FNY":44.3,"SDC":44.3,"WNC":44.5,"CPK":44.5,"BNE":44.5,"HAY":44.5,"LEE":44.6,"PET":44.8,"MZH":44.8,"FPK":44.9,"DRG":44.9,"CIT":45,"GPO":45,"GOD":1.2,"MLF":3.4,"WTY":5.3,"HSL":9.3,"LIP":12.7,"LIS":16.8,"PTR":19.9,"RLN":28.3,"HAV":31.9,"WBL":32,"BDH":32.9,"EMS":33.2,"SOB":34.6,"NUT":35.7,"HLS":36,"CSA":36.2,"BOH":37.3,"FTN":38.3,"FSB":38.7,"PTC":39.1,"PMS":40.1,"CCH":40.3,"FRM":42.8,"PMH":42.9}
  }
 ]

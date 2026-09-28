@@ -37,11 +37,14 @@ export function parseClock(hhmm, now = new Date()) {
 
 /**
  * Resolve a Darwin (scheduled, estimated/actual) pair to an instant.
- * `et`/`at` are "HH:MM", "On time", "Delayed", "Cancelled", "No report" or absent.
+ * `et`/`at` are "HH:MM", "On time", "Delayed", "Cancelled", "No report" or absent
+ * ("On time" as an actual means it happened at the booked minute).
  * Returns { time, uncertain, actual } or null if the call is cancelled/unknown.
  */
 export function resolveCall({ st, et, at }, now = new Date()) {
   if (at && HHMM.test(at)) return { time: parseClock(at, now), uncertain: false, actual: true };
+  // Darwin writes an actual within the minute of the booked time as "On time".
+  if (at === 'On time' && st && HHMM.test(st)) return { time: parseClock(st, now), uncertain: false, actual: true };
   if (et === 'Cancelled' || at === 'Cancelled') return null;
   if (et && HHMM.test(et)) return { time: parseClock(et, now), uncertain: false, actual: false };
   if (!st || !HHMM.test(st)) return null;
