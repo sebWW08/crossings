@@ -9153,5 +9153,155 @@
   ],
   "dataAge": 576,
   "live": true
+ },
+ {
+  "at": "2026-09-28T07:25:12.721Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 170,
+  "openAfter": 30,
+  "prevOpenAt": 1790580280954,
+  "predictedAt": 1790580390000,
+  "closeAt": 1790580390000,
+  "openAt": 1790580649698,
+  "trains": [
+   {
+    "id": "BTN@07:15>PMH",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 4716,
+  "live": true
+ },
+ {
+  "at": "2026-09-28T07:26:00.509Z",
+  "crossing": "pooley-green",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 130,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1790580564826,
+  "closeAt": 1790580072239,
+  "openAt": 1790580564826,
+  "trains": [
+   {
+    "id": "RDG@07:39>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@07:48>RDG",
+    "basis": "SNS→EGH",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WYB@08:02>WAT",
+    "basis": "EGH→SNS",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 2127,
+  "live": true
+ },
+ {
+  "at": "2026-09-28T07:26:08.480Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 180,
+  "openAfter": 35,
+  "prevOpenAt": 1790580285954,
+  "predictedAt": 1790580380000,
+  "closeAt": 1790580380000,
+  "openAt": 1790580654698,
+  "trains": [
+   {
+    "id": "BTN@07:15>PMH",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 2245,
+  "live": true
+ },
+ {
+  "at": "2026-09-28T07:26:15.033Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "soon",
+  "lead": 190,
+  "openAfter": 50,
+  "prevOpenAt": 1790580260000,
+  "predictedAt": 1790580440000,
+  "closeAt": 1790580440000,
+  "openAt": 1790581280000,
+  "trains": [
+   {
+    "id": "PMH@08:15>WAT",
+    "basis": "FTN +5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WOK@06:20>PMH",
+    "basis": "FTN -5.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "WAT@06:45>PMH",
+    "basis": "BDH arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false
+   },
+   {
+    "id": "BTN@07:15>PMH",
+    "basis": "HAV +1.5 min",
+    "coaches": null,
+    "assumed": false,
+    "held": false
+   }
+  ],
+  "dataAge": 12623,
+  "live": true
+ },
+ {
+  "at": "2026-09-28T07:26:50.536Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 180,
+  "openAfter": 35,
+  "prevOpenAt": null,
+  "predictedAt": 1790580654698,
+  "closeAt": 1790580380000,
+  "openAt": 1790580654698,
+  "trains": [
+   {
+    "id": "BTN@07:15>PMH",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true
+   }
+  ],
+  "dataAge": 13579,
+  "live": true
  }
 ]

@@ -1,14 +1,26 @@
 {
  "2026-09-28": {
-  "visitors": 1,
-  "newDevices": 0,
-  "polls": 1,
-  "landings": {},
+  "visitors": 11,
+  "newDevices": 4,
+  "polls": 43,
+  "landings": {
+   "crossing": 11
+  },
   "referrers": {},
   "crossings": {
-   "petersfield": 1
+   "petersfield": 1,
+   "bedhampton": 3,
+   "warblington": 2,
+   "pooley-green": 2,
+   "cosham": 2,
+   "egham": 1,
+   "east-boldon": 1
   },
-  "feedback": {}
+  "feedback": {
+   "warblington": 3,
+   "pooley-green": 1,
+   "bedhampton": 1
+  }
  },
  "2026-09-27": {
   "visitors": 48,
