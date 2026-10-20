@@ -32,6 +32,16 @@ so the list is in order before the browser answers). The star on a card or
 a crossing page keeps it under "Your crossings" at the top. Both live in the
 browser's localStorage — nothing is sent anywhere.
 
+### Data feed for other apps
+
+`GET /api/status?ids=a,b,…` gives up to 30 crossings' closures from now on,
+without the trains — `{ live, now, status: { id: { closures: [{ closeAt,
+openAt, trains, uncertain? }], late?, partial?, staleSec? } } }`. Clearway,
+a separate drive-map app, reads it (and `/api/crossings`) from its own
+server. Boards are cached per station as for the crossing pages, so it costs
+Darwin by station, not by caller. One address gets 120 calls a minute; a
+request with `x-api-key: $DATA_API_KEY` isn't limited.
+
 ## Sharing, finding and counting
 
 Every crossing has its own URL — `/milford`, `/liss` — served with a real

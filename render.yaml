@@ -18,3 +18,5 @@ services:
         sync: false   # set in the dashboard, never in git
       - key: FEEDBACK_WEBHOOK
         sync: false
+      - key: DATA_API_KEY
+        sync: false   # shared with Clearway's server, so its /api/status calls aren't rate-limited

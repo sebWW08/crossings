@@ -9,6 +9,7 @@ import { predict } from './src/predict.js';
 import { cleanReport, tooSoon, record, recent as recentFeedback, load as loadFeedback } from './src/feedback.mjs';
 import * as stats from './src/stats.mjs';
 import { cardPng, W as CARD_W, H as CARD_H } from './src/card.mjs';
+import { perClient } from './src/throttle.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(here, 'public');
@@ -49,6 +50,22 @@ function haversineKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
+// /api/status: live closures for many crossings in one go — the data feed
+// Clearway (a separate map app) reads. The boards behind it are cached per
+// station and shared, so the limit only stops one client queueing Darwin for
+// everyone else; a caller holding DATA_API_KEY (Clearway's server, which
+// asks on behalf of all its drivers) isn't limited.
+const polling = perClient(120, 60_000);
+const STATUS_MAX = 30;
+const DATA_KEY = process.env.DATA_API_KEY || '';
+
+/** Closures from now on, without the trains: what a map needs to colour a dot. */
+function briefly(p) {
+  return [p.current, ...p.upcoming].filter(Boolean).map((c) => ({
+    closeAt: Math.round(c.closeAt), openAt: Math.round(c.openAt), trains: c.trains.length, uncertain: c.uncertain || undefined,
+  }));
+}
+
 async function api(url, req, res) {
   if (url.pathname === '/api/health') return json(res, 200, { ok: true, live, crossings: allCrossings().length });
   if (url.pathname === '/api/stats') return json(res, 200, stats.snapshot());
@@ -77,6 +94,28 @@ async function api(url, req, res) {
       }
     }
     return json(res, 200, { live, crossings: list });
+  }
+
+  if (url.pathname === '/api/status') {
+    const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress;
+    const trusted = DATA_KEY && req.headers['x-api-key'] === DATA_KEY;
+    if (!trusted && !polling(ip)) return json(res, 429, { error: 'Too many requests — try again in a minute' });
+    const ids = [...new Set((url.searchParams.get('ids') ?? '').split(',').filter(Boolean))];
+    if (ids.length > STATUS_MAX) return json(res, 400, { error: `at most ${STATUS_MAX} crossings at a time` });
+    const now = new Date();
+    const status = {};
+    await Promise.all(ids.map(async (id) => {
+      const crossing = getCrossing(id);
+      if (!crossing) return;
+      try {
+        const { boards, errors, staleSec } = await boardsFor(crossing, now);
+        const p = predict(crossing, boards, now);
+        status[id] = { closures: briefly(p), late: p.late.length || undefined, partial: errors.length ? true : undefined, staleSec: staleSec || undefined };
+      } catch (e) {
+        status[id] = { error: String(e.message ?? e) };
+      }
+    }));
+    return json(res, 200, { live, now: now.getTime(), status });
   }
 
   const m = /^\/api\/crossings\/([a-z0-9-]+)$/.exec(url.pathname);
