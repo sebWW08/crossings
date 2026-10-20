@@ -9,7 +9,7 @@ import { predict } from './src/predict.js';
 import { cleanReport, tooSoon, record, recent as recentFeedback, load as loadFeedback } from './src/feedback.mjs';
 import * as stats from './src/stats.mjs';
 import { cardPng, W as CARD_W, H as CARD_H } from './src/card.mjs';
-import { perClient } from './src/throttle.mjs';
+import { perClient, clientIp, ipSource } from './src/throttle.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(here, 'public');
@@ -67,7 +67,7 @@ function briefly(p) {
 }
 
 async function api(url, req, res) {
-  if (url.pathname === '/api/health') return json(res, 200, { ok: true, live, crossings: allCrossings().length });
+  if (url.pathname === '/api/health') return json(res, 200, { ok: true, live, crossings: allCrossings().length, ip: ipSource(req) });
   if (url.pathname === '/api/stats') return json(res, 200, stats.snapshot());
   if (url.pathname === '/api/feedback' && req.method === 'GET') return json(res, 200, recentFeedback());
   if (url.pathname === '/api/legs') return json(res, 200, legsSnapshot());
@@ -76,7 +76,7 @@ async function api(url, req, res) {
     try { body = await readJson(req); } catch (e) { return json(res, e.status ?? 400, { error: e.message }); }
     const report = cleanReport(body, getCrossing(String(body.crossing ?? '')));
     if (!report) return json(res, 400, { error: 'bad report' });
-    const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress;
+    const ip = clientIp(req);
     if (tooSoon(`${ip}/${report.crossing}`)) return json(res, 429, { error: 'already noted — thanks' });
     await record(report);
     stats.feedbackTap(report.crossing);
@@ -97,7 +97,7 @@ async function api(url, req, res) {
   }
 
   if (url.pathname === '/api/status') {
-    const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress;
+    const ip = clientIp(req);
     const trusted = DATA_KEY && req.headers['x-api-key'] === DATA_KEY;
     if (!trusted && !polling(ip)) return json(res, 429, { error: 'Too many requests — try again in a minute' });
     const ids = [...new Set((url.searchParams.get('ids') ?? '').split(',').filter(Boolean))];

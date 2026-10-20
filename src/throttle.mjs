@@ -14,3 +14,12 @@ export function perClient(limit, windowMs) {
     return ok;
   };
 }
+
+// Who's asking, for per-client limits. Render sits behind Cloudflare, which
+// sets CF-Connecting-IP to the connecting address itself and replaces any a
+// client sends; X-Forwarded-For only has Render's address appended, so its
+// first entry is whatever the client wrote and can't be trusted. Off Render
+// (a desk, a test) it's the socket.
+export const clientIp = (req) => req.headers['cf-connecting-ip'] || req.socket?.remoteAddress || '';
+/** Which of those clientIp read, for /api/health: shows the deploy sees Cloudflare's header. */
+export const ipSource = (req) => (req.headers['cf-connecting-ip'] ? 'cloudflare' : 'socket');

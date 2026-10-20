@@ -11,6 +11,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash, randomBytes } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { clientIp } from './throttle.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FILE = path.join(here, '..', 'data', 'stats.json');
@@ -45,7 +46,7 @@ const bump = (map, key) => {
 
 /** Who this is for today only — never stored, never the same tomorrow. */
 export function visitorHash(req, day = dayOf()) {
-  const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket?.remoteAddress || '';
+  const ip = clientIp(req);
   const ua = req.headers['user-agent'] ?? '';
   return createHash('sha256').update(`${salt}|${day}|${ip}|${ua}`).digest('hex').slice(0, 16);
 }
