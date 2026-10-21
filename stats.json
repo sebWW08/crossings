@@ -1,10 +1,10 @@
 {
  "2026-10-21": {
-  "visitors": 16,
-  "newDevices": 2,
-  "polls": 31,
+  "visitors": 20,
+  "newDevices": 4,
+  "polls": 43,
   "landings": {
-   "crossing": 14,
+   "crossing": 22,
    "home": 2
   },
   "referrers": {
@@ -12,14 +12,15 @@
   },
   "crossings": {
    "warblington": 9,
-   "bedhampton": 4,
+   "bedhampton": 7,
    "hest-bank-level-crossing": 2,
    "havant": 2,
-   "shrewsbridge-crossing": 1
+   "shrewsbridge-crossing": 1,
+   "chesterton-junction": 1
   },
   "feedback": {
    "warblington": 2,
-   "bedhampton": 1
+   "bedhampton": 4
   }
  },
  "2026-10-20": {
