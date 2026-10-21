@@ -9488,5 +9488,73 @@
   ],
   "dataAge": 5397,
   "live": true
+ },
+ {
+  "at": "2026-10-21T05:48:37.476Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1792560931385,
+  "predictedAt": 1792562090000,
+  "closeAt": 1792562090000,
+  "openAt": 1792562595231,
+  "trains": [
+   {
+    "id": "LIT@06:18>PMS",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true,
+    "closeAt": 1792562090000,
+    "openAt": 1792562329698
+   },
+   {
+    "id": "SOU@06:18>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1792562415231,
+    "openAt": 1792562595231
+   }
+  ],
+  "dataAge": 15902,
+  "live": true
+ },
+ {
+  "at": "2026-10-21T05:49:08.396Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1792561714508,
+  "predictedAt": 1792562090000,
+  "closeAt": 1792562090000,
+  "openAt": 1792562595231,
+  "trains": [
+   {
+    "id": "LIT@06:18>PMS",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true,
+    "closeAt": 1792562090000,
+    "openAt": 1792562329698
+   },
+   {
+    "id": "SOU@06:18>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1792562415231,
+    "openAt": 1792562595231
+   }
+  ],
+  "dataAge": 16096,
+  "live": true
  }
 ]

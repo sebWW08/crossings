@@ -1,4 +1,23 @@
 {
+ "2026-10-21": {
+  "visitors": 6,
+  "newDevices": 1,
+  "polls": 12,
+  "landings": {
+   "crossing": 4,
+   "home": 1
+  },
+  "referrers": {},
+  "crossings": {
+   "warblington": 2,
+   "bedhampton": 2,
+   "hest-bank-level-crossing": 2,
+   "havant": 1
+  },
+  "feedback": {
+   "warblington": 2
+  }
+ },
  "2026-10-20": {
   "visitors": 0,
   "newDevices": 0,
