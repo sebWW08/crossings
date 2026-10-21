@@ -1,21 +1,25 @@
 {
  "2026-10-21": {
-  "visitors": 6,
-  "newDevices": 1,
-  "polls": 12,
+  "visitors": 16,
+  "newDevices": 2,
+  "polls": 31,
   "landings": {
-   "crossing": 4,
-   "home": 1
+   "crossing": 14,
+   "home": 2
   },
-  "referrers": {},
+  "referrers": {
+   "facebook.com": 1
+  },
   "crossings": {
-   "warblington": 2,
-   "bedhampton": 2,
+   "warblington": 9,
+   "bedhampton": 4,
    "hest-bank-level-crossing": 2,
-   "havant": 1
+   "havant": 2,
+   "shrewsbridge-crossing": 1
   },
   "feedback": {
-   "warblington": 2
+   "warblington": 2,
+   "bedhampton": 1
   }
  },
  "2026-10-20": {
