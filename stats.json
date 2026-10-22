@@ -1,4 +1,23 @@
 {
+ "2026-10-22": {
+  "visitors": 8,
+  "newDevices": 1,
+  "polls": 12,
+  "landings": {
+   "crossing": 4,
+   "home": 1
+  },
+  "referrers": {},
+  "crossings": {
+   "warblington": 5,
+   "bedhampton": 3,
+   "cosham": 1,
+   "havant": 1
+  },
+  "feedback": {
+   "warblington": 1
+  }
+ },
  "2026-10-21": {
   "visitors": 20,
   "newDevices": 4,
