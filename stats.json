@@ -1,4 +1,20 @@
 {
+ "2026-11-01": {
+  "visitors": 2,
+  "newDevices": 0,
+  "polls": 5,
+  "landings": {
+   "crossing": 1,
+   "home": 1
+  },
+  "referrers": {},
+  "crossings": {
+   "bedhampton": 2,
+   "cosham": 1,
+   "havant": 1
+  },
+  "feedback": {}
+ },
  "2026-10-22": {
   "visitors": 15,
   "newDevices": 3,
