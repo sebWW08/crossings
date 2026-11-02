@@ -1,4 +1,17 @@
 {
+ "2026-11-02": {
+  "visitors": 1,
+  "newDevices": 0,
+  "polls": 2,
+  "landings": {
+   "crossing": 2
+  },
+  "referrers": {},
+  "crossings": {
+   "petersfield": 1
+  },
+  "feedback": {}
+ },
  "2026-11-01": {
   "visitors": 2,
   "newDevices": 0,
