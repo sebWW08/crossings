@@ -1,14 +1,16 @@
 {
  "2026-11-02": {
-  "visitors": 1,
-  "newDevices": 0,
-  "polls": 2,
+  "visitors": 2,
+  "newDevices": 1,
+  "polls": 4,
   "landings": {
-   "crossing": 2
+   "crossing": 4,
+   "home": 3
   },
   "referrers": {},
   "crossings": {
-   "petersfield": 1
+   "petersfield": 1,
+   "hest-bank-level-crossing": 1
   },
   "feedback": {}
  },
