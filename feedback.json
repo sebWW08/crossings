@@ -9760,5 +9760,175 @@
   ],
   "dataAge": 3273,
   "live": true
+ },
+ {
+  "at": "2026-11-03T17:38:38.094Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1793727650336,
+  "closeAt": 1793727470336,
+  "openAt": 1793727650336,
+  "trains": [
+   {
+    "id": "BTN@16:28>PMS",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793727470336,
+    "openAt": 1793727650336
+   }
+  ],
+  "dataAge": 4912,
+  "live": true
+ },
+ {
+  "at": "2026-11-03T17:39:46.196Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1793727650336,
+  "closeAt": 1793727470336,
+  "openAt": 1793727650336,
+  "trains": [
+   {
+    "id": "BTN@16:28>PMS",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793727470336,
+    "openAt": 1793727650336
+   }
+  ],
+  "dataAge": 11766,
+  "live": true
+ },
+ {
+  "at": "2026-11-03T17:40:18.728Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1793727650336,
+  "closeAt": 1793727470336,
+  "openAt": 1793727650336,
+  "trains": [
+   {
+    "id": "BTN@16:28>PMS",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793727470336,
+    "openAt": 1793727650336
+   }
+  ],
+  "dataAge": 13611,
+  "live": true
+ },
+ {
+  "at": "2026-11-03T17:40:51.852Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1793727347550,
+  "predictedAt": 1793727890000,
+  "closeAt": 1793727890000,
+  "openAt": 1793728453289,
+  "trains": [
+   {
+    "id": "PMH@17:31>WAT",
+    "basis": "BDH departure",
+    "coaches": 12,
+    "assumed": true,
+    "held": true,
+    "closeAt": 1793727890000,
+    "openAt": 1793728142680
+   },
+   {
+    "id": "BTN@16:43>SOU",
+    "basis": "HAV→CSA",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793728205888,
+    "openAt": 1793728385888
+   },
+   {
+    "id": "WAT@16:30>PMH",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793728273289,
+    "openAt": 1793728453289
+   }
+  ],
+  "dataAge": 16133,
+  "live": true
+ },
+ {
+  "at": "2026-11-03T17:41:29.536Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "open",
+  "lead": 180,
+  "openAfter": 30,
+  "prevOpenAt": 1793727650336,
+  "predictedAt": 1793727860000,
+  "closeAt": 1793727860000,
+  "openAt": 1793728734112,
+  "trains": [
+   {
+    "id": "PMH@17:31>WAT",
+    "basis": "BDH departure",
+    "coaches": 12,
+    "assumed": true,
+    "held": true,
+    "closeAt": 1793727860000,
+    "openAt": 1793728142680
+   },
+   {
+    "id": "BTN@16:43>SOU",
+    "basis": "HAV→CSA",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793728175888,
+    "openAt": 1793728385888
+   },
+   {
+    "id": "WAT@16:30>PMH",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793728243289,
+    "openAt": 1793728453289
+   },
+   {
+    "id": "SOU@17:20>BTN",
+    "basis": "CSA→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1793728524112,
+    "openAt": 1793728734112
+   }
+  ],
+  "dataAge": 22733,
+  "live": true
  }
 ]

@@ -1,14 +1,23 @@
 {
  "2026-11-03": {
-  "visitors": 1,
-  "newDevices": 0,
-  "polls": 2,
-  "landings": {},
-  "referrers": {},
-  "crossings": {
-   "foxton": 1
+  "visitors": 5,
+  "newDevices": 1,
+  "polls": 14,
+  "landings": {
+   "crossing": 5,
+   "home": 3
   },
-  "feedback": {}
+  "referrers": {
+   "facebook.com": 2
+  },
+  "crossings": {
+   "foxton": 1,
+   "warblington": 2,
+   "bedhampton": 2
+  },
+  "feedback": {
+   "bedhampton": 5
+  }
  },
  "2026-11-02": {
   "visitors": 2,
