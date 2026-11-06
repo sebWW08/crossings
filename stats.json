@@ -1,4 +1,15 @@
 {
+ "2026-11-05": {
+  "visitors": 0,
+  "newDevices": 0,
+  "polls": 0,
+  "landings": {
+   "home": 1
+  },
+  "referrers": {},
+  "crossings": {},
+  "feedback": {}
+ },
  "2026-11-03": {
   "visitors": 5,
   "newDevices": 1,
