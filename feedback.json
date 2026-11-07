@@ -10016,5 +10016,57 @@
   ],
   "dataAge": 11038,
   "live": true
+ },
+ {
+  "at": "2026-11-07T19:14:48.574Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 200,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1794079734112,
+  "closeAt": 1794077904362,
+  "openAt": 1794079734112,
+  "trains": [
+   {
+    "id": "PMH@18:45>WAT",
+    "basis": "FTN→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794077904362,
+    "openAt": 1794078134362
+   },
+   {
+    "id": "VIC@17:05>PMH",
+    "basis": "HAV→HLS",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794078041748,
+    "openAt": 1794078271748
+   },
+   {
+    "id": "WAT@17:09>PMH",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794078214765,
+    "openAt": 1794078444765
+   },
+   {
+    "id": "WEY@16:55>WAT",
+    "basis": "FRM→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794078478987,
+    "openAt": 1794078708987
+   }
+  ],
+  "dataAge": 7885,
+  "live": true
  }
 ]

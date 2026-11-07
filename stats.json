@@ -1,21 +1,22 @@
 {
  "2026-11-07": {
-  "visitors": 5,
-  "newDevices": 2,
-  "polls": 11,
+  "visitors": 9,
+  "newDevices": 3,
+  "polls": 22,
   "landings": {
-   "crossing": 4
+   "crossing": 7,
+   "home": 2
   },
   "referrers": {
    "facebook.com": 1
   },
   "crossings": {
-   "bedhampton": 3,
-   "warblington": 1,
+   "bedhampton": 5,
+   "warblington": 3,
    "chesterton-junction": 1
   },
   "feedback": {
-   "bedhampton": 2
+   "bedhampton": 3
   }
  },
  "2026-11-06": {
