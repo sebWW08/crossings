@@ -1,4 +1,21 @@
 {
+ "2026-11-07": {
+  "visitors": 2,
+  "newDevices": 1,
+  "polls": 8,
+  "landings": {
+   "crossing": 2
+  },
+  "referrers": {
+   "facebook.com": 1
+  },
+  "crossings": {
+   "bedhampton": 2
+  },
+  "feedback": {
+   "bedhampton": 2
+  }
+ },
  "2026-11-06": {
   "visitors": 1,
   "newDevices": 0,
