@@ -1,11 +1,11 @@
 {
  "2026-11-08": {
-  "visitors": 5,
-  "newDevices": 1,
-  "polls": 21,
+  "visitors": 6,
+  "newDevices": 2,
+  "polls": 22,
   "landings": {
    "home": 5,
-   "crossing": 3
+   "crossing": 4
   },
   "referrers": {},
   "crossings": {
@@ -13,7 +13,8 @@
    "thorpe-lane": 2,
    "pooley-green": 2,
    "warblington": 2,
-   "foxton": 1
+   "foxton": 1,
+   "bedhampton": 1
   },
   "feedback": {
    "warblington": 1
