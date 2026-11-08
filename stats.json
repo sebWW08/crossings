@@ -1,4 +1,21 @@
 {
+ "2026-11-08": {
+  "visitors": 3,
+  "newDevices": 0,
+  "polls": 19,
+  "landings": {
+   "home": 2,
+   "crossing": 1
+  },
+  "referrers": {},
+  "crossings": {
+   "egham": 2,
+   "thorpe-lane": 2,
+   "pooley-green": 2,
+   "warblington": 1
+  },
+  "feedback": {}
+ },
  "2026-11-07": {
   "visitors": 9,
   "newDevices": 3,
