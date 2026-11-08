@@ -10068,5 +10068,39 @@
   ],
   "dataAge": 7885,
   "live": true
+ },
+ {
+  "at": "2026-11-08T18:46:58.810Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1794163931077,
+  "closeAt": 1794163550000,
+  "openAt": 1794163931077,
+  "trains": [
+   {
+    "id": "LIT@18:11>PMH",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true,
+    "closeAt": 1794163550000,
+    "openAt": 1794163789698
+   },
+   {
+    "id": "VIC@16:35>FTN",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794163751077,
+    "openAt": 1794163931077
+   }
+  ],
+  "dataAge": 1876,
+  "live": true
  }
 ]
