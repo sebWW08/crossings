@@ -1,4 +1,18 @@
 {
+ "2026-11-10": {
+  "visitors": 4,
+  "newDevices": 1,
+  "polls": 4,
+  "landings": {
+   "crossing": 2
+  },
+  "referrers": {},
+  "crossings": {
+   "bedhampton": 3,
+   "warblington": 1
+  },
+  "feedback": {}
+ },
  "2026-11-08": {
   "visitors": 6,
   "newDevices": 2,
