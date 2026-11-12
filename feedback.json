@@ -10102,5 +10102,82 @@
   ],
   "dataAge": 1876,
   "live": true
+ },
+ {
+  "at": "2026-11-12T19:54:29.849Z",
+  "crossing": "bedhampton",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 180,
+  "openAfter": 30,
+  "prevOpenAt": 1794513253289,
+  "predictedAt": 1794513403289,
+  "closeAt": 1794513403289,
+  "openAt": 1794513839195,
+  "trains": [
+   {
+    "id": "BTN@18:43>PMS",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794513403289,
+    "openAt": 1794513613289
+   },
+   {
+    "id": "WAT@18:15>FTN",
+    "basis": "HAV→FTN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794513629195,
+    "openAt": 1794513839195
+   }
+  ],
+  "dataAge": 4432,
+  "live": true
+ },
+ {
+  "at": "2026-11-12T20:17:03.465Z",
+  "crossing": "bedhampton",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 180,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1794514893786,
+  "closeAt": 1794514228544,
+  "openAt": 1794514893786,
+  "trains": [
+   {
+    "id": "VIC@18:05>PMH",
+    "basis": "HAV→HLS",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794514228544,
+    "openAt": 1794514438544
+   },
+   {
+    "id": "PMS@19:56>BTN",
+    "basis": "FTN→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794514408188,
+    "openAt": 1794514618188
+   },
+   {
+    "id": "PMH@20:04>VIC",
+    "basis": "HLS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794514683786,
+    "openAt": 1794514893786
+   }
+  ],
+  "dataAge": 5238,
+  "live": true
  }
 ]
