@@ -1,14 +1,19 @@
 {
  "2026-11-14": {
-  "visitors": 0,
-  "newDevices": 0,
-  "polls": 0,
+  "visitors": 3,
+  "newDevices": 2,
+  "polls": 8,
   "landings": {
-   "home": 6
+   "home": 8,
+   "crossing": 5
   },
   "referrers": {},
-  "crossings": {},
-  "feedback": {}
+  "crossings": {
+   "bedhampton": 3
+  },
+  "feedback": {
+   "bedhampton": 1
+  }
  },
  "2026-11-13": {
   "visitors": 4,
