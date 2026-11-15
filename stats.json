@@ -4,7 +4,8 @@
   "newDevices": 1,
   "polls": 5,
   "landings": {
-   "crossing": 4
+   "crossing": 4,
+   "home": 1
   },
   "referrers": {},
   "crossings": {
