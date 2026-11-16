@@ -1,19 +1,20 @@
 {
  "2026-11-16": {
-  "visitors": 3,
-  "newDevices": 0,
-  "polls": 6,
+  "visitors": 7,
+  "newDevices": 1,
+  "polls": 13,
   "landings": {
-   "crossing": 1,
-   "home": 2
+   "crossing": 6,
+   "home": 11
   },
   "referrers": {},
   "crossings": {
-   "bedhampton": 1,
+   "bedhampton": 4,
    "east-boldon": 1,
    "thorpe-lane": 1,
    "pooley-green": 1,
-   "egham": 1
+   "egham": 1,
+   "chesterton-junction": 1
   },
   "feedback": {}
  },
