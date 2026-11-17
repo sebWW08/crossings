@@ -1,4 +1,32 @@
 {
+ "2026-11-17": {
+  "visitors": 11,
+  "newDevices": 1,
+  "polls": 30,
+  "landings": {
+   "crossing": 9,
+   "home": 5
+  },
+  "referrers": {
+   "facebook.com": 1
+  },
+  "crossings": {
+   "warblington": 5,
+   "bedhampton": 4,
+   "havant": 2,
+   "hest-bank-level-crossing": 1,
+   "bolton-le-sands-level-crossing": 1,
+   "bare-lane": 1,
+   "cosham": 1,
+   "pooley-green": 1,
+   "thorpe-lane": 1,
+   "egham": 1,
+   "chesterton-junction": 1
+  },
+  "feedback": {
+   "warblington": 4
+  }
+ },
  "2026-11-16": {
   "visitors": 7,
   "newDevices": 1,

@@ -10274,5 +10274,132 @@
   ],
   "dataAge": 21020,
   "live": true
+ },
+ {
+  "at": "2026-11-17T08:18:52.012Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1794903574508,
+  "closeAt": 1794903191077,
+  "openAt": 1794903574508,
+  "trains": [
+   {
+    "id": "BTN@07:09>SOU",
+    "basis": "EMS→HAV",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794903191077,
+    "openAt": 1794903371077
+   },
+   {
+    "id": "PMH@07:59>VIC",
+    "basis": "WBL arrival",
+    "coaches": 4,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794903386336,
+    "openAt": 1794903574508
+   }
+  ],
+  "dataAge": 2897,
+  "live": true
+ },
+ {
+  "at": "2026-11-17T08:27:53.507Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1794904249698,
+  "closeAt": 1794904010000,
+  "openAt": 1794904249698,
+  "trains": [
+   {
+    "id": "BTN@07:15>PMH",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true,
+    "closeAt": 1794904010000,
+    "openAt": 1794904249698
+   }
+  ],
+  "dataAge": 669,
+  "live": true
+ },
+ {
+  "at": "2026-11-17T10:21:32.289Z",
+  "crossing": "warblington",
+  "observed": "down",
+  "predicted": "soon",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1794910777385,
+  "predictedAt": 1794910935231,
+  "closeAt": 1794910935231,
+  "openAt": 1794911115231,
+  "trains": [
+   {
+    "id": "PMH@10:04>VIC",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794910935231,
+    "openAt": 1794911115231
+   }
+  ],
+  "dataAge": 4323,
+  "live": true
+ },
+ {
+  "at": "2026-11-17T11:06:56.767Z",
+  "crossing": "warblington",
+  "observed": "up",
+  "predicted": "closed",
+  "lead": 140,
+  "openAfter": 30,
+  "prevOpenAt": null,
+  "predictedAt": 1794913852609,
+  "closeAt": 1794913318923,
+  "openAt": 1794913852609,
+  "trains": [
+   {
+    "id": "SOU@10:20>BTN",
+    "basis": "HAV→EMS",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794913318923,
+    "openAt": 1794913488923
+   },
+   {
+    "id": "VIC@09:05>PMH",
+    "basis": "WBL departure",
+    "coaches": 4,
+    "assumed": false,
+    "held": true,
+    "closeAt": 1794913380000,
+    "openAt": 1794913609698
+   },
+   {
+    "id": "PMS@10:57>BTN",
+    "basis": "HAV→CCH",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1794913682609,
+    "openAt": 1794913852609
+   }
+  ],
+  "dataAge": 22369,
+  "live": true
  }
 ]
