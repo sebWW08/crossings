@@ -2,6 +2,7 @@ import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { timingSafeEqual } from 'node:crypto';
 import { allCrossings, getCrossing, summarise, surveyStations } from './src/registry.js';
 import { boardsFor, live, startSweep } from './src/darwin.js';
 import { legsSnapshot, seedLegs } from './src/legs.mjs';
@@ -58,6 +59,13 @@ function haversineKm(a, b) {
 const polling = perClient(120, 60_000);
 const STATUS_MAX = 30;
 const DATA_KEY = process.env.DATA_API_KEY || '';
+const holdsDataKey = (req) => {
+  const got = Buffer.from(String(req.headers['x-api-key'] ?? '')), want = Buffer.from(DATA_KEY);
+  return want.length > 0 && got.length === want.length && timingSafeEqual(got, want);
+};
+// "Was this right?" taps tune the predictions (src/calibrate.mjs) and are kept in
+// memory: a person taps a few times an hour, a script filling it gets a 429.
+const reporting = perClient(30, 3600e3);
 
 /** Closures from now on, without the trains: what a map needs to colour a dot. */
 function briefly(p) {
@@ -77,7 +85,7 @@ async function api(url, req, res) {
     const report = cleanReport(body, getCrossing(String(body.crossing ?? '')));
     if (!report) return json(res, 400, { error: 'bad report' });
     const ip = clientIp(req);
-    if (tooSoon(`${ip}/${report.crossing}`)) return json(res, 429, { error: 'already noted — thanks' });
+    if (tooSoon(`${ip}/${report.crossing}`) || !reporting(ip)) return json(res, 429, { error: 'already noted — thanks' });
     await record(report);
     stats.feedbackTap(report.crossing);
     return json(res, 200, { ok: true });
@@ -98,7 +106,7 @@ async function api(url, req, res) {
 
   if (url.pathname === '/api/status') {
     const ip = clientIp(req);
-    const trusted = DATA_KEY && req.headers['x-api-key'] === DATA_KEY;
+    const trusted = holdsDataKey(req);
     if (!trusted && !polling(ip)) return json(res, 429, { error: 'Too many requests — try again in a minute' });
     const ids = [...new Set((url.searchParams.get('ids') ?? '').split(',').filter(Boolean))];
     if (ids.length > STATUS_MAX) return json(res, 400, { error: `at most ${STATUS_MAX} crossings at a time` });
@@ -241,7 +249,11 @@ async function serveStatic(url, req, res) {
 
 http
   .createServer((req, res) => {
-    const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`);
+    // a request line or Host that isn't a URL ("//", "http://[") is a 400, not an exception that stops the server
+    let url;
+    try { url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`); } catch { res.writeHead(400).end('bad request'); return; }
+    res.setHeader('x-content-type-options', 'nosniff');
+    res.setHeader('referrer-policy', 'strict-origin-when-cross-origin');
     if (url.pathname.startsWith('/api/')) return api(url, req, res).catch((e) => json(res, 500, { error: String(e) }));
     return serveStatic(url, req, res).catch((e) => { console.error(e); res.writeHead(500).end(); });
   })

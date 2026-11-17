@@ -167,7 +167,7 @@
           const label = link ? `<a href="${esc(link(k))}"><text class="cat" x="${x0 - 8}" y="${y + 16}" text-anchor="end">${esc(name)}</text></a>` : `<text class="cat" x="${x0 - 8}" y="${y + 16}" text-anchor="end">${esc(name)}</text>`;
           return `${label}<rect class="bar" x="${x0}" y="${y + 3}" width="${w(n).toFixed(1)}" height="${rowH - 8}" rx="4"/>
             <text class="label" x="${x0 + w(n) + 6}" y="${y + 16}">${fmt(n)}</text>
-            <rect class="hit" x="0" y="${y}" width="${W}" height="${rowH}" data-tip="${esc(k)}: <b>${fmt(n)}</b>" data-x="${x0 + w(n) / 2}" data-y="${y + 3}"/>`;
+            <rect class="hit" x="0" y="${y}" width="${W}" height="${rowH}" data-tip="${esc(`${esc(k)}: <b>${fmt(n)}</b>`)}" data-x="${x0 + w(n) / 2}" data-y="${y + 3}"/>`;
         }).join('')}
       </svg><div class="tip"></div></div>`;
     }
