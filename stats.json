@@ -1,10 +1,11 @@
 {
  "2026-11-18": {
-  "visitors": 1,
-  "newDevices": 0,
-  "polls": 5,
+  "visitors": 3,
+  "newDevices": 1,
+  "polls": 15,
   "landings": {
-   "home": 3
+   "home": 3,
+   "crossing": 4
   },
   "referrers": {
    "facebook.com": 1
@@ -12,10 +13,14 @@
   "crossings": {
    "hest-bank-level-crossing": 1,
    "bare-lane": 1,
-   "bolton-le-sands-level-crossing": 1
+   "bolton-le-sands-level-crossing": 1,
+   "bedhampton": 1,
+   "chesterton-junction": 1
   },
   "feedback": {
-   "bolton-le-sands-level-crossing": 1
+   "bolton-le-sands-level-crossing": 1,
+   "bedhampton": 2,
+   "chesterton-junction": 2
   }
  },
  "2026-11-17": {
