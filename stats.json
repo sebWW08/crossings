@@ -1,4 +1,23 @@
 {
+ "2026-11-18": {
+  "visitors": 1,
+  "newDevices": 0,
+  "polls": 5,
+  "landings": {
+   "home": 3
+  },
+  "referrers": {
+   "facebook.com": 1
+  },
+  "crossings": {
+   "hest-bank-level-crossing": 1,
+   "bare-lane": 1,
+   "bolton-le-sands-level-crossing": 1
+  },
+  "feedback": {
+   "bolton-le-sands-level-crossing": 1
+  }
+ },
  "2026-11-17": {
   "visitors": 13,
   "newDevices": 3,

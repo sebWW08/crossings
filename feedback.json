@@ -10401,5 +10401,57 @@
   ],
   "dataAge": 22369,
   "live": true
+ },
+ {
+  "at": "2026-11-18T13:53:29.014Z",
+  "crossing": "bolton-le-sands-level-crossing",
+  "observed": "down",
+  "predicted": "open",
+  "lead": 150,
+  "openAfter": 30,
+  "prevOpenAt": 1795009600435,
+  "predictedAt": 1795010440303,
+  "closeAt": 1795010440303,
+  "openAt": 1795011467980,
+  "trains": [
+   {
+    "id": "EUS@11:30>GLC",
+    "basis": "LAN→OXN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1795010440303,
+    "openAt": 1795010620303
+   },
+   {
+    "id": "LDS@12:18>MCM",
+    "basis": "CNF→LAN",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1795010601391,
+    "openAt": 1795010781391
+   },
+   {
+    "id": "MIA@12:29>CKL",
+    "basis": "LAN→CNF",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1795010858609,
+    "openAt": 1795011038609
+   },
+   {
+    "id": "EUS@10:40>EDB",
+    "basis": "LAN→PNR",
+    "coaches": null,
+    "assumed": false,
+    "held": false,
+    "closeAt": 1795011050304,
+    "openAt": 1795011230304
+   }
+  ],
+  "dataAge": 1034,
+  "live": true
  }
 ]
